@@ -5,7 +5,7 @@ import { PieChart, Pie, Cell } from "recharts";
 
 export default function Analytics() {
     return (
-        <Category categoryName="Analytics">
+        <Category categoryName="Top 5 Expenses">
             <div className="flex gap-2">
                 <div className="pie-chart">
                     <CustomPieChart />

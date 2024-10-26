@@ -1,10 +1,10 @@
 "use client"
 
-import Analytics from "./components/Analytics";
-import Pnl from "./components/Pnl";
-import Pots from "./components/Pots";
-import Transactions from "./components/Transactions";
-import Card from "./components/Card";
+import Analytics from "@components/Analytics";
+import Pnl from "@components/Pnl";
+import Pots from "@components/Pots";
+import Transactions from "@components/Transactions";
+import Card from "@components/Card";
 
 export default function Overview(){
     

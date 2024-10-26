@@ -1,3 +1,5 @@
+"use client"
+
 import { useState, useEffect } from 'react';
 import Category from "./Category";
 import { PotItem } from "./Pots";
@@ -66,8 +68,8 @@ const CustomPieChart = () => {
 
             {/* Centered Text */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                <div className="text-4xl font-bold">${usedBudget}</div>
-                <div className="text-gray-500">of ${totalBudget} limit</div>
+                <div className="text-4xl font-bold">£{usedBudget}</div>
+                <div className="text-gray-500">of £{totalBudget} limit</div>
             </div>
         </div>
     );

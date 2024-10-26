@@ -10,11 +10,10 @@ export default function layout({children}){
     let header = pathname === 'dashboard' ? 'Overview' : pathname.charAt(0).toUpperCase() + pathname.slice(1);
 
     return(
-        // <div className='grid grid-cols-12 bg-background'>
         <div className='flex bg-background'>
             <Sidebar />
-            {/* <div className='col-span-10 px-10 py-8'> */}
             <div className='flex-grow px-10 py-8'>
+            {/* <div className='flex-grow h-[90vh]'> */}
                 <h1 className="text-primary text-2xl font-bold mb-4">{header}</h1>
                 {children}
             </div>

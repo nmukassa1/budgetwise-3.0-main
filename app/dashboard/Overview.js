@@ -9,7 +9,7 @@ import Card from "@components/Card";
 export default function Overview(){
     
     return(
-        <div className="overflow-scroll">
+        <div className="">
             <Pnl />
             <div className="masonry-grid grid grid-cols-2 mt-5 gap-4 h-full">
                 <Pots />

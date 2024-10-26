@@ -8,6 +8,7 @@ export default function Transactions(){
               <div>
                 <TransactionItem transactionName='Rent' transactionAmount='1,700.00' />
                 <TransactionItem transactionName='Utilities' transactionAmount='100.00' />
+                <TransactionItem transactionName='Utilities' transactionAmount='100.00' />
               </div>
        </Category>
     )

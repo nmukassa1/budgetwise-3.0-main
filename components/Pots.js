@@ -25,8 +25,8 @@ function TotalSaved(){
             <div>
                 <p>Total Saved</p>
                 <div className="flex items-center -mt-[4px]">
-                    <CurrencyPound sx={{fontSize: '2rem', }} />
-                    <p className="text-[2rem] -ml-[4px]">2000</p>
+                    {/* <CurrencyPound sx={{fontSize: '2rem', }} /> */}
+                    <p className="text-[2rem] -ml-[4px]">£2000</p>
                 </div>
             </div>
         </div>

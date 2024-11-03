@@ -2,7 +2,7 @@
 "use client"
 import { CurrencyPound, Money } from "@mui/icons-material";
 
-export default function TotalSaved({icon, name, amount}){
+export default function TotalCard({icon, name, amount}){
     return(
         <div className="total-saved flex items-center gap-2 bg-background w-full rounded-lg p-[20px]">
             {icon && <div className="total-saved-icon text-primary">{icon}</div>}

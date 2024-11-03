@@ -1,6 +1,6 @@
 import { Add, Delete, Edit, Remove } from "@mui/icons-material";
 import Card from "@components/Card";
-import TotalSaved from "@components/TotalCard";
+import TotalCard from "@components/TotalCard";
 import TransactionItem from "@components/TransactionItem";
 import Analytics from "@components/Analytics";
 
@@ -17,7 +17,7 @@ export default function Expenses(){
     return(
         <div>
             <Card bgColor="text-secondary" customClass="grid place-content-center">
-                <TotalSaved name={"Expenses"} amount={2000} />
+                <TotalCard name={"Expenses"} amount={2000} />
             </Card>
 
            <div className="grid grid-cols-2 gap-4 mt-4">

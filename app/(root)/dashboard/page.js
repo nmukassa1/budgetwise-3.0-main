@@ -1,4 +1,4 @@
-"use client"
+// "use client"
 import Overview from "./Overview";
 
 function Dashboard() {

@@ -1,7 +1,7 @@
-export default function Card({ children, bgColor = 'bg-white', customClass = '' }) {
+export default function Card({ children, className = '' }) {
 
     return (
-        <div className={`shadow-md rounded-lg p-4 grow min-h-[110px] ${bgColor} self-start ${customClass}`}>
+        <div className={`card ${className}`}>
            {children}
         </div>
     );

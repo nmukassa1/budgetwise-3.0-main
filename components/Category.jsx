@@ -5,7 +5,7 @@ import Card from './Card';
 
 export default function Category({categoryName, children}) {
     return (
-        <Card customClass="masonry-item">
+        <Card className="masonry-item bg-secondary">
             <CategoryHeader categoryName={categoryName} />
             <div className="mt-4">
                 {children}

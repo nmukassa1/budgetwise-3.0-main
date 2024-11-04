@@ -1,12 +1,19 @@
-// "use client"
-import Overview from "./Overview";
+import Pnl from "@components/Pnl";
+import Pots from "@components/Pots";
+import Analytics from "@components/Analytics";
+import Transactions from "@components/Transactions";
 
 function Dashboard() {
 
     return ( 
-        <>
-        <Overview />
-        </>
+        <div className="">
+            <Pnl />
+            <div className="masonry-layout">
+                <Pots />
+                <Analytics />
+                <Transactions />
+            </div>
+        </div>
      );
 }
 

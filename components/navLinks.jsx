@@ -1,9 +1,16 @@
-import { Home, ReceiptLong, PieChart, Savings, Schedule } from '@mui/icons-material';
+import Link from 'next/link';
 
-export const navLinks = [
-  { icon: <Home sx={{ fontSize: '1.2rem' }} />, label: 'Overview', href: '/dashboard' },
-  { icon: <ReceiptLong sx={{ fontSize: '1.2rem' }} />, label: 'Expenses', href: '/dashboard/expenses' },
-  { icon: <PieChart sx={{ fontSize: '1.2rem' }} />, label: 'Budgets' },
-  { icon: <Savings sx={{ fontSize: '1.2rem' }} />, label: 'Pots' },
-  // { icon: <Schedule sx={{ fontSize: '1.2rem' }} />, label: 'Recurring Bills' },
-];
+const NavLinks = ({ icon, label, activeLabel, setActiveLabel, href = '#' }) => {
+  const isActive = label.toLowerCase() === activeLabel.toLowerCase();
+  return (
+    <Link
+      href={href}
+      className={`nav-link ${isActive ? 'bg-secondary text-primary' : 'text-gray-200 hover:bg-secondary hover:text-primary'}`}
+    >
+      {icon}
+      <span className="mx-4 font-medium">{label}</span>
+    </Link>
+  );
+};
+
+export default NavLinks;

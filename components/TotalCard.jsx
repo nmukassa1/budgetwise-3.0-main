@@ -4,8 +4,8 @@ import { CurrencyPound, Money } from "@mui/icons-material";
 
 export default function TotalCard({icon, name, amount}){
     return(
-        <div className="total-saved flex items-center gap-2 bg-background w-full rounded-lg p-[20px]">
-            {icon && <div className="total-saved-icon text-primary">{icon}</div>}
+        <div className="total-card">
+            {icon && <div className="text-primary">{icon}</div>}
             <div>
                 <p className="text-primary">Total {name.charAt(0).toUpperCase() + name.slice(1)}</p>
                 <div className="flex items-center -mt-[4px] text-primary">

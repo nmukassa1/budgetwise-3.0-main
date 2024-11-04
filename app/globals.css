@@ -46,9 +46,22 @@ body {
 }
 
 @layer utilities{
-  .navbar-container{ @apply flex flex-col shrink-0 h-screen px-4 py-8 bg-primary text-secondary}
+
+  .nav-link{@apply flex items-center px-4 py-2 text-[1rem] transition-colors duration-200 transform rounded-lg cursor-pointer overflow-hidden}
+
+  .sidebar{@apply relative overflow-hidden rounded-tr-2xl duration-300 h-screen bg-primary text-secondary }
+
+  .card{@apply shadow-md rounded-lg p-4 grow min-h-[110px] self-start }
+
+  .total-card{@apply flex items-center gap-2 bg-background w-full rounded-lg p-[20px]}
+  
+  .navbar{ @apply flex flex-col shrink-0 h-[95%]}
 
   .masonry-layout {
     @apply grid grid-cols-2 mt-5 gap-4 h-full
   }
+
+  .bar{@apply h-auto w-[3.5px] bg-red-300}
+
+  .total-saved{@apply flex items-center gap-2 bg-background w-full rounded-lg p-[20px]}
 }

@@ -6,9 +6,9 @@ export default function Transactions(){
     return(
        <Category categoryName='Transactions'>
               <div>
-                <TransactionItem transactionName='Rent' transactionAmount='1,700.00' />
-                <TransactionItem transactionName='Utilities' transactionAmount='100.00' />
-                <TransactionItem transactionName='Utilities' transactionAmount='100.00' />
+                <TransactionItem name='Rent' amount='1,700.00' />
+                <TransactionItem name='Utilities' amount='100.00' />
+                <TransactionItem name='Utilities' amount='100.00' />
               </div>
        </Category>
     )

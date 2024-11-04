@@ -3,7 +3,7 @@ import { Money } from "@mui/icons-material";
 
 export default function TotalSaved(){
     return(
-        <div className="total-saved flex items-center gap-2 bg-background w-full rounded-lg p-[20px]">
+        <div className="total-saved">
             <div className="total-saved-icon">
                 <Money />
             </div>

@@ -1,10 +1,10 @@
-import Pnl from "@components/Pnl";
-import Pots from "@components/Pots";
-import Analytics from "@components/Analytics";
-import Transactions from "@components/Transactions";
+import Pnl from "@/components/Pnl";
+import Pots from "@/components/Pots";
+import Analytics from "@/components/Analytics";
+import Transactions from "@/components/Transactions";
+import { FC } from 'react';
 
-function Dashboard() {
-
+const Dashboard: FC = () => {
     return ( 
         <div className="">
             <Pnl />

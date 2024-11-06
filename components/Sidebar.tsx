@@ -8,8 +8,8 @@ import UserInfo from './UserInfo';
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const [activeLabel, setActiveLabel] = useState(formatPathname(pathname));
-  const [isVisible, setIsVisible] = useState(true);
+  const [activeLabel, setActiveLabel] = useState<string>(formatPathname(pathname));
+  const [isVisible, setIsVisible] = useState<boolean>(true);
 
   useEffect(() => {
     setActiveLabel(formatPathname(pathname));

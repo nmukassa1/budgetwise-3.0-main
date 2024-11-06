@@ -1,20 +1,32 @@
 "use client"
 
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { VisibilityOff } from "@mui/icons-material";
 
+interface FormData {
+  email: string;
+  password: string;
+}
+
+interface Errors {
+  email?: string;
+  password?: string;
+}
+
 export default function LoginForm() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     email: "",
     password: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState<Errors>({});
 
-  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
-  const validate = () => {
-    const errors = {};
+  const validate = (): Errors => {
+    const errors: Errors = {};
     if (!formData.email.trim()) {
       errors.email = "Email is required";
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
@@ -28,7 +40,7 @@ export default function LoginForm() {
     return errors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
@@ -41,7 +53,7 @@ export default function LoginForm() {
   };
 
   return (
-    <form method="post" onSubmit={handleSubmit} className="flex flex-col items-center justify-center w-[500px] m-auto">
+    <form method="post" onSubmit={handleSubmit} className="login-form">
       <div className="mb-4 w-full">
         <input
           type="email"
@@ -49,7 +61,7 @@ export default function LoginForm() {
           placeholder="Enter your email"
           value={formData.email}
           onChange={handleChange}
-          className="w-full px-4 py-[20px] text-gray-700 border rounded-[1000px] text-center focus:outline-none focus:border-brand"
+          className="form-input"
         />
         {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
       </div>
@@ -61,15 +73,15 @@ export default function LoginForm() {
             placeholder="Enter your password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full px-4 py-[20px] text-gray-700 border rounded-[1000px] text-center focus:outline-none focus:border-brand"
+            className="form-input"
           />
-          <button onClick={(e) => e.preventDefault()} className="absolute inset-y-0 right-2 flex items-center px-3 text-gray-500">
+          <button onClick={(e) => e.preventDefault()} className="visibility-btn">
             <VisibilityOff />
           </button>
         </div>
         {errors.password && <p className="text-red-500 text-sm mt-1">{errors.password}</p>}
       </div>
-      <button type="submit" className="w-full py-[10px] mb-4 text-white bg-black border rounded-[1000px] focus:outline-none hover:bg-brand transition duration-300">SIGN IN</button>
+      <button type="submit" className="auth-submit-btn">SIGN IN</button>
     </form>
   );
 }

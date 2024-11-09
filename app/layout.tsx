@@ -17,7 +17,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className="overflow-hidden h-screen">
+      <body className="md:overflow-hidden h-screen">
         {children}
       </body>
     </html>

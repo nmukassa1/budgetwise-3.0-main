@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Card from './Card';
 import { ReactNode, FC } from 'react';
+import CategoryHeader from './CategoryHeader';
 
 interface CategoryProps {
   categoryName: string;
@@ -15,19 +16,6 @@ const Category: FC<CategoryProps> = ({ categoryName, children }) => {
         {children}
       </div>
     </Card>
-  );
-}
-
-interface CategoryHeaderProps {
-  categoryName: string;
-}
-
-const CategoryHeader: FC<CategoryHeaderProps> = ({ categoryName }) => {
-  return (
-    <header className='flex items-center justify-between'>
-      <h1 className='text-primary font-bold text-xl'>{categoryName}</h1>
-      <Link href={`/dashboard/${categoryName.toLowerCase()}`} passHref>View All</Link>
-    </header>
   );
 }
 

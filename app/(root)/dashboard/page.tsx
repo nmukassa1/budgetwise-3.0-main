@@ -1,18 +1,12 @@
-import Pnl from "@/components/Pnl";
-import Pots from "@/components/Pots";
-import Analytics from "@/components/Analytics";
-import Transactions from "@/components/Transactions";
 import { FC } from 'react';
+import DesktopPage from "@/components/page/DesktopPage";
+import MobilePage from '@/components/page/MobilePage';
 
 const Dashboard: FC = () => {
     return ( 
         <div className="">
-            <Pnl />
-            <div className="masonry-layout">
-                <Pots />
-                <Analytics />
-                <Transactions />
-            </div>
+            <DesktopPage />
+            <MobilePage />
         </div>
      );
 }

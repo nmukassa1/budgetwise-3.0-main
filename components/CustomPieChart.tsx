@@ -2,21 +2,26 @@
 import { useEffect, useState } from "react";
 import { Cell, Pie, PieChart } from "recharts";
 
-const data = [
-    { name: "Entertainment", value: 50 },
-    { name: "Bills", value: 750 },
-    { name: "Dining Out", value: 75 },
-    { name: "Personal Care", value: 100 },
-];
+interface DataItem {
+    name: string;
+    value: number;
+}
 
-const COLORS = ["#4CAF50", "#FF9800", "#00BCD4", "#7E57C2"]; // Custom colors for each section
+export default function CustomPieChart() {
+    const data: DataItem[] = [
+        { name: "Entertainment", value: 50 },
+        { name: "Bills", value: 750 },
+        { name: "Dining Out", value: 75 },
+        { name: "Personal Care", value: 100 },
+    ];
+    
+    const COLORS: string[] = ["#4CAF50", "#FF9800", "#00BCD4", "#7E57C2"]; // Custom colors for each section
+    
+    // Total budget and used budget
+    const totalBudget: number = 975;
+    const usedBudget: number = 338;
 
-// Total budget and used budget
-const totalBudget = 975;
-const usedBudget = 338;
-
-export default function CustomPieChart(){
-    const [isClient, setIsClient] = useState(false);
+    const [isClient, setIsClient] = useState<boolean>(false);
 
     useEffect(() => {
         setIsClient(true);
@@ -53,4 +58,4 @@ export default function CustomPieChart(){
             </div>
         </div>
     );
-};
+}

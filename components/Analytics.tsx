@@ -8,9 +8,9 @@ export default function Analytics() {
             <div className="flex gap-2">
                 <CustomPieChart />
                 <div className="budget-item self-start flex-grow grid grid-cols-2 gap-4">
-                    <Item potName='Food' amount='250' />
-                    <Item potName='Utilities' amount='100' />
-                    <Item potName='Entertainment' amount='32' />
+                    <Item potName='Food' amount={250} />
+                    <Item potName='Utilities' amount={100} />
+                    <Item potName='Entertainment' amount={32} />
                 </div>
             </div>
         </Category>

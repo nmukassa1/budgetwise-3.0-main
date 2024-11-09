@@ -1,6 +1,15 @@
 import Link from 'next/link';
+import { ReactNode } from 'react';
 
-const NavLinks = ({ icon, label, activeLabel, setActiveLabel, href = '#' }) => {
+interface NavLinksProps {
+  icon: ReactNode;
+  label: string;
+  activeLabel: string;
+  setActiveLabel: (label: string) => void;
+  href?: string;
+}
+
+const NavLinks = ({ icon, label, activeLabel, setActiveLabel, href = '#' }: NavLinksProps) => {
   const isActive = label.toLowerCase() === activeLabel.toLowerCase();
   return (
     <Link

@@ -2,30 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
-
 body {
-  /* color: var(--foreground);
-  background: var(--background); */
   font-family: Arial, Helvetica, sans-serif;
 }
-
-/* @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-} */
-
 
 .masonry-item:nth-child(odd) {
   grid-row: span 2;
@@ -34,16 +13,16 @@ body {
   grid-row: span 4;
 }
 
-.transaction-item + .transaction-item {
-  border-top: 1px solid #e2e8f0;
+.transaction-item  {
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.transaction-item:first-child {
+/* .transaction-item:first-child {
   padding-top: 0;
 }
 .transaction-item:last-child {
   padding-bottom: 0;
-}
+} */
 
 @layer utilities{
 
@@ -51,7 +30,7 @@ body {
 
   .sidebar{@apply relative overflow-hidden rounded-tr-2xl duration-300 h-screen bg-primary text-secondary }
 
-  .card{@apply shadow-md rounded-lg p-4 grow min-h-[110px] self-start }
+  .card{@apply shadow-md rounded-lg p-4 grow min-h-[110px] md:self-start }
 
   .total-card{@apply flex items-center gap-2 bg-background w-full rounded-lg p-[20px]}
   
@@ -65,12 +44,20 @@ body {
 
   .total-saved{@apply flex items-center gap-2 bg-background w-full rounded-lg p-[20px]}
 
-  .login-form{@apply flex flex-col items-center justify-center w-[500px] m-auto}
+  .login-form{@apply flex flex-col items-center justify-center md:w-[500px] m-auto}
 
-  .form-input{@apply w-full px-4 py-[20px] text-gray-700 border rounded-[1000px] text-center focus:outline-none focus:border-brand
-  w-full px-4 py-[20px] text-gray-700 border rounded-[1000px] text-center focus:outline-none focus:border-brand}
+  .form-input{@apply w-full px-4 py-2 md:py-[20px] text-gray-700 border rounded-[1000px] text-center focus:outline-none focus:border-brand}
 
   .visibility-btn{@apply absolute inset-y-0 right-2 flex items-center px-3 text-gray-500}
 
   .auth-submit-btn{@apply w-full py-[10px] mb-4 text-white bg-black border rounded-[1000px] focus:outline-none hover:bg-brand transition duration-300}
+
+
+
+
+  .mobile-container{@apply w-[90%] h-full mx-auto}
+
+  .hero-gradient{@apply
+    bg-gradient-to-r from-[#E2BDDF] to-[#CFC0F4]
+  }
 }

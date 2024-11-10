@@ -2,10 +2,10 @@ import LoginForm from "../../components/LoginForm";
 
 export default function Home() {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="mobile-container flex justify-center items-center h-screen overflow-hidden">
 
       <div className="w-full">
-        <h1 className="mb-2 text-[3rem] font-bold text-center text-brand">Budgetwise</h1>
+        <h1 className="mb-2 text-[2rem] font-bold text-center text-brand">Budgetwise</h1>
         <h2 className="mb-6 text-center text-gray-600">Manage your finances with ease<br />Register or sign in and we&apos;ll get you started.</h2>
         
        <LoginForm />

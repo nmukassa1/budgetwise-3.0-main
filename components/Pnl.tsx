@@ -34,7 +34,7 @@ function Net(){
     return (
         <>
             <Card className="bg-primary">
-                <p className="text-secondary">Net</p>
+                <p className="text-secondary">Remaing this month</p>
                 <p className="text-secondary text-[1.8rem] font-bold">£1,000.00</p>
             </Card>
         </>

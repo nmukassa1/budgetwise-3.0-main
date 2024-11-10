@@ -21,6 +21,8 @@ export default function LoginForm() {
 
   const [errors, setErrors] = useState<Errors>({});
 
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -68,14 +70,14 @@ export default function LoginForm() {
       <div className="mb-4 w-full">
         <div className="relative">
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Enter your password"
             value={formData.password}
             onChange={handleChange}
             className="form-input"
           />
-          <button onClick={(e) => e.preventDefault()} className="visibility-btn">
+          <button type="button" onClick={() => setShowPassword(!showPassword)} className="visibility-btn">
             <VisibilityOff />
           </button>
         </div>

@@ -1,6 +1,7 @@
 import Analytics from "../Analytics";
 import Pnl from "../Pnl";
-import Pots from "../Pots";
+import Pots from "../mobile/Pots";
+// import Pots from "../Pots";
 import Transactions from "../Transactions";
 
 function DesktopPage() {

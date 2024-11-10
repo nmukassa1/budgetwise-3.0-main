@@ -1,7 +1,12 @@
+import UserInfo from "./UserInfo";
+
 function Footer() {
     return ( 
-        <div className="hero-gradient text-primary mt-5 text-[.8rem]">
-            <div className="mobile-container text-right py-2">Created by Ny</div>
+        <div className="bg-primary text-primary mt-5 text-[.8rem] text-white">
+            <div className="mobile-container flex justify-between py-2">
+                <button>Logout</button>
+                <span>Created by Ny</span>
+            </div>
         </div>
      );
 }

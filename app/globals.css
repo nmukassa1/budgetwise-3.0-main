@@ -13,16 +13,16 @@ body {
   grid-row: span 4;
 }
 
-.transaction-item + .transaction-item {
-  border-top: 1px solid #e2e8f0;
+.transaction-item  {
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.transaction-item:first-child {
+/* .transaction-item:first-child {
   padding-top: 0;
 }
 .transaction-item:last-child {
   padding-bottom: 0;
-}
+} */
 
 @layer utilities{
 
@@ -44,10 +44,9 @@ body {
 
   .total-saved{@apply flex items-center gap-2 bg-background w-full rounded-lg p-[20px]}
 
-  .login-form{@apply flex flex-col items-center justify-center w-[500px] m-auto}
+  .login-form{@apply flex flex-col items-center justify-center md:w-[500px] m-auto}
 
-  .form-input{@apply w-full px-4 py-[20px] text-gray-700 border rounded-[1000px] text-center focus:outline-none focus:border-brand
-  w-full px-4 py-[20px] text-gray-700 border rounded-[1000px] text-center focus:outline-none focus:border-brand}
+  .form-input{@apply w-full px-4 py-2 md:py-[20px] text-gray-700 border rounded-[1000px] text-center focus:outline-none focus:border-brand}
 
   .visibility-btn{@apply absolute inset-y-0 right-2 flex items-center px-3 text-gray-500}
 

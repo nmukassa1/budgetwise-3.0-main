@@ -2,7 +2,7 @@
 
 import { Drawer } from "@mui/material";
 import { useState } from "react";
-import NewItemForm from "./NewItemForm";
+import NewItemForm from "./newItemForm/NewItemForm";
 
 function Modal() {
     const [open, setOpen] = useState(false);

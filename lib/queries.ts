@@ -1,0 +1,1 @@
+export const get_user_by_email = 'select * from users where email = $1';

@@ -36,8 +36,8 @@ export default function LoginForm() {
     }
     if (!formData.password) {
       errors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      errors.password = "Password must be at least 6 characters";
+    } else if (formData.password.length < 8) {
+      errors.password = "Password must be at least 8 characters";
     }
     return errors;
   };
@@ -53,6 +53,7 @@ export default function LoginForm() {
       setErrors({});
     }
   };
+    
 
   return (
     <form method="post" onSubmit={handleSubmit} className="login-form">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 
 type Category = {
     name: string;
@@ -17,60 +17,15 @@ const categories: Category[] = [
     { name: 'Emergency Fund', remainingAmount: 50.00, color: 'teal', icon: '‼️', type: 'pots' },
 ];
 
-const NewItemForm: React.FC = () => {
-    const [selectedType, setSelectedType] = useState<string>('income');
+function CategoryInput({ selectedType }: { selectedType: string }) {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const [repeat, setRepeat] = useState<string>('never');
-
     const filteredCategories = categories.filter(category => category.type === selectedType);
-
-    return (
-        <form className="text-primary rounded-md w-full max-w-md mx-auto">
-            <div className="mb-4">
-                <label className="block mb-1">Name</label>
-                <input
-                    type="text"
-                    placeholder="What would you like to name this?"
-                    className="w-full p-2 rounded-md border border-gray-700 focus:outline-none"
-                />
-            </div>
-
-            <div className="mb-4">
-                <label className="block  mb-1">Type</label>
-                <select
-                    className="w-full p-2 rounded-md border border-gray-700"
-                    value={selectedType}
-                    onChange={(e) => setSelectedType(e.target.value)}
-                >
-                    <option value="income">Income</option>
-                    <option value="expense">Expense</option>
-                    <option value="pots">Pots</option>
-                </select>
-            </div>
-
-            <div className="mb-4">
-                <label className="block  mb-1">Date</label>
-                <button type="button" className="w-full p-2 rounded-md border border-gray-700 text-left">
-                    Today
-                </button>
-            </div>
-
-            <div className="mb-4">
-                <label className="block  mb-1">Repeat</label>
-                <select
-                    className="w-full p-2 rounded-md border border-gray-700"
-                    value={repeat}
-                    onChange={(e) => setRepeat(e.target.value)}
-                >
-                    <option value="never">Never</option>
-                    <option value="always">Always</option>
-                </select>
-            </div>
-
-            {filteredCategories.length > 0 && (
+    return ( 
+        <>
+         {filteredCategories.length > 0 && (
                 <div className="mb-4">
                     <label className="block  mb-2">Categories</label>
-                    <div>
+                    <div className="max-h-[240px] overflow-scroll">
                         {filteredCategories.map((category) => (
                             <div
                                 key={category.name}
@@ -94,18 +49,8 @@ const NewItemForm: React.FC = () => {
                     </div>
                 </div>
             )}
-            <div className="border-t mt-4 pt-4">
-                <button
-                    type="button"
-                    className="w-full p-2 rounded-md  border border-gray-700 "
-                >
-                    Add new category
-                </button>
-            </div>
+        </>
+     );
+}
 
-          
-        </form>
-    );
-};
-
-export default NewItemForm;
+export default CategoryInput;

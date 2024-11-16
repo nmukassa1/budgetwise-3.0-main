@@ -2,6 +2,7 @@
 
 import { useState, ChangeEvent, FormEvent } from "react";
 import { VisibilityOff } from "@mui/icons-material";
+import axios from "axios";
 
 interface FormData {
   email: string;
@@ -42,14 +43,20 @@ export default function LoginForm() {
     return errors;
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
     } else {
       // Handle form submission logic here
-      console.log(formData);
+      try{
+        const {data} = await axios.post("/api/auth/login", formData);
+        console.log(data);
+      } catch(error){
+        console.error(error);
+      }
+      
       setErrors({});
     }
   };

@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import Sidebar from "../Sidebar";
 import { usePathname } from "next/navigation";
+import MonthNavigator from "../MonthNavigator";
 
 interface LayoutProps {
     children: ReactNode;
@@ -16,6 +17,7 @@ const DesktopLayout = ({ children }: LayoutProps) => {
         <div className='flex-grow px-10 py-8'>
           <div className='flex items-center justify-between mb-4'>
             <h1 className="text-primary text-2xl font-bold">{header}</h1>
+            <MonthNavigator />
           </div>
           {children}
         </div>

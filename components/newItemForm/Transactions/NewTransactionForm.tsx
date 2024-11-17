@@ -13,30 +13,22 @@ const NewTransactionForm: React.FC = () => {
     
 
     return (
-        <form className="text-primary rounded-md w-full max-w-md mx-auto" method='get' onSubmit={() => console.log(FormData)}>
-            <Amount />
-            <ItemName />
-            <TypeInput selectedType={selectedType} setSelectedType={setSelectedType} />
-            <DateInput />
-            <RepeatInput />
-            <CategoryInput selectedType={selectedType} />
-            <div className="border-t mt-4 pt-4">
-                <button
-                    type="button"
-                    className="w-full p-2 rounded-md  border border-gray-700 "
-                >
-                    Add new category
-                </button>
-            </div>
-            <div className=" mt-4">
-                <button
-                    type="submit"
-                    className="w-full p-2 rounded-md  border border-gray-700"
-                >
-                    Submit
-                </button>
-            </div>
-        </form>
+            <form className="text-primary rounded-md w-full max-w-md mx-auto" method='get' onSubmit={() => console.log(FormData)}>
+                <Amount />
+                <ItemName />
+                <TypeInput selectedType={selectedType} setSelectedType={setSelectedType} />
+                <DateInput />
+                <RepeatInput />
+                <CategoryInput selectedType={selectedType} />
+                <div className=" mt-4">
+                    <button
+                        type="submit"
+                        className="w-full p-2 rounded-md  border border-gray-700"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
     );
 };
 

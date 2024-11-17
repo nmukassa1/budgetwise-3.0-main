@@ -8,7 +8,7 @@ type Category = {
     type: string;
 };
 
-const categories: Category[] = [
+export const categories: Category[] = [
     { name: 'Entertainment', remainingAmount: 32.00, color: 'pink', icon: '🎬', type: 'expense' },
     { name: 'Fitness', remainingAmount: 25.00, color: 'green', icon: '💪', type: 'expense'  },
     { name: 'Groceries', remainingAmount: 250.00, color: 'blue', icon: '🛒', type: 'expense' },

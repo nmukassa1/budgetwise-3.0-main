@@ -36,12 +36,12 @@ function Amount() {
     return ( 
         <div className="mb-4">
             <input
-                type="text"
+                type="number"
                 name="amount"
                 placeholder="Amount"
                 value={amount}
                 onChange={handleChange}
-                className="w-full p-2  border-b-2 border-gray-700 text-center font-[1.5rem] focus:outline-none"
+                className="w-full p-2 text-xl font-bold tracking-wider border-b-2 border-gray-700 text-center font-[1.5rem] focus:outline-none"
             />
         </div>
      );

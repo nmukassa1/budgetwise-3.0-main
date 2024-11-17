@@ -11,8 +11,6 @@ const NewItemForm: React.FC = () => {
     const [selectedType, setSelectedType] = useState<string>('income');
     
 
-   
-
     return (
         <form className="text-primary rounded-md w-full max-w-md mx-auto">
             <ItemName />

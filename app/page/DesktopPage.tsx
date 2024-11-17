@@ -1,7 +1,6 @@
 import Analytics from "@/components/Analytics";
 import Pnl from "@/components/Pnl";
-import Pots from "@/components/Pots";
-// import Pots from "../Pots";
+import Pots from "@/components/mobile/Pots";
 import Transactions from "@/components/Transactions";
 
 function DesktopPage() {

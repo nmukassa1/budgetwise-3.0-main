@@ -1,7 +1,7 @@
-"use client"
-import { Help, Logout, Settings } from "@mui/icons-material";
+import { Help, Settings } from "@mui/icons-material";
 import NavLinks from "./NavLinks";
 import { FC } from 'react';
+import Logout from "./auth/Logout";
 
 interface ControlPanelProps {
   activeLabel: string;
@@ -16,7 +16,8 @@ const ControlPanel: FC<ControlPanelProps> = ({ activeLabel, setActiveLabel }) =>
     <div className='mb-4'>
       <NavLinks icon={<Help sx={{ fontSize: iconSize }} />} label="Help" activeLabel={activeLabel} setActiveLabel={setActiveLabel} />
       <NavLinks icon={<Settings sx={{ fontSize: iconSize }} />} label="Settings" activeLabel={activeLabel} setActiveLabel={setActiveLabel} />
-      <NavLinks icon={<Logout sx={{ fontSize: iconSize }} />} label="Logout" activeLabel={activeLabel} setActiveLabel={setActiveLabel} />
+      {/* <NavLinks icon={<Logout sx={{ fontSize: iconSize }} />} label="Logout" activeLabel={activeLabel} setActiveLabel={setActiveLabel} /> */}
+      <Logout />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
-import Sidebar from "../Sidebar";
+import Sidebar from "@/components/Sidebar";
 import { usePathname } from "next/navigation";
-import MonthNavigator from "../MonthNavigator";
+import MonthNavigator from "@/components/MonthNavigator";
 
 interface LayoutProps {
     children: ReactNode;
@@ -10,7 +10,7 @@ interface LayoutProps {
 const DesktopLayout = ({ children }: LayoutProps) => {
     let pathname: string = usePathname();
     pathname = pathname.split('/').pop()?.toLowerCase() || '';
-    let header: string = pathname === 'dashboard' ? 'Overview' : pathname.charAt(0).toUpperCase() + pathname.slice(1);
+    const header: string = pathname === 'dashboard' ? 'Overview' : pathname.charAt(0).toUpperCase() + pathname.slice(1);
     return (
       <div className='h-full flex'>
         <Sidebar />

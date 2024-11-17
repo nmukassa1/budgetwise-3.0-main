@@ -1,8 +1,8 @@
-import Analytics from "../Analytics";
-import Pnl from "../Pnl";
-import Pots from "../mobile/Pots";
+import Analytics from "@/components/Analytics";
+import Pnl from "@/components/Pnl";
+import Pots from "@/components/Pots";
 // import Pots from "../Pots";
-import Transactions from "../Transactions";
+import Transactions from "@/components/Transactions";
 
 function DesktopPage() {
     return (

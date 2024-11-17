@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import DesktopPage from "@/components/page/DesktopPage";
-import MobilePage from '@/components/page/MobilePage';
+import DesktopPage from "@/app/page/DesktopPage";
+import MobilePage from '@/app/page/MobilePage';
 
 const Dashboard: FC = () => {
     return ( 

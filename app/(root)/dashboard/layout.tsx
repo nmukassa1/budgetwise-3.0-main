@@ -1,7 +1,7 @@
 "use client"
 
-import MobileLayout from '@/components/layout/MobileLayout';
-import DesktopLayout from '@/components/layout/DesktopLayout';
+import MobileLayout from '@/app/layout/MobileLayout';
+import DesktopLayout from '@/app/layout/DesktopLayout';
 import LoadingScreen from '@/components/LoadingScreen';
 import { useBreakpointChange } from '@/lib/hooks/useBreakpointChange';
 import { ReactNode } from 'react';

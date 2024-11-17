@@ -1,10 +1,10 @@
-import MobileHero from "../mobile/MobileHero";
-import Transactions from "../Transactions"
+import MobileHero from "@/components/mobile/MobileHero";
+import Transactions from "@/components/mobile/Transactions";
 // import Transactions from "../mobile/Transactions";
-import Pots from "../mobile/Pots";
-import Analytics from "../Analytics";
-import Footer from "../Footer";
-import TransactionContainer from "../TransactionContainer";
+import Pots from "@/components/Pots";
+import Analytics from "@/components/Analytics";
+import Footer from "@/components/Footer";
+// import TransactionContainer from "@/components/TransactionContainer";
 
 function MobilePage() {
     return ( 

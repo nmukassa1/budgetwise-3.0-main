@@ -17,7 +17,7 @@ export const categories: Category[] = [
     { name: 'Emergency Fund', remainingAmount: 50.00, color: 'teal', icon: '‼️', type: 'pots' },
 ];
 
-function CategoryInput({ selectedType }: { selectedType: string }) {
+function TransactionCategoryInput({ selectedType }: { selectedType: string }) {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const filteredCategories = categories.filter(category => category.type === selectedType);
     return ( 
@@ -67,4 +67,4 @@ function CategoryInput({ selectedType }: { selectedType: string }) {
      );
 }
 
-export default CategoryInput;
+export default TransactionCategoryInput;

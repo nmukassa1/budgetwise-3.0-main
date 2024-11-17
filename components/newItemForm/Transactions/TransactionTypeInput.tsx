@@ -1,4 +1,4 @@
-function TypeInput({selectedType, setSelectedType} : {selectedType: string, setSelectedType: (type: string) => void}) {
+function TransactionTypeInput({selectedType, setSelectedType} : {selectedType: string, setSelectedType: (type: string) => void}) {
     return ( 
         <div className="mb-4">
             <label className="block  mb-1">Type</label>
@@ -16,4 +16,4 @@ function TypeInput({selectedType, setSelectedType} : {selectedType: string, setS
      );
 }
 
-export default TypeInput;
+export default TransactionTypeInput;

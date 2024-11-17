@@ -1,4 +1,4 @@
-function RepeatInput() {
+function TransactionRepeatInput() {
     return ( 
         <div className="mb-4">
             <label className="block mb-1">Repeat</label>
@@ -14,4 +14,4 @@ function RepeatInput() {
     );
 }
 
-export default RepeatInput;
+export default TransactionRepeatInput;

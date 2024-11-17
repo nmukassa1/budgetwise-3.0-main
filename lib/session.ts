@@ -5,10 +5,11 @@ import { redirect } from 'next/navigation';
 
 const key = new TextEncoder().encode(process.env.SESSION_SECRET);
 
+
 const cookie = {
     name: 'session',
     options: {httpOnly: true, sameSite: 'strict' as const, secure: true, path: '/'},
-    duration: 60 * 60 * 24 * 7 // 1 week
+    duration: 1000 * 60 * 60 * 24 * 7 // 1 week
 }
 
 

@@ -1,4 +1,4 @@
-function ItemName() {
+function TransactionItemName() {
     return ( 
         <div className="mb-4">
             <label className="block mb-1">Name</label>
@@ -12,4 +12,4 @@ function ItemName() {
      );
 }
 
-export default ItemName;
+export default TransactionItemName;

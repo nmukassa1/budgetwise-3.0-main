@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Amount() {
+function TransactionAmount() {
     const [amount, setAmount] = useState<string>('');
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
@@ -47,4 +47,4 @@ function Amount() {
      );
 }
 
-export default Amount;
+export default TransactionAmount;

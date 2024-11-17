@@ -1,8 +1,8 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
-import NewCategoryForm from "./categories/NewCategoryForm";
-import NewTransactionForm from "./Transactions/NewTransactionForm";
+import CategoryForm from "./categories/CategoryForm";
+import TransactionForm from "./Transactions/TransactionForm";
 
-export default function CrudForm(){
+export default function FormCarousel(){
     return(
         <Carousel>
         <div id="carousel-navigator" className="flex items-center gap-4">
@@ -14,11 +14,11 @@ export default function CrudForm(){
 
         <CarouselContent className="mt-4">
             <CarouselItem>
-                <NewTransactionForm />
+                <TransactionForm />
             </CarouselItem>
 
             <CarouselItem>
-                <NewCategoryForm />
+                <CategoryForm />
 
                 {/* SHOW ALREADY CREATED CATEGORIES HERE */}
                 

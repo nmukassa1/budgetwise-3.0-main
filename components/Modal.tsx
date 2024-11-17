@@ -2,7 +2,7 @@
 
 import { Drawer } from "@mui/material";
 import { useState } from "react"
-import CrudForm from "./newItemForm/CrudForm";
+import FormCarousel from "./newItemForm/FormCarousel";
 
 function Modal() {
     const [open, setOpen] = useState(false);
@@ -19,7 +19,7 @@ function Modal() {
                             <ModalButton setOpen={setOpen} open={open} />
                         </div>
 
-                        <CrudForm />
+                        <FormCarousel />
 
                     </div>
                 </div>

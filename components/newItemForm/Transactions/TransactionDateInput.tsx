@@ -1,4 +1,4 @@
-function DateInput() {
+function TransactionDateInput() {
     return ( 
         <div className="mb-4">
                 <label className="block  mb-1">Date</label>
@@ -9,4 +9,4 @@ function DateInput() {
      );
 }
 
-export default DateInput;
+export default TransactionDateInput;

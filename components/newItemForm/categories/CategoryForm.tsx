@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Delete, Edit } from "@mui/icons-material";
-import { categories } from "../Transactions/CategoryInput";
+import { categories } from "../Transactions/TransactionCategoryInput";
 
-function NewCategoryForm() {
+function CategoryForm() {
     const [selectedCategory, setSelectedCategory] = useState("income");
 
     return ( 
@@ -88,4 +88,4 @@ function NewCategoryForm() {
      );
 }
 
-export default NewCategoryForm;
+export default CategoryForm;

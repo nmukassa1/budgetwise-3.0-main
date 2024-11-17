@@ -1,7 +1,7 @@
 import MobileHero from "@/components/mobile/MobileHero";
-import Transactions from "@/components/mobile/Transactions";
-// import Transactions from "../mobile/Transactions";
-import Pots from "@/components/Pots";
+// import Transactions from "@/components/mobile/Transactions";
+import Transactions from "@/components/Transactions";
+import Pots from "@/components/mobile/Pots";
 import Analytics from "@/components/Analytics";
 import Footer from "@/components/Footer";
 // import TransactionContainer from "@/components/TransactionContainer";

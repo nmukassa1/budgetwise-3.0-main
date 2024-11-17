@@ -4,15 +4,17 @@ import TypeInput from './TypeInput';
 import DateInput from './DateInput';
 import RepeatInput from './RepeatInput';
 import CategoryInput from './CategoryInput';
+import Amount from './Amount';
 
+// NOTE: This components sits in the Modal.tsx component which resides in the MobileHero component
 
-
-const NewItemForm: React.FC = () => {
+const NewTransactionForm: React.FC = () => {
     const [selectedType, setSelectedType] = useState<string>('income');
     
 
     return (
-        <form className="text-primary rounded-md w-full max-w-md mx-auto">
+        <form className="text-primary rounded-md w-full max-w-md mx-auto" method='get' onSubmit={() => console.log(FormData)}>
+            <Amount />
             <ItemName />
             <TypeInput selectedType={selectedType} setSelectedType={setSelectedType} />
             <DateInput />
@@ -29,7 +31,7 @@ const NewItemForm: React.FC = () => {
             <div className=" mt-4">
                 <button
                     type="submit"
-                    className="w-full p-2 rounded-md  border border-gray-700 "
+                    className="w-full p-2 rounded-md  border border-gray-700"
                 >
                     Submit
                 </button>
@@ -38,4 +40,4 @@ const NewItemForm: React.FC = () => {
     );
 };
 
-export default NewItemForm;
+export default NewTransactionForm;

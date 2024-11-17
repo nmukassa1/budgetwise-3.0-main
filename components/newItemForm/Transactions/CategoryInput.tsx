@@ -38,7 +38,7 @@ function CategoryInput({ selectedType }: { selectedType: string }) {
                                     <input
                                         type="radio"
                                         id={category.name}
-                                        name={category.name}
+                                        name='category'
                                         value={category.name}
                                         checked={selectedCategory === category.name}
                                         onChange={() => setSelectedCategory(category.name)}

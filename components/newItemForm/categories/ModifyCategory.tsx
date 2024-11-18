@@ -1,12 +1,24 @@
-import { getCategories } from "@/lib/queries";
 import { Delete, Edit } from "@mui/icons-material"
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-async function ModifyCategory({categories} : {categories: any}) {
+  function ModifyCategory() {
+    const [categories, setCategories] = useState<any>([]);
 
-    // const categoriesTest = await getCategories();
-    // if(categoriesTest){
-    //     console.log(categoriesTest);
-    // }
+    useEffect(() => {
+        const fetchCategories = async () => {
+            if(categories.length > 0) return;
+            try {
+                // console.log('Fetching categories');
+                
+                const { data } = await axios.get('/api/category');
+                setCategories(data.category);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchCategories();
+    }, [])
 
     return ( 
         <>

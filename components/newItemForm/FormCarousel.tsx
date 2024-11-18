@@ -1,5 +1,6 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
 import CategoryForm from "./categories/CategoryForm";
+import ModifyCategory from "./categories/ModifyCategory";
 import TransactionForm from "./Transactions/TransactionForm";
 
 export default function FormCarousel(){
@@ -19,9 +20,7 @@ export default function FormCarousel(){
 
             <CarouselItem>
                 <CategoryForm />
-
-                {/* SHOW ALREADY CREATED CATEGORIES HERE */}
-                
+                <ModifyCategory />
             </CarouselItem>
         </CarouselContent>
         

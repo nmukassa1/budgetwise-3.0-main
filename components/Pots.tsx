@@ -1,22 +1,33 @@
 
-import Category from "./Category";
-import TotalSaved from "./TotalSaved";
-import Item from "./Item";
+import Card from "./Card";
+import CategoryHeader from "./CategoryHeader";
+import PotItem from "./mobile/PotItem";
 
-export default function Pots() {
-    return (
-        <Category categoryName='Pots'>
-            <div className="grid grid-cols-2 gap-4">
-                <TotalSaved />
-                <div className="grid grid-cols-2 gap-2">
-                    <Item potName='Holiday' amount={200} />
-                    <Item potName='Emergency' amount={1000} />
-                    <Item potName='Housing' amount={800} />
-                </div>
+function Pots() {
+
+    const data = [
+        {
+            name: 'Holiday Fund',
+            progress: '£500 / £1000',
+            daysLeft: '30'
+        },
+        {
+            name: 'Emergency Fund',
+            progress: '£100 / £500',
+            daysLeft: '30'
+        }
+    ]
+
+    return ( 
+        <Card className="bg-secondary">
+            <CategoryHeader categoryName='Pots' />
+            <div className="slider overflow-scroll flex items-center gap-2 py-2">
+              {data.map((pot, index) => (
+                <PotItem key={index} name={pot.name} progress={pot.progress} daysLeft={pot.daysLeft} />
+                ))}
             </div>
-        </Category>
-    );
+        </Card>
+     );
 }
 
-
-
+export default Pots;

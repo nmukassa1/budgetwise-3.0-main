@@ -55,7 +55,7 @@ body {
 
 
 
-  .mobile-container{@apply w-[90%] h-full mx-auto}
+  .mobile-container{@apply w-[90%] mx-auto}
 
   .hero-gradient{@apply
     bg-gradient-to-r from-[#E2BDDF] to-[#CFC0F4]

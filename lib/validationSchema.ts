@@ -15,3 +15,10 @@ export const loginFormSchema = z.object({
 // export type SignupFormSchema = z.infer<typeof signupFormSchema>;
 
 
+export const categorySchema = z.object({
+    name: z.string().min(2),
+    categoryType: z.string(),
+    budgetAmount: z.number({message: 'Budget amount cannot be empty'}).int(),
+    // color: z.string(),
+    // icon: z.string(),
+});

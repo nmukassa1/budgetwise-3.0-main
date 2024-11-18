@@ -1,4 +1,4 @@
-function MobilePnl() {
+function Pnl() {
     return ( 
         <div className="bg-secondary rounded-md flex items-center justify-center gap-8 text-sm absolute w-[-webkit-fill-available] left-0 bottom-[-16px] shadow-lg py-1">
             <div className="">
@@ -16,4 +16,4 @@ function MobilePnl() {
      );
 }
 
-export default MobilePnl;
+export default Pnl;

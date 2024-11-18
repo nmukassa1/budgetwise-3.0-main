@@ -26,7 +26,7 @@ body {
 
 @layer utilities{
 
-  .nav-link{@apply flex items-center px-4 py-2 text-[1rem] transition-colors duration-200 transform rounded-lg cursor-pointer overflow-hidden}
+  .sidebar-item{@apply flex items-center px-4 py-2 text-[1rem] transition-colors duration-200 transform rounded-lg cursor-pointer overflow-hidden}
 
   .sidebar{@apply relative overflow-hidden rounded-tr-2xl duration-300 h-screen bg-primary text-secondary }
 
@@ -46,7 +46,7 @@ body {
 
   .login-form{@apply flex flex-col items-center justify-center md:w-[500px] m-auto}
 
-  .form-input{@apply w-full px-4 py-2 md:py-[20px] text-gray-700 border rounded-[1000px] text-center focus:outline-none focus:border-brand}
+  .form-input{@apply w-full px-4 py-2 md:py-[20px] text-gray-700 border border-primary rounded-[1000px] bg-secondary text-center focus:outline-none focus:border-primary}
 
   .visibility-btn{@apply absolute inset-y-0 right-2 flex items-center px-3 text-gray-500}
 

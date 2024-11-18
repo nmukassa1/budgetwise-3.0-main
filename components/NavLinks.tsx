@@ -14,7 +14,7 @@ const NavLinks = ({ icon, label, activeLabel, setActiveLabel, href = '#' }: NavL
   return (
     <Link
       href={href}
-      className={`nav-link ${isActive ? 'bg-secondary text-primary' : 'text-gray-200 hover:bg-secondary hover:text-primary'}`}
+      className={`sidebar-item ${isActive ? 'bg-secondary text-primary' : 'text-gray-200 hover:bg-secondary hover:text-primary'}`}
     >
       {icon}
       <span className="mx-4 font-medium">{label}</span>

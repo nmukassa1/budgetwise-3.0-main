@@ -1,8 +1,8 @@
 "use client"
 
 import { Drawer } from "@mui/material";
-import { useState } from "react";
-import NewItemForm from "./NewItemForm";
+import { useState } from "react"
+import FormCarousel from "./newItemForm/FormCarousel";
 
 function Modal() {
     const [open, setOpen] = useState(false);
@@ -11,16 +11,18 @@ function Modal() {
         <div id="modal" className="absolute py-5 top-0 right-0">
             <ModalButton setOpen={setOpen} open={open} />
 
-            <Drawer anchor="top" open={open} sx={{height: '100vh'}}>
-            <div className="h-screen bg-secondary text-white py-5">
-                <div className="mobile-container  ">
-                    <div className="flex justify-end">
-                        <ModalButton setOpen={setOpen} open={open} />
-                    </div>
 
-                    <NewItemForm />
+            <Drawer anchor="top" open={open} sx={{height: '100vh'}}>
+                <div className="h-screen bg-secondary py-5">
+                    <div className="mobile-container">
+                        <div className="flex justify-end">
+                            <ModalButton setOpen={setOpen} open={open} />
+                        </div>
+
+                        <FormCarousel />
+
+                    </div>
                 </div>
-            </div>
             </Drawer>
         </div>
     );

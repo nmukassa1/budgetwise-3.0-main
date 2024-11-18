@@ -30,25 +30,9 @@ function CategoryForm() {
         });
     };
 
-    // Handle form submission
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-
-    //     const result = await execute(formData); // Executes the server action
-
-    //     if (result?.errors) {
-    //         console.error("Validation errors:", result.errors);
-    //     } else {
-    //         console.log("Category created:", result);
-    //         setFormData(defaultformData); // Reset form
-    //     }
-    // };
-
     return (
         <form
             className="text-primary rounded-md w-full max-w-md mx-auto"
-            // method="post"
-            // onSubmit={handleSubmit}
             action={action}
         >
             <div className="flex flex-col gap-4">

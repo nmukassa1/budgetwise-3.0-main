@@ -8,7 +8,7 @@ export async function createNewCategory(state: object, formData: FormData){
     if(!session?.userId){
         console.log('No session found');
     }
-    console.log(formData);
+    console.log( Number(formData.get('budgetAmount')));
     
     //Validate fields
     const validation = categorySchema.safeParse({
@@ -45,11 +45,41 @@ export async function createNewCategory(state: object, formData: FormData){
                     general: 'An error occurred while creating the category'
                 }
             }
-            // throw error;
         }
 
         return category;
     } catch(error){
         console.log(error);
     }
+}
+
+
+export async function deleteCategory(categoryId: string){
+    // console.log(categoryId);
+    
+    const session = await verifySession();
+        if(!session?.userId){
+            console.log('No session found');
+        }
+    
+        try{
+            //Delete category
+            const {data, error} = await supabase.from('categories').delete().match({
+                id: categoryId,
+                user_id: session.userId
+            }).select('*');
+    
+            if(error){
+                console.log(error);
+                return {
+                    errors: {
+                        general: 'An error occurred while deleting the category'
+                    }
+                }
+            }
+    
+            return data;
+        } catch(error){
+            console.log(error);
+        }
 }

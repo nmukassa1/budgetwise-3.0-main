@@ -18,7 +18,7 @@ export const loginFormSchema = z.object({
 export const categorySchema = z.object({
     name: z.string().min(2),
     categoryType: z.string(),
-    budgetAmount: z.number({message: 'Budget amount cannot be empty'}).int(),
+    budgetAmount: z.number().int().min(1, { message: 'Budget amount must be greater than 0'}),
     // color: z.string(),
     // icon: z.string(),
 });

@@ -1,3 +1,4 @@
+"use server"
 import { cache } from "react";
 import { verifySession } from "./session";
 import { supabase } from "./supabase";

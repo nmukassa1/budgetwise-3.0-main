@@ -1,9 +1,20 @@
+import { deleteCategory } from "@/lib/mutations";
+import { getCategories } from "@/lib/queries";
 import { Delete, Edit } from "@mui/icons-material"
 import axios from "axios";
 import { useEffect, useState } from "react";
 
   function ModifyCategory() {
-    const [categories, setCategories] = useState<any>([]);
+    interface Category {
+        id: string;
+        name: string;
+        color: string;
+        icon: JSX.Element;
+    }
+
+    // const categories = getCategories();
+
+    const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -26,9 +37,9 @@ import { useEffect, useState } from "react";
                 <div className="mt-4">
                     <h2 className="text-primary">Categories</h2>
                     <ul className="flex flex-col gap-1">
-                        {categories.map((category) => (
+                        {categories.map((category: Category) => (
                             <li
-                                key={category.name}     
+                                key={category.id}     
                                 className="flex items-center gap-2 p-2 rounded-md bg-secondary justify-between"
                             >
                                 <div className="flex">
@@ -41,7 +52,7 @@ import { useEffect, useState } from "react";
                                 </div>
 
                                 <div className="flex gap-3">
-                                    <form action="">
+                                    <form onSubmit={async (e) => { e.preventDefault(); await deleteCategory(category.id); }}>
                                         <button><Delete /></button>
                                     </form>
                                     <form action="">

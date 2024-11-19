@@ -22,8 +22,8 @@ function CategoryForm() {
     const [ state, action, pending ] = useActionState(createNewCategory, { errors: {} });
 
     // Handle form input changes
-    const handleChange = (event) => {
-        const { name, value } = event.target;
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         setFormData({
             ...formData,
             [name]: value,

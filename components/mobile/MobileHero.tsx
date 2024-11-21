@@ -1,6 +1,7 @@
 import { getUser } from "@/lib/queries";
-import Modal from "../Modal";
+import Modal from "../crud-modal/Modal";
 import Pnl from "./Pnl";
+import ModalServerWrapper from "../crud-modal/ModalServerWrapper";
 
 export const revalidate = 60;
 
@@ -23,7 +24,8 @@ async function MobileHero() {
 
                 <Pnl />
 
-                <Modal />
+                {/* <Modal /> */}
+                <ModalServerWrapper />
             </div>
 
         </div>

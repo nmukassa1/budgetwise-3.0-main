@@ -1,70 +1,28 @@
-import { deleteCategory } from "@/lib/mutations";
-import { getCategories } from "@/lib/queries";
-import { Delete, Edit } from "@mui/icons-material"
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { Suspense} from "react";
+import CategoryList from "./CategoryList";
+import { useCategories } from "@/components/crud-modal/context/CategoriesContext";
 
+interface Category {
+    id: string;
+    name: string;
+    color: string;
+    icon: JSX.Element;
+}
   function ModifyCategory() {
-    interface Category {
-        id: string;
-        name: string;
-        color: string;
-        icon: JSX.Element;
-    }
 
-    // const categories = getCategories();
-
-    const [categories, setCategories] = useState<Category[]>([]);
-
-    useEffect(() => {
-        const fetchCategories = async () => {
-            if(categories.length > 0) return;
-            try {
-                // console.log('Fetching categories');
-                
-                const { data } = await axios.get('/api/category');
-                setCategories(data.category);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchCategories();
-    }, [])
+    const categories = useCategories();
 
     return ( 
-        <>
-            {categories && categories.length > 0 && (
-                <div className="mt-4">
-                    <h2 className="text-primary">Categories</h2>
-                    <ul className="flex flex-col gap-1">
-                        {categories.map((category: Category) => (
-                            <li
-                                key={category.id}     
-                                className="flex items-center gap-2 p-2 rounded-md bg-secondary justify-between"
-                            >
-                                <div className="flex">
-                                    <span className="inline-flex items-center justify-center rounded-full h-[22px] w-[22px] p-[14px]" style={{ backgroundColor: category.color }}>
-                                        {category.icon}
-                                    </span>
-                                    <div className="flex items-center justify-between w-full ml-2">
-                                        <span>{category.name}</span>
-                                    </div>
-                                </div>
-
-                                <div className="flex gap-3">
-                                    <form onSubmit={async (e) => { e.preventDefault(); await deleteCategory(category.id); }}>
-                                        <button><Delete /></button>
-                                    </form>
-                                    <form action="">
-                                        <button><Edit /></button>
-                                    </form>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+        <div className="mt-4">
+            <h2 className="text-primary">Categories</h2>
+            {categories && categories.length > 0 ? 
+                <Suspense fallback={<p>Loading...</p>}>
+                    <CategoryList categories={categories} />
+                </Suspense>
+            : (
+                <p className="text-primary">No categories found </p>
             )}
-        </>
+        </div>
      );
 }
 

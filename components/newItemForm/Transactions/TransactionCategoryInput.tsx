@@ -1,3 +1,4 @@
+import { useCategories } from "@/components/crud-modal/context/CategoriesContext";
 import { useState } from "react";
 
 type Category = {
@@ -6,20 +7,28 @@ type Category = {
     color: string;
     icon: string; // Use any icon representation, e.g., a URL or emoji
     type: string;
+    budgetAmount: number;
 };
 
-export const categories: Category[] = [
-    { name: 'Entertainment', remainingAmount: 32.00, color: 'pink', icon: '🎬', type: 'expense' },
-    { name: 'Fitness', remainingAmount: 25.00, color: 'green', icon: '💪', type: 'expense'  },
-    { name: 'Groceries', remainingAmount: 250.00, color: 'blue', icon: '🛒', type: 'expense' },
-    { name: 'Misc spending', remainingAmount: 10.00, color: 'purple', icon: '😃', type: 'expense' },
-    { name: 'Public transport', remainingAmount: 50.00, color: 'teal', icon: '🚇', type: 'expense' },
-    { name: 'Emergency Fund', remainingAmount: 50.00, color: 'teal', icon: '‼️', type: 'pots' },
-];
+// export const categories: Category[] = [
+//     { name: 'Entertainment', remainingAmount: 32.00, color: 'pink', icon: '🎬', type: 'expense' },
+//     { name: 'Fitness', remainingAmount: 25.00, color: 'green', icon: '💪', type: 'expense'  },
+//     { name: 'Groceries', remainingAmount: 250.00, color: 'blue', icon: '🛒', type: 'expense' },
+//     { name: 'Misc spending', remainingAmount: 10.00, color: 'purple', icon: '😃', type: 'expense' },
+//     { name: 'Public transport', remainingAmount: 50.00, color: 'teal', icon: '🚇', type: 'expense' },
+//     { name: 'Emergency Fund', remainingAmount: 50.00, color: 'teal', icon: '‼️', type: 'pots' },
+// ];
 
 function TransactionCategoryInput({ selectedType }: { selectedType: string }) {
+
+    const categories = useCategories();
+    // console.log('TrnsactionCategoryInput', categories); 
+    
+
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-    const filteredCategories = categories.filter(category => category.type === selectedType);
+    const filteredCategories = categories.filter(category => category.category_type === selectedType);
+
+
     return ( 
         <>
          {filteredCategories.length > 0 && (
@@ -30,7 +39,7 @@ function TransactionCategoryInput({ selectedType }: { selectedType: string }) {
                             <div
                                 key={category.name}
                                 className={`flex items-center justify-between p-2 rounded-md cursor-pointer ${
-                                    selectedCategory === category.name ? 'bg-primary text-secondary' : ''
+                                    selectedCategory === category.name ? 'bg-primary text-secondary' : 'border border-primary'
                                 }`}
                                 onClick={() => setSelectedCategory(category.name)}
                             >
@@ -54,7 +63,7 @@ function TransactionCategoryInput({ selectedType }: { selectedType: string }) {
                                         </span>
                                         <div className="flex items-center justify-between w-full">
                                             <span>{category.name}</span>
-                                            <span className="">£{category.remainingAmount.toFixed(2)} left</span>
+                                            {/* <span className="">£{category.remainingAmount.toFixed(2)} left</span> */}
                                         </div>
                                     </label>
                                 </div>

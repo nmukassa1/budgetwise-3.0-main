@@ -6,29 +6,23 @@ interface Category {
     name: string;
     color: string;
     icon: JSX.Element;
-    budget_amount: number;
 }
-export default function CategoryList({categories}) {
-    return (
-        <ul className="flex flex-col gap-3 mt-3">
-            {categories.map((category: Category) => (
+
+function CategoryItem({categories}) {
+    return ( {categories.map((category: Category) => (
         <li
             key={category.id}
-            className="flex items-center gap-2 p-2 rounded-md  justify-between bg-primary text-white"
+            className="flex items-center gap-2 p-2 rounded-md bg-secondary justify-between"
         >
-            <div className="flex items-center w-full">
+            <div className="flex">
                 <span
-                    className="inline-flex items-center justify-center rounded-full h-[10px] w-[10px] p-1 bg-secondary"
+                    className="inline-flex items-center justify-center rounded-full h-[22px] w-[22px] p-[14px] bg-primary"
                     // style={{ backgroundColor: category.color }}
                 >
                     {category.icon}
                 </span>
-                <div className="flex items-center ml-2">
+                <div className="flex items-center justify-between w-full ml-2">
                     <span>{category.name}</span>
-                </div>
-
-                <div className="mx-auto">
-                    <span>{category.budget_amount}</span>
                 </div>
             </div>
 
@@ -46,8 +40,7 @@ export default function CategoryList({categories}) {
                 </button>
             </div>
         </li>
-    ))}
-        {/* {categories && <CategoryList categories={categories} />} */}
-    </ul>
-    );
+    ))} );
 }
+
+export default CategoryItem;

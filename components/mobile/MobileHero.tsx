@@ -1,5 +1,4 @@
-import { getUser } from "@/lib/queries";
-import Modal from "../crud-modal/Modal";
+import { getTransactionsByType, getUser } from "@/lib/queries";
 import Pnl from "./Pnl";
 import ModalServerWrapper from "../crud-modal/ModalServerWrapper";
 
@@ -7,6 +6,13 @@ export const revalidate = 60;
 
 async function MobileHero() {
     const user = await getUser();
+    const income = await getTransactionsByType('income');
+    const expenses = await getTransactionsByType('expense');
+    
+    const totalIncome = income.reduce((acc, curr) => acc + curr.amount, 0);
+    const totalExpenses = expenses.reduce((acc, curr) => acc + curr.amount, 0);
+    const netIncome = totalIncome - totalExpenses;
+    
     
     return ( 
         <div className=" h-[26vh] bg-primary">
@@ -16,13 +22,13 @@ async function MobileHero() {
                 <div className="pt-5 text-white">
                     <h1 className="">Hello {user.first_name}</h1>
                     <div className="mt-2">
-                        <span className="font-bold text-3xl">£600</span>
+                        <span className="font-bold text-3xl">£{netIncome}</span>
                         <br /> 
                         <span className="text-sm">remaining this month</span>  
                     </div>
                 </div>
 
-                <Pnl />
+                <Pnl totalIncome={totalIncome} totalExpense={totalExpenses} />
 
                 {/* <Modal /> */}
                 <ModalServerWrapper />

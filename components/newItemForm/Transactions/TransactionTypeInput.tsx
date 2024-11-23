@@ -1,9 +1,9 @@
 function TransactionTypeInput({selectedType, setSelectedType} : {selectedType: string, setSelectedType: (type: string) => void}) {
     return ( 
         <div className="mb-4">
-            <label className="block  mb-1">Type</label>
+            <label className="block mb-1">Type</label>
             <select
-                name="type"
+                name="category_type"
                 className="w-full p-2 rounded-md border border-gray-700"
                 value={selectedType}
                 onChange={(e) => setSelectedType(e.target.value)}

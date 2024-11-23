@@ -28,3 +28,16 @@ export const getCategories = async () => {
     const { data: categories } = await supabase.from('categories').select('*').eq('user_id', session.userId);
     return categories;
 };
+
+export const getTransactionsByType = async (type: string) => {
+    const session = await verifyAndGetSession();
+
+    const { data: transactions } = await supabase.from('transactions').select('*').eq('user_id', session.userId).eq('category_type', type);
+    return transactions;
+}
+export const getTransactions = async () => {
+    const session = await verifyAndGetSession();
+
+    const { data: transactions } = await supabase.from('transactions').select('*').eq('user_id', session.userId);
+    return transactions;
+}

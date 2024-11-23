@@ -1,7 +1,7 @@
 "use server"
 import { verifySession } from "./session";
 import { supabase } from "./supabase";
-import { categorySchema } from "./validationSchema";
+import { categorySchema, transactionSchema } from "./validationSchema";
 
 import { revalidatePath } from "next/cache";
 
@@ -97,4 +97,81 @@ export async function deleteCategory(categoryId: string){
         } catch(error){
             console.log(error);
         }
+}
+
+export async function createTransaction(state: object, formData: FormData) {
+    const session = await verifySession();
+    if (!session?.userId) {
+        console.log("No session found");
+    }
+
+    // console.log(formData);
+    
+
+    // Validate fields
+    const validation = transactionSchema.safeParse({
+        name: formData.get("name"),
+        category_type: formData.get("category_type"),
+        amount: Number(formData.get("transaction_amount")),
+        repeat: (formData.get("repeat") === 'true' ? true : false),
+        category: formData.get("category")
+    });
+
+    // // Validation failed
+    if (!validation.success) {
+        console.log(validation.error.flatten().fieldErrors);
+        return {
+            errors: validation.error.flatten().fieldErrors,
+        };
+    }
+
+    // // Validation passed
+    const { name, category_type, amount, repeat } = validation.data;
+    console.log(validation.data);
+    
+
+    const transaction_date = new Date();
+    
+
+    try {
+        // Create new category
+        const { data: category, error } = await supabase
+            .from("transactions")
+            .insert({
+                name,
+                amount: Number(amount),
+                is_recurring: repeat,
+                transaction_date,
+                category_type: category_type,
+                user_id: session.userId,
+            })
+            .select("*");
+
+        if (error) {
+            console.log(error);
+            return {
+                errors: {
+                    general: "An error occurred while creating the transaction",
+                },
+            };
+        }
+
+        
+
+        // Trigger revalidation of a specific path
+        revalidatePath("/dashboard"); // Update this to the relevant path
+
+        console.log('Transaction created successfully');
+            return{
+                results: {message: 'Transaction created successfully', data: category}
+            }
+
+    } catch (error) {
+        console.log(error);
+        return {
+            errors: {
+                general: "An unexpected error occurred",
+            },
+        };
+    }
 }

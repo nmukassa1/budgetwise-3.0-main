@@ -7,8 +7,8 @@ function TransactionRepeatInput() {
                 name="repeat"
                 defaultValue="never"
             >
-                <option value="never">Never</option>
-                <option value="always">Always</option>
+                <option value="true">Never</option>
+                <option value="false">Always</option>
             </select>
         </div>
     );

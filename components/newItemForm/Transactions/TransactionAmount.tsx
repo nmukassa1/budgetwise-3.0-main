@@ -37,7 +37,7 @@ function TransactionAmount() {
         <div className="mb-4">
             <input
                 type="number"
-                name="amount"
+                name="transaction_amount"
                 placeholder="Amount"
                 value={amount}
                 onChange={handleChange}

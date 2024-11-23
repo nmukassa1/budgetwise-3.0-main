@@ -22,3 +22,11 @@ export const categorySchema = z.object({
     // color: z.string(),
     // icon: z.string(),
 });
+
+export const transactionSchema = z.object({
+    amount: z.number().min(1),
+    name: z.string().min(2),
+    category_type: z.string(),
+    repeat: z.boolean(),
+    category: z.string({message: 'Please select a category'}),
+});

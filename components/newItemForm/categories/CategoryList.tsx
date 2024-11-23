@@ -1,3 +1,4 @@
+import { deleteCategory } from "@/lib/mutations";
 import { getCategories } from "@/lib/queries";
 import { Delete, Edit } from "@mui/icons-material";
 
@@ -31,9 +32,14 @@ export default function CategoryList({categories}) {
                 </div>
 
                 <div className="flex gap-3">
-                    <button>
-                        <Delete />
-                    </button>
+                   <form onSubmit={async (e) => {
+                       e.preventDefault();
+                       await deleteCategory(category.id);
+                   }}>
+                    <button type="submit">
+                            <Delete />
+                        </button>
+                   </form>
                     <button>
                         <Edit />
                     </button>

@@ -1,9 +1,10 @@
 import { getCategories } from "@/lib/queries";
 import Modal from "./Modal";
 
+export const revalidate = 60;
+
 async function ModalServerWrapper() {
     const categories = await getCategories();
-    // console.log('jghjhg', categories);
     
     return ( 
         <Modal categories={categories} />

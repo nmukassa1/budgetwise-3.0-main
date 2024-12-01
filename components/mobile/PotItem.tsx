@@ -1,4 +1,3 @@
-import { LinearProgress } from "@mui/material";
 import Card from "../Card";
 
 //NOTE: Change type when I implement the actual data
@@ -8,7 +7,7 @@ interface PotItemProps {
     daysLeft: string;
 }
 
-function PotItem({name, progress, daysLeft} : PotItemProps) {
+function PotItem({name} : PotItemProps) {
     return ( 
         <Card className="shrink-0 w-[130px] h-[130px] rounded-md bg-secondary text-black flex flex-col items-center justify-center">
             <div className="flex flex-col w-[90%] h-[90%]">

@@ -24,7 +24,7 @@ export default function CategoryList({categories}) {
                     {category.icon}
                 </span>
                 <div className="flex items-center ml-2">
-                    <span>{category.name}</span>
+                    <span>{category.name.charAt(0).toUpperCase() + category.name.slice(1).toLowerCase()}</span>
                 </div>
 
                 <div className="mx-auto">

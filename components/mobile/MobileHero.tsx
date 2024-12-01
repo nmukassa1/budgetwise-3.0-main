@@ -11,7 +11,10 @@ async function MobileHero() {
     
     const totalIncome = income.reduce((acc, curr) => acc + curr.amount, 0);
     const totalExpenses = expenses.reduce((acc, curr) => acc + curr.amount, 0);
-    const netIncome = totalIncome - totalExpenses;
+    const netIncome = (totalIncome - totalExpenses).toLocaleString();
+
+    console.log(typeof netIncome);
+    
     
     
     return ( 
@@ -22,7 +25,7 @@ async function MobileHero() {
                 <div className="pt-5 text-white">
                     <h1 className="">Hello {user.first_name}</h1>
                     <div className="mt-2">
-                        <span className="font-bold text-3xl">£{netIncome}</span>
+                        <span className={`font-bold text-3xl ${netIncome < 0 ? 'text-error' : ''}`}>£{netIncome}</span>
                         <br /> 
                         <span className="text-sm">remaining this month</span>  
                     </div>

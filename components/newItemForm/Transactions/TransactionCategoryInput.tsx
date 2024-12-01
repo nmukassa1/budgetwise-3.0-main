@@ -62,7 +62,7 @@ function TransactionCategoryInput({ selectedType }: { selectedType: string }) {
                                             {category.icon}
                                         </span>
                                         <div className="flex items-center justify-between w-full">
-                                            <span>{category.name}</span>
+                                            <span>{category.name.charAt(0).toUpperCase() + category.name.slice(1).toLowerCase()}</span>
                                             {/* <span className="">£{category.remainingAmount.toFixed(2)} left</span> */}
                                         </div>
                                     </label>

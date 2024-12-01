@@ -18,6 +18,7 @@ module.exports = {
 			success: '#66bb6a', // Green for successful states (positive transactions)
 			error: '#f44336', // Red for errors or negative actions
 			brand: "#FF00FF",
+			placeholder: '#D9D9D9'
   	}
   },
   },

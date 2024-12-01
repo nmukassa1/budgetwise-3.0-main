@@ -7,7 +7,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
 
   return (
-    <div className='bg-background h-full'>
+    <div className='bg-primary h-full'>
         {children}
     </div>
   );

@@ -1,6 +1,7 @@
 import { getTransactionsByType, getUser } from "@/lib/queries";
 import Pnl from "./Pnl";
 import ModalServerWrapper from "../crud-modal/ModalServerWrapper";
+import { Menu } from "@mui/icons-material";
 
 export const revalidate = 60;
 
@@ -18,23 +19,38 @@ async function MobileHero() {
     
     
     return ( 
-        <div className=" h-[26vh] bg-primary">
+        <div className="bg-primary">
 
             <div className="mobile-container relative h-full">
 
                 <div className="pt-5 text-white">
-                    <h1 className="">Hello {user.first_name}</h1>
-                    <div className="mt-2">
-                        <span className={`font-bold text-3xl ${netIncome < 0 ? 'text-error' : ''}`}>£{netIncome}</span>
-                        <br /> 
-                        <span className="text-sm">remaining this month</span>  
+                    <header className="flex justify-between items-center">
+                        <h1 className="">Hello {user.first_name}</h1>
+                        <Menu />
+                    </header>
+
+                    <div className="mt-4 flex justify-between items-center">
+                        {/* Net Budget */}
+                       <div>
+                            <span className="text-sm">Net Budget</span>  
+                            <br /> 
+                            <span className={`font-bold text-3xl ${netIncome < 0 ? 'text-error' : ''}`}>£{netIncome}</span>
+                       </div>
+                       {/* Divider */}
+                       <div className="w-[2px] h-[62px] rotate-[22deg] bg-secondary"></div>
+                       {/* Acutal Balance */}
+                       <div>
+                            <span className="text-sm">Actual Balance</span>  
+                            <br /> 
+                            <span className={`font-bold text-3xl ${netIncome < 0 ? 'text-error' : ''}`}>£{netIncome}</span>
+                       </div>
                     </div>
+
                 </div>
 
                 <Pnl totalIncome={totalIncome} totalExpense={totalExpenses} />
 
-                {/* <Modal /> */}
-                <ModalServerWrapper />
+                {/* <ModalServerWrapper /> */}
             </div>
 
         </div>

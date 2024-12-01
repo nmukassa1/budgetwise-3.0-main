@@ -4,7 +4,7 @@ import { getTransactions } from "@/lib/queries";
 
 export default async function Transactions() {
     const transactions = await getTransactions();
-    console.log('Transactions:', transactions);
+    // console.log('Transactions:', transactions);
     
     // console.log('Transactions:', transactions);
     

@@ -13,7 +13,7 @@ async function MobileHero() {
     const totalExpenses = expenses.reduce((acc, curr) => acc + curr.amount, 0);
     const netIncome = (totalIncome - totalExpenses).toLocaleString();
 
-    console.log(typeof netIncome);
+    // console.log(typeof netIncome);
     
     
     

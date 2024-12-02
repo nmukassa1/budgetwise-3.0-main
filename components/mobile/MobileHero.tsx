@@ -1,7 +1,6 @@
 import { getTransactionsByType, getUser } from "@/lib/queries";
 import Pnl from "./Pnl";
-import ModalServerWrapper from "../crud-modal/ModalServerWrapper";
-import { Menu } from "@mui/icons-material";
+import HamburgerMenu from "../HamburgerMenu";
 
 export const revalidate = 60;
 
@@ -14,19 +13,19 @@ async function MobileHero() {
     const totalExpenses = expenses.reduce((acc, curr) => acc + curr.amount, 0);
     const netIncome = (totalIncome - totalExpenses).toLocaleString();
 
-    // console.log(typeof netIncome);
+    // console.log(typeof netIncome); 
     
     
     
     return ( 
-        <div className="bg-primary">
+        <div className="">
 
             <div className="mobile-container relative h-full">
 
                 <div className="pt-5 text-white">
                     <header className="flex justify-between items-center">
                         <h1 className="">Hello {user.first_name}</h1>
-                        <Menu />
+                        <HamburgerMenu />
                     </header>
 
                     <div className="mt-4 flex justify-between items-center">

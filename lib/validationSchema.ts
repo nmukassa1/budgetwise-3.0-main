@@ -15,10 +15,9 @@ export const loginFormSchema = z.object({
 // export type SignupFormSchema = z.infer<typeof signupFormSchema>;
 
 
-export const categorySchema = z.object({
+export const potSchema = z.object({
     name: z.string().min(2),
-    categoryType: z.string(),
-    budgetAmount: z.number().int().min(1, { message: 'Budget amount must be greater than 0'}),
+    goal: z.number().int().min(1, { message: 'Pot goal must be greater than 0'}),
     // color: z.string(),
     // icon: z.string(),
 });

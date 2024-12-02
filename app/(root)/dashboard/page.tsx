@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import MobileHero from '@/components/mobile/MobileHero';
 import Footer from '@/components/Footer';
-import Pots from '@/components/Pots';
+import Pots from '@/components/pots/Pots';
 import Budget from '@/components/Budget';
 
 const Dashboard: FC = async () => {

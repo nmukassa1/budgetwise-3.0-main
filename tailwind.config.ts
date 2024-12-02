@@ -9,10 +9,9 @@ module.exports = {
   theme: {
   	extend: {
   		colors: {
-			background: "#F8F5F0", 
-			// background: "#F6F6F9",
-			primary: '#343434', // Dark grayish tone for sidebar background
-			secondary: 'white', // Light beige or off-white for main background
+			background: "#161618", 
+			primary: '#1F1F1F', // Dark grayish tone for sidebar background
+			secondary: '#FAF9F6', // Light beige or off-white for main background
 			info: '#4fc3f7', // Light blue for informational elements (budget indicator)
 			warning: '#ffcc80', // Light peach for caution (warning states)
 			success: '#66bb6a', // Green for successful states (positive transactions)

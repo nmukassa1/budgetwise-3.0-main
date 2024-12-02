@@ -12,7 +12,7 @@ export default Pnl;
 
 function Item({icon, title, budgetAmount, actualAmount} : {icon: string, title: string, budgetAmount: number, actualAmount: number}) {
     return (
-        <div className="flex items-center px-4 py-1 bg-secondary rounded-full text-[.8rem]">
+        <div className="flex items-center px-4 py-1 bg-primary rounded-full text-[.8rem]">
             <div className="icon">{icon}</div>
             <div className="title ml-4">{title.charAt(0).toUpperCase() + title.slice(1).toLowerCase()}</div>
             <div className="flex items-center gap-10 mx-auto">

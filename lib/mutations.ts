@@ -1,22 +1,21 @@
 "use server"
 import { verifySession } from "./session";
 import { supabase } from "./supabase";
-import { categorySchema, transactionSchema } from "./validationSchema";
+import { potSchema, transactionSchema } from "./validationSchema";
 
 import { revalidatePath } from "next/cache";
 
-export async function createNewCategory(state: object, formData: FormData) {
+export async function createNewPot(state: object, formData: FormData) {
     const session = await verifySession();
     if (!session?.userId) {
         console.log("No session found");
     }
-    console.log(Number(formData.get("budgetAmount")));
+    console.log(Number(formData.get("goal")));
 
     // Validate fields
-    const validation = categorySchema.safeParse({
+    const validation = potSchema.safeParse({
         name: formData.get("name"),
-        categoryType: formData.get("categoryType"),
-        budgetAmount: Number(formData.get("budgetAmount")),
+        goal: Number(formData.get("goal")),
     });
 
     // Validation failed
@@ -28,16 +27,15 @@ export async function createNewCategory(state: object, formData: FormData) {
     }
 
     // Validation passed
-    const { name, categoryType, budgetAmount } = validation.data;
+    const { name, goal } = validation.data;
 
     try {
         // Create new category
-        const { data: category, error } = await supabase
-            .from("categories")
+        const { data: pot, error } = await supabase
+            .from("pots")
             .insert({
                 name,
-                category_type: categoryType,
-                budget_amount: Number(budgetAmount),
+                target_amount: Number(goal),
                 user_id: session.userId,
             })
             .select("*");
@@ -46,7 +44,7 @@ export async function createNewCategory(state: object, formData: FormData) {
             console.log(error);
             return {
                 errors: {
-                    general: "An error occurred while creating the category",
+                    general: "An error occurred while creating the pot",
                 },
             };
         }
@@ -54,7 +52,10 @@ export async function createNewCategory(state: object, formData: FormData) {
         // Trigger revalidation of a specific path
         revalidatePath("/dashboard"); // Update this to the relevant path
 
-        return category;
+        return {
+            results: { message: "Pot created successfully", data: pot },
+        };
+        
     } catch (error) {
         console.log(error);
         return {

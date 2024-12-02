@@ -4,7 +4,8 @@ import Card from "./Card";
 
 interface PotItemProps {
     name: string;
-    progress: string;
+    budgetAmount: number;
+    amountSpent: number;
 }
 
 export default function Budget(){
@@ -12,27 +13,28 @@ export default function Budget(){
         <Card className="text-white">
             <CategoryHeader categoryName='Budget' />
 
-            <div className="grid gap-4">
-                <BudgetItem name='Rent' progress='100%' />
+            <div className="grid gap-4 mt-4">
+                <BudgetItem name='Rent' budgetAmount={1400} amountSpent={1400} />
+                <BudgetItem name='Food' budgetAmount={250} amountSpent={75} />
             </div>
         </Card>
     )
 }
 
 
-function BudgetItem({name, progress} : PotItemProps) {
+function BudgetItem({name, budgetAmount, amountSpent} : PotItemProps) {
     return(
-        <div className="w-full bg-secondary text-black p-4 rounded-lg">
+        <div className="w-full bg-primary p-4 rounded-lg">
             <div className="text-[.9rem]">
                 <div>{name}</div>
-                <div>Budgeted: £1,400</div>
+                <div>Budgeted: £{budgetAmount.toLocaleString()}</div>
             </div>
             <div className="progress mt-5">
             <div className="flex justify-between items-center text-[.8rem] mb-1">
-                <span>{progress}</span>
-                <span>Remaining: £0</span>
+                <span>{(amountSpent / budgetAmount) * 100}%</span>
+                <span>Remaining: £{(budgetAmount - amountSpent).toLocaleString()}</span>
             </div>
-            <LinearProgress variant="determinate" value={100} />
+            <LinearProgress variant="determinate" value={(amountSpent / budgetAmount) * 100} />
             </div>
         </div>
     )

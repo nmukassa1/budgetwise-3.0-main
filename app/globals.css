@@ -6,44 +6,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.masonry-item:nth-child(odd) {
-  grid-row: span 2;
-}
-.masonry-item:nth-child(even) {
-  grid-row: span 4;
-}
-
-.transaction-item  {
-  border-bottom: 1px solid #e2e8f0;
-}
-
-/* .transaction-item:first-child {
-  padding-top: 0;
-}
-.transaction-item:last-child {
-  padding-bottom: 0;
-} */
-
 @layer utilities{
-
-  .sidebar-item{@apply flex items-center px-4 py-2 text-[1rem] transition-colors duration-200 transform rounded-lg cursor-pointer overflow-hidden}
-
-  .sidebar{@apply relative overflow-hidden rounded-tr-2xl duration-300 h-screen bg-primary text-secondary }
-
-  .card{@apply grow min-h-[110px] md:self-start }
-
-  .total-card{@apply flex items-center gap-2 bg-background w-full rounded-lg p-[20px]}
-  
-  .navbar{ @apply flex flex-col shrink-0 h-[95%]}
-
-  .masonry-layout {
-    @apply grid grid-cols-2 mt-5 gap-4 h-full
-  }
-
-  .bar{@apply h-auto w-[3.5px] bg-red-300}
-
-  .total-saved{@apply flex items-center gap-2 bg-background w-full rounded-lg p-[20px]}
-
   .login-form{@apply flex flex-col items-center justify-center md:w-[500px] m-auto}
 
   .form-input{@apply w-full px-4 py-2 md:py-[20px] text-gray-700 border border-primary rounded-[1000px] bg-secondary text-center focus:outline-none focus:border-primary}
@@ -52,12 +15,6 @@ body {
 
   .auth-submit-btn{@apply w-full py-[10px] mb-4 text-white bg-black border rounded-[1000px] focus:outline-none hover:bg-brand transition duration-300}
 
-
-
-
   .mobile-container{@apply w-[90%] mx-auto}
 
-  .hero-gradient{@apply
-    bg-gradient-to-r from-[#E2BDDF] to-[#CFC0F4]
-  }
 }

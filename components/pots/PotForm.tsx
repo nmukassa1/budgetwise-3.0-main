@@ -1,25 +1,24 @@
 "use client";
 
-import { useState, useActionState } from "react";
-import { createNewCategory } from "@/lib/mutations";
+import { useState, useActionState, useEffect } from "react";
+import { createNewPot } from "@/lib/mutations";
 
 interface FormData {
     name: string,
-    categoryType: string;
-    budgetAmount: string
+    goal: string
   }
 
 const defaultformData: FormData = {
     name: "",
-    categoryType: "income",
-    budgetAmount: ''
+    goal: ''
 };
 
-function CategoryForm() {
+// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
+function PotForm({setOpenSlide} : {setOpenSlide: Function}) {
     const [formData, setFormData] = useState<FormData>(defaultformData);
 
     // Hook to manage the action state
-    const [ state, action, pending ] = useActionState(createNewCategory, { errors: {} });
+    const [ state, action, pending ] = useActionState(createNewPot, { errors: {} });
 
     // Handle form input changes
     const handleChange = (e) => {
@@ -30,15 +29,22 @@ function CategoryForm() {
         });
     };
 
+    useEffect(() => {
+        if (state?.results?.message) {
+            setOpenSlide(false);
+        }
+    }, [state]);
+   
+
     return (
         <form
-            className="text-primary rounded-md w-full h-full max-w-md mx-auto"
+            className="text-primary w-full "
             action={action}
         >
             <div className="flex flex-col gap-4">
                 {/* Category Name */}
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="name">Category Name</label>
+                    <label htmlFor="name">Pot Name</label>
                     <input
                         type="text"
                         name="name"
@@ -50,34 +56,18 @@ function CategoryForm() {
                     {state?.errors?.name && ( <p className="text-red-500">{state.errors.name}</p> )}
                 </div>
 
-                {/* Category Type */}
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="categoryType">Category Type</label>
-                    <select
-                        name="categoryType"
-                        id="categoryType"
-                        className="border border-gray-700 rounded-md p-2"
-                        value={formData.categoryType}
-                        onChange={handleChange}
-                    >
-                        <option value="income">Income</option>
-                        <option value="expense">Expense</option>
-                        <option value="pots">Pots</option>
-                    </select>
-                </div>
-
                 {/* Budget Amount */}
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="budgetAmount">Budget Amount</label>
+                    <label htmlFor="goal">Pot Goal</label>
                     <input
                         type="number"
-                        name="budgetAmount"
-                        id="budgetAmount"
+                        name="goal"
+                        id="goal"
                         className="border border-gray-700 rounded-md p-2"
-                        value={formData.budgetAmount}
+                        value={formData.goal}
                         onChange={handleChange}
                     />
-                   {state?.errors?.budgetAmount && ( <p className="text-red-500">{state.errors.budgetAmount}</p> )}
+                   {state?.errors?.goal && ( <p className="text-red-500">{state.errors.goal}</p> )}
                 </div>
 
                {state?.errors?.general && ( <p className="text-red-500">{state.errors.general}</p> )}
@@ -97,4 +87,4 @@ function CategoryForm() {
     );
 }
 
-export default CategoryForm;
+export default PotForm;

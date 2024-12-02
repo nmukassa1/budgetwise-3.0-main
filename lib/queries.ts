@@ -41,3 +41,10 @@ export const getTransactions = async () => {
     const { data: transactions } = await supabase.from('transactions').select('*').eq('user_id', session.userId);
     return transactions;
 }
+
+export const getPots = async () => {
+    const session = await verifyAndGetSession();
+
+    const { data: pots } = await supabase.from('pots').select('*').eq('user_id', session.userId);
+    return pots;
+};

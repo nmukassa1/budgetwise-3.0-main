@@ -31,7 +31,8 @@ function BudgetItem({name, budgetAmount, amountSpent} : PotItemProps) {
             </div>
             <div className="progress mt-5">
             <div className="flex justify-between items-center text-[.8rem] mb-1">
-                <span>{(amountSpent / budgetAmount) * 100}%</span>
+                <span>Spent: £{amountSpent.toLocaleString()}</span>
+                {/* <span>{(amountSpent / budgetAmount) * 100}%</span> */}
                 <span>Remaining: £{(budgetAmount - amountSpent).toLocaleString()}</span>
             </div>
             <LinearProgress variant="determinate" value={(amountSpent / budgetAmount) * 100} />

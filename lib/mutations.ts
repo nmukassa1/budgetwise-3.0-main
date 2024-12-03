@@ -27,7 +27,8 @@ export async function createNewPot(state: object, formData: FormData) {
     }
 
     // Validation passed
-    const { name, goal } = validation.data;
+    const { name } = validation.data;
+    const goal = Number(formData.get("goal"));
 
     try {
         // Create new category

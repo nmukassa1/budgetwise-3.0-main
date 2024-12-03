@@ -17,7 +17,7 @@ export const loginFormSchema = z.object({
 
 export const potSchema = z.object({
     name: z.string().min(2),
-    goal: z.number().int().min(1, { message: 'Pot goal must be greater than 0'}),
+    // goal: z.number().int().min(1, { message: 'Pot goal must be greater than 0'}),
     // color: z.string(),
     // icon: z.string(),
 });

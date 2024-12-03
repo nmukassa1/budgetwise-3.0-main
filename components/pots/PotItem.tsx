@@ -18,8 +18,9 @@ function PotItem({pot, setSelectedPot} : PotItemProps) {
         <Card className="shrink-0 w-[130px] h-full overflow-hidden rounded-md bg-primary flex flex-col items-center justify-center">
             <button className="flex flex-col w-[90%] h-[90%] text-left" onClick={() => setSelectedPot(id)}>
                 <div>{name}</div>
-                <div className="mt-auto">£{(target_amount).toLocaleString()}</div>
-                <div className="text-sm w-fit rounded-full mt-2 py-1 px-2 bg-secondary text-primary">{(current_amount / target_amount) * 100}%</div>
+                <div className="mt-auto">£{(current_amount).toLocaleString()}</div>
+                {/* <div className="mt-auto">£{(target_amount).toLocaleString()}</div> */}
+                {target_amount > 0 && <div className="text-sm w-fit rounded-full mt-2 py-1 px-2 bg-secondary text-primary">{(current_amount / target_amount) * 100}%</div> }
             </button>
         </Card>
      );

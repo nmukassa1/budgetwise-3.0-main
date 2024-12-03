@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import NewPot from "./NewPot";
 import PotItem from "./PotItem";
 import { Drawer } from "@mui/material";
+import Card from "../Card";
+import CategoryHeader from "../CategoryHeader";
 
 export default function PotSlider({pots}){
     const [selectedPot, setSelectedPot] = useState<number | undefined>(undefined)
@@ -26,6 +28,7 @@ export default function PotSlider({pots}){
             setDrawerOpen(true)
         }else{
             setDrawerOpen(false)
+            setSelectedPot(undefined)
         }
         
     }, [selectedPot]);
@@ -41,10 +44,40 @@ export default function PotSlider({pots}){
                 </div>
             </div>
 
-            <Drawer open={drawerOpen} anchor="top">
-                <div className="h-screen mobile-container relative">
-                    <h1 className="absolute top-[30px] left-[50%] translate-x-[-50%] text-[5rem] font-black opacity-[.2] z-[-1]">{filteredPot?.name}</h1>
+            <Drawer open={drawerOpen} anchor="top" sx={{'& .MuiDrawer-paper': {background: '#161618'}}}>
+                <div className="h-screen mobile-container flex flex-col items-center text-white py-4">
+                    <h1>{filteredPot?.name}</h1>
+
+                        <div className="box w-[130px] h-[130px] overflow-hidden rounded-md bg-primary mt-6 mb-4">
+                            {/* Placeholder box */}
+                        </div>
+                        <div className="current_amount w-fit">£{(filteredPot?.current_amount).toLocaleString()}</div>
+                        <div className="flex items-center gap-4 mt-2">
+                            <button>- Withdraw</button>
+                            <button>+ Add money</button>
+                        </div>
+
+                        <Card className="w-full bg-primary p-4 rounded-md mt-8">
+                            <CategoryHeader categoryName="Activity"  />
+
+                            <div className="mt-4">
+                                <ul className=" overflow-hidden max-h-[135.5px]">
+                                    <li className="flex items-center justify-between py-4 border-b">
+                                        <div className="icon h-[30px] w-[30px] bg-background rounded-full"></div>
+                                        <div className="text">You added £100</div>
+                                    </li>
+                                    <li className="flex items-center justify-between py-4 border-b">
+                                        <div className="icon h-[30px] w-[30px] bg-background rounded-full"></div>
+                                        <div className="text">You added £100</div>
+                                    </li>
+                                </ul>
+                                <button className="mt-4">See All</button>
+                            </div>
+                        </Card>
+                    
+                        
                     <button onClick={handleDrawClose} className="mt-4 bg-primary text-secondary py-4 px-6 rounded-md">Close</button>
+               
                 </div>
             </Drawer>
         </>

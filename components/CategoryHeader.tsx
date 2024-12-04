@@ -10,7 +10,7 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = ({ categoryName, className
     return (
       <header className='flex items-center justify-between'>
         <h1 className={`${textColor} ${className} font-bold text-xl`}>{categoryName}</h1>
-        <Link href={`/dashboard/${categoryName.toLowerCase()}`} passHref>View All</Link>
+        {/* <Link href={`/dashboard/${categoryName.toLowerCase()}`} passHref>View All</Link> */}
       </header>
     );
   }

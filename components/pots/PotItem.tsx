@@ -20,7 +20,7 @@ function PotItem({pot, setSelectedPot} : PotItemProps) {
                 <div>{name}</div>
                 <div className="mt-auto">£{(current_amount).toLocaleString()}</div>
                 {/* <div className="mt-auto">£{(target_amount).toLocaleString()}</div> */}
-                {target_amount > 0 && <div className="text-sm w-fit rounded-full mt-2 py-1 px-2 bg-secondary text-primary">{(current_amount / target_amount) * 100}%</div> }
+                {target_amount > 0 && <div className="text-sm w-fit rounded-full mt-2 py-1 px-2 bg-secondary text-primary">{Math.ceil((current_amount / target_amount) * 100)}%</div> }
             </button>
         </Card>
      );

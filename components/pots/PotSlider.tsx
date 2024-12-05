@@ -3,12 +3,14 @@ import { useEffect, useRef, useState } from "react";
 import NewPot from "./NewPot";
 import PotItem from "./PotItem";
 import PotItemSummary from "./PotItemSummary";
+import { PotProvider } from "@/lib/context/PotContext";
 
 export default function PotSlider({pots}){
     const [selectedPot, setSelectedPot] = useState<number | undefined>(undefined)
     const [togglePotSummary, setTogglePotSummary] = useState(false)
 
     const filteredPot = pots.filter(pot => pot.id === selectedPot)[0]
+    
     const isFirstRender = useRef(true);
 
     useEffect(() => {
@@ -29,17 +31,19 @@ export default function PotSlider({pots}){
 
     return(
         <>
-            <div className="flex gap-2 h-[130px]">
-            <NewPot />
-                <div className="slider overflow-scroll flex items-center gap-2 py-2">
-                    {pots.map((pot) => (
-                        <PotItem key={pot.id} pot={pot} setSelectedPot={setSelectedPot} />
-                    ))}
+            <PotProvider pot={filteredPot}>
+                <div className="flex gap-2 h-[130px]">
+                <NewPot />
+                    <div className="slider overflow-scroll flex items-center gap-2 py-2">
+                        {pots.map((pot) => (
+                            <PotItem key={pot.id} pot={pot} setSelectedPot={setSelectedPot} />
+                        ))}
+                    </div>
                 </div>
-            </div>
 
-            <PotItemSummary filteredPot={filteredPot} togglePotSummary={togglePotSummary} setTogglePotSummary={setTogglePotSummary} />
-            
+                {filteredPot && <PotItemSummary togglePotSummary={togglePotSummary} setTogglePotSummary={setTogglePotSummary} />}
+                
+            </PotProvider>
         </>
     )
 }

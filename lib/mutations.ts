@@ -113,8 +113,8 @@ export async function createTransaction(state: object, formData: FormData) {
     // Validate fields
     const validation = transactionSchema.safeParse({
         name: formData.get("name"),
-        category_type: formData.get("category_type"),
         amount: Number(formData.get("transaction_amount")),
+        category_type: formData.get("category_type"),
         repeat: (formData.get("repeat") === 'true' ? true : false),
         category: formData.get("category")
     });
@@ -166,6 +166,70 @@ export async function createTransaction(state: object, formData: FormData) {
         console.log('Transaction created successfully');
             return{
                 results: {message: 'Transaction created successfully', data: category}
+            }
+
+    } catch (error) {
+        console.log(error);
+        return {
+            errors: {
+                general: "An unexpected error occurred",
+            },
+        };
+    }
+}
+
+interface potTransaction {
+    name: string,
+    amount: string,
+    repeat: boolean,
+    potId: number,
+    withdrawOrAdd: string // This will be used to determine if the transaction is a withdrawal or addition
+}
+
+export async function createPotTransaction(formData: potTransaction) {
+    const session = await verifySession();
+    if (!session?.userId) {
+        console.log("No session found");
+    }
+
+    console.log(formData);
+
+    const transaction_date = new Date();
+    
+    const { name, amount, repeat, potId, withdrawOrAdd } = formData;
+
+    const x = withdrawOrAdd === 'withdraw' ? -Math.abs(Number(amount)) : Number(amount)
+
+    try {
+        // Create new category
+        const { data, error } = await supabase
+            .from("transactions")
+            .insert({
+                name,
+                amount: withdrawOrAdd === 'withdraw' ? -Math.abs(Number(amount)) : Number(amount),
+                is_recurring: repeat,
+                transaction_date,
+                category_type: 'pot',
+                user_id: session.userId,
+                pot_id: potId
+            })
+            .select("*");
+
+        if (error) {
+            console.log(error);
+            return {
+                message: "An error occurred while creating the transaction",
+                error: error
+            };
+        }
+
+        // Trigger revalidation of a specific path
+        revalidatePath("/dashboard"); // Update this to the relevant path
+
+        console.log('Transaction created successfully');
+        console.log(x, withdrawOrAdd);
+            return{
+                results: {message: 'Transaction created successfully', data}
             }
 
     } catch (error) {

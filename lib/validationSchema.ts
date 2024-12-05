@@ -29,3 +29,11 @@ export const transactionSchema = z.object({
     repeat: z.boolean(),
     category: z.string({message: 'Please select a category'}),
 });
+
+export const potTransactionSchema = z.object({
+    amount: z.number().min(1),
+    name: z.string().min(2),
+    category_type: z.string(),
+    repeat: z.boolean(),
+    category: z.string({message: 'Please select a category'}),
+});

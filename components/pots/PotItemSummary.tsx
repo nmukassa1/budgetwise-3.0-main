@@ -3,9 +3,10 @@
 import { Drawer, LinearProgress } from "@mui/material"
 import Card from "../Card"
 import CategoryHeader from "../CategoryHeader"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { usePot } from "@/lib/context/PotContext"
 import AddWithdrawMenu from "./AddWithdrawMenu"
+import { getTransactionsById } from "@/lib/queries"
 
 interface PotItemSummaryProps{
     togglePotSummary: boolean,
@@ -21,6 +22,15 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary} 
 
     const [openAddWithdrawMenu, setOpenAddWithdrawMenu] = useState(false)
     const [addWithdrawMenuAction, setAddWithdrawMenuAction] = useState<{  withdrawOrAdd: string }>({ withdrawOrAdd: '' })
+    const [transactions, setTransactions] = useState<Array<any>>([])
+
+    useEffect(() => {
+       async function fetchTransactions(){
+            const transactions = await getTransactionsById(potItem.id)
+            transactions && transactions.length > 0 ? setTransactions(transactions) : []
+        }
+        fetchTransactions()
+    }, [potItem.id])
 
     function handleDrawClose(){
         setTogglePotSummary(false)
@@ -58,19 +68,20 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary} 
                             <CategoryHeader categoryName="Activity"  />
 
                             <div className="mt-4">
+                                {transactions.length === 0 && <p>No transactions found</p>}
                                 <ul className=" overflow-hidden max-h-[135.5px]">
-                                    <li className="flex items-center justify-between py-4 border-b">
-                                        <div className="icon h-[30px] w-[30px] bg-background rounded-full"></div>
-                                        <div className="text">You added £100</div>
-                                    </li>
-                                    <li className="flex items-center justify-between py-4 border-b">
-                                        <div className="icon h-[30px] w-[30px] bg-background rounded-full"></div>
-                                        <div className="text">You added £100</div>
-                                    </li>
+                                    {transactions.map((transaction, index) => (
+                                        <li key={index} className="flex items-center justify-between py-4 border-b">
+                                            <div className="icon h-[30px] w-[30px] bg-background rounded-full"></div>
+                                            <div>{transaction.amount < 0 ? `You've withdrew` : `You've added `}</div>
+                                            <div className="text">{transaction.amount}</div>
+                                        </li>
+                                    ))}
                                 </ul>
                                 <button className="mt-4">See All</button>
                             </div>
                         </Card>
+
 
                         {/* Goals */}
                         <Card className="w-full bg-primary p-4 rounded-md mt-8">
@@ -91,7 +102,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary} 
                     
                 <button onClick={handleDrawClose} className="mt-4 bg-primary text-secondary py-4 px-6 rounded-md w-full">Close</button>
                 
-                <AddWithdrawMenu openAddWithdrawMenu={openAddWithdrawMenu} setOpenAddWithdrawMenu={setOpenAddWithdrawMenu} addWithdrawMenuAction={addWithdrawMenuAction} />
+                <AddWithdrawMenu openAddWithdrawMenu={openAddWithdrawMenu} setOpenAddWithdrawMenu={setOpenAddWithdrawMenu} addWithdrawMenuAction={addWithdrawMenuAction} transactions={transactions} setTransactions={setTransactions} />
             </div>
         </Drawer>
     )

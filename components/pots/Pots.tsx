@@ -1,6 +1,6 @@
 import Card from "@/components/Card";
 import CategoryHeader from "@/components/CategoryHeader";
-import { getPots } from "@/lib/queries";
+import { getPots, getTransactionsById } from "@/lib/queries";
 import PotSlider from "./PotSlider";
 import TotalSaved from "./TotalSaved";
 
@@ -8,6 +8,7 @@ import TotalSaved from "./TotalSaved";
 async function Pots() {
 
     const pots = await getPots()
+    // const transactions = await getTransactionsById();
 
 
     return ( 

@@ -2,6 +2,7 @@
 import { cache } from "react";
 import { verifySession } from "./session";
 import { supabase } from "./supabase";
+import { revalidatePath } from "next/cache";
 
 // export const revalidate = 3600;
 
@@ -32,7 +33,24 @@ export const getCategories = async () => {
 export const getTransactionsByType = async (type: string) => {
     const session = await verifyAndGetSession();
 
-    const { data: transactions } = await supabase.from('transactions').select('*').eq('user_id', session.userId).eq('category_type', type);
+    const { data: transactions } = await supabase
+        .from('transactions').select('*')
+        .eq('user_id', session.userId)
+        .eq('category_type', type)
+        
+    return transactions;
+}
+
+export const getTransactionsById = async (id: number) => {
+    const session = await verifyAndGetSession();
+
+    const { data: transactions } = await supabase
+        .from('transactions')
+        .select('*').eq('user_id', session.userId)
+        .eq('pot_id', id)
+        .order('created_at', { ascending: false });
+
+        revalidatePath("/dashboard");
     return transactions;
 }
 export const getTransactions = async () => {

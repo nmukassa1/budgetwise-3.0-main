@@ -3,6 +3,7 @@ import { createPotTransaction } from "@/lib/mutations"
 import { currencyFormat } from "@/lib/utils"
 import { Close } from "@mui/icons-material"
 import { Drawer, FormControlLabel, Switch } from "@mui/material"
+import { useSelectedLayoutSegments } from "next/navigation"
 import { use, useEffect, useState } from "react"
 
 interface AddWithdrawMenuProps{
@@ -10,12 +11,14 @@ interface AddWithdrawMenuProps{
     setOpenAddWithdrawMenu: Function,
     addWithdrawMenuAction: {
         withdrawOrAdd: string
-    }
+    },
+    transactions: Array<any>,
+    setTransactions: Function
 }
 
 // NOTE: CREATE FUNCTION IN SUPABASE THAT PREVENTS USERS FROM ADDING MORE MONET THAN THEY HAVE IN THEIR ACCOUNT
 
-export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdrawMenu, addWithdrawMenuAction} : AddWithdrawMenuProps){
+export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdrawMenu, addWithdrawMenuAction, transactions, setTransactions} : AddWithdrawMenuProps){
 
     const potItem = usePot()
 
@@ -84,6 +87,13 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
             ...formData,
             amount: ''
         })
+        console.log('Result:', result);
+
+        const {results} = result
+        
+        const newTransationsList = [...transactions, results?.data[0]].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+        console.log(newTransationsList)
+        setTransactions(newTransationsList)
 
         setOpenAddWithdrawMenu(false)
         

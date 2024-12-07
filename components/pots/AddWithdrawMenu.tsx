@@ -79,7 +79,7 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
         const result = await createPotTransaction(formData)
         if(result.error){
             setError(result.error)
-            console.log(result.error);
+            // console.log(result.error);
         }
 
         //clear states
@@ -87,12 +87,12 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
             ...formData,
             amount: ''
         })
-        console.log('Result:', result);
+        // console.log('Result:', result);
 
         const {results} = result
         
         const newTransationsList = [...transactions, results?.data[0]].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-        console.log(newTransationsList)
+        // console.log(newTransationsList)
         setTransactions(newTransationsList)
 
         setOpenAddWithdrawMenu(false)

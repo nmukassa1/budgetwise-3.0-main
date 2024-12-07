@@ -20,6 +20,9 @@ interface AddWithdrawMenuProps{
 
 export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdrawMenu, addWithdrawMenuAction, transactions, setTransactions} : AddWithdrawMenuProps){
 
+    console.log('NOTE: CREATE FUNCTION IN SUPABASE THAT PREVENTS USERS FROM ADDING MORE MONET THAN THEY HAVE IN THEIR ACCOUNT');
+    
+
     const potItem = usePot()
 
     const {withdrawOrAdd} = addWithdrawMenuAction

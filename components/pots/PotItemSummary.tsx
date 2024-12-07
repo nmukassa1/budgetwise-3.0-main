@@ -24,6 +24,8 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary} 
     const [addWithdrawMenuAction, setAddWithdrawMenuAction] = useState<{  withdrawOrAdd: string }>({ withdrawOrAdd: '' })
     const [transactions, setTransactions] = useState<Array<any>>([])
 
+    const [transactionContainerHeight, settransactionContainerHeight] = useState('max-h-[135.5px]')
+
     useEffect(() => {
        async function fetchTransactions(){
             const transactions = await getTransactionsById(potItem.id)
@@ -69,7 +71,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary} 
 
                             <div className="mt-4">
                                 {transactions.length === 0 && <p>No transactions found</p>}
-                                <ul className=" overflow-hidden max-h-[135.5px]">
+                                <ul className={`overflow-hidden ${transactionContainerHeight}`}>
                                     {transactions.map((transaction, index) => (
                                         <li key={index} className="flex items-center justify-between py-4 border-b">
                                             <div className="icon h-[30px] w-[30px] bg-background rounded-full"></div>
@@ -78,7 +80,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary} 
                                         </li>
                                     ))}
                                 </ul>
-                                <button className="mt-4">See All</button>
+                                <button onClick={() => {transactionContainerHeight !== 'h-auto' ? settransactionContainerHeight('h-auto') : settransactionContainerHeight('max-h-[135.5px]')}} className="mt-4">{transactionContainerHeight === 'h-auto' ? 'Close' : 'See all'}</button>
                             </div>
                         </Card>
 

@@ -16,6 +16,8 @@ interface PotItemSummaryProps{
 
 
 export default function PotItemSummary({ togglePotSummary, setTogglePotSummary} : PotItemSummaryProps){
+    console.log('NOTE: REWRITE HOW TRANSACTION HEIHGT IS TOGGLEED IN ORDER TO PREVENT RERENDERING OF COMPONENTS');
+    
     
     const potItem = usePot()
 

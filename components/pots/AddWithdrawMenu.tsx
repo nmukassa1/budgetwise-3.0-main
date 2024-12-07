@@ -3,7 +3,7 @@ import { createPotTransaction } from "@/lib/mutations"
 import { currencyFormat } from "@/lib/utils"
 import { Close } from "@mui/icons-material"
 import { Drawer, FormControlLabel, Switch } from "@mui/material"
-import { useState } from "react"
+import { use, useEffect, useState } from "react"
 
 interface AddWithdrawMenuProps{
     openAddWithdrawMenu: boolean,
@@ -12,6 +12,8 @@ interface AddWithdrawMenuProps{
         withdrawOrAdd: string
     }
 }
+
+// NOTE: CREATE FUNCTION IN SUPABASE THAT PREVENTS USERS FROM ADDING MORE MONET THAN THEY HAVE IN THEIR ACCOUNT
 
 export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdrawMenu, addWithdrawMenuAction} : AddWithdrawMenuProps){
 
@@ -27,19 +29,67 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
         withdrawOrAdd
     })
 
+    const [error, setError] = useState(null)
+
+    const [disableButton, setDisableButton] = useState(false)
+
+    useEffect(() => {
+        if(formData.amount === ''){
+            setDisableButton(true)
+        }else if(Number(formData.amount) > Number(potItem?.current_amount) && withdrawOrAdd === 'withdraw'){
+            setDisableButton(true)
+        } else{
+            setDisableButton(false)
+        }
+    }, [formData])
+
+    useEffect(() => {
+        setFormData({
+            ...formData,
+            amount: ''
+        })
+    },[withdrawOrAdd]) 
+
+    const formatTransation = (amount: string) => {
+        let amountReturned;
+        if (withdrawOrAdd === 'withdraw') {
+            amountReturned = -Math.abs(Number(amount))
+            return amountReturned;
+        } else {
+            return amount;
+        }
+
+    }
+
     const handleChange = (e) => {
         const {name, value} = e.target
         setFormData({
             ...formData,
-            [name]: name === 'amount' ? currencyFormat(value) : value,
+            // [name]: name === 'amount' ? currencyFormat(value) : value,
+            [name]: name === 'amount' ? formatTransation(currencyFormat(value)) : value,
         })
+        formatTransation(value)
     }
     
     const handleSubmit = async (e) => {
         e.preventDefault()
         const result = await createPotTransaction(formData)
-        console.log(result)
+        if(result.error){
+            setError(result.error)
+            console.log(result.error);
+        }
+
+        //clear states
+        setFormData({
+            ...formData,
+            amount: ''
+        })
+
+        setOpenAddWithdrawMenu(false)
+        
     }
+
+   
 
     return(
         <>
@@ -55,6 +105,7 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
                             <div className="text-secondary p-4 border-white border-2 flex items-center gap-2 mt-4 rounded-md">
                                 <div>£</div> 
                                 <input onChange={handleChange} value={formData.amount} name='amount' type="number" placeholder="0.00" className="bg-transparent w-full focus:outline-none"/>
+                                {}
                             </div>
                             
                             <div className="flex items-center gap-2 mt-4">
@@ -67,7 +118,7 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
 
                             <button type="submit" 
                             className={`w-full text-primary py-4 rounded-md mt-4 ${formData.amount === '' ? 'bg-[grey]' : 'bg-secondary'}`}
-                            disabled={formData.amount === '' ? true : false}
+                            disabled={disableButton}
                             >   
                                 {withdrawOrAdd.charAt(0).toUpperCase() + withdrawOrAdd.slice(1)}
                             </button>

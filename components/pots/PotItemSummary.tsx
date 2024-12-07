@@ -48,7 +48,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary} 
                     <div className="current_amount w-fit">£{potItem?.current_amount?.toLocaleString()}</div>
 
                     <div className="flex items-center gap-4 mt-2">
-                        <button onClick={handleAddWithdrawMenuOpen} id="withdraw">- Withdraw</button>
+                        {potItem?.current_amount > 0 && <button onClick={handleAddWithdrawMenuOpen} id="withdraw">- Withdraw</button>}
                         <button onClick={handleAddWithdrawMenuOpen} id="add">+ Add money</button>
                     </div>
 

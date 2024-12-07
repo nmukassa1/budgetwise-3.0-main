@@ -183,7 +183,6 @@ interface potTransaction {
     amount: string,
     repeat: boolean,
     potId: number,
-    withdrawOrAdd: string // This will be used to determine if the transaction is a withdrawal or addition
 }
 
 export async function createPotTransaction(formData: potTransaction) {
@@ -196,9 +195,8 @@ export async function createPotTransaction(formData: potTransaction) {
 
     const transaction_date = new Date();
     
-    const { name, amount, repeat, potId, withdrawOrAdd } = formData;
+    const { name, amount, repeat, potId } = formData;
 
-    const x = withdrawOrAdd === 'withdraw' ? -Math.abs(Number(amount)) : Number(amount)
 
     try {
         // Create new category
@@ -206,7 +204,7 @@ export async function createPotTransaction(formData: potTransaction) {
             .from("transactions")
             .insert({
                 name,
-                amount: withdrawOrAdd === 'withdraw' ? -Math.abs(Number(amount)) : Number(amount),
+                amount: Number(amount),
                 is_recurring: repeat,
                 transaction_date,
                 category_type: 'pot',
@@ -227,7 +225,6 @@ export async function createPotTransaction(formData: potTransaction) {
         revalidatePath("/dashboard"); // Update this to the relevant path
 
         console.log('Transaction created successfully');
-        console.log(x, withdrawOrAdd);
             return{
                 results: {message: 'Transaction created successfully', data}
             }

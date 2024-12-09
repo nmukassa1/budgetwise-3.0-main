@@ -1,9 +1,6 @@
-// export { auth as middleware } from "@/auth"
-
-const key = new TextEncoder().encode(process.env.SESSION_SECRET);
 
 import { NextRequest, NextResponse } from 'next/server'
-import { decryptJWT, verifySession } from '@/lib/session'
+import { verifySession } from '@/lib/session'
  
 // const publicRoutes = ['/login', '/signup', '/']
 

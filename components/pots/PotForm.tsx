@@ -13,14 +13,11 @@ const defaultformData: FormData = {
     goal: ''
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
-function PotForm({setOpenSlide} : {setOpenSlide: Function}) {
+function PotForm({setOpenDrawer} : {setOpenDrawer: Function}) {
     const [formData, setFormData] = useState<FormData>(defaultformData);
 
-    // Hook to manage the action state
     const [ state, action, pending ] = useActionState(createNewPot, { errors: {} });
 
-    // Handle form input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -31,44 +28,44 @@ function PotForm({setOpenSlide} : {setOpenSlide: Function}) {
 
     useEffect(() => {
         if (state?.results?.message) {
-            setOpenSlide(false);
+            setOpenDrawer(false);
         }
     }, [state]);
    
 
     return (
         <form
-            className="text-primary w-full "
+            className="text-secondary w-full "
             action={action}
         >
             <div className="flex flex-col gap-4">
-                {/* Category Name */}
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="name">Pot Name</label>
+                <h2 className="text-center">New pot</h2>
+                <div className="flex items-center gap-4">
+                    <label className="shrink-0" htmlFor="name">Pot Name</label>
                     <input
                         type="text"
                         name="name"
                         id="name"
-                        className="border border-gray-700 rounded-md p-2"
+                        className="text-secondary p-2 border-white border-2 flex items-center gap-2 rounded-md bg-transparent focus:outline-none w-full"
                         value={formData.name}
                         onChange={handleChange}
                     />
-                    {state?.errors?.name && ( <p className="text-red-500">{state.errors.name}</p> )}
                 </div>
+                    {state?.errors?.name && ( <p className="text-red-500">{state.errors.name}</p> )}
 
                 {/* Budget Amount */}
-                <div className="flex flex-col gap-2">
-                    <label htmlFor="goal">Pot Goal</label>
+                <div className="flex items-center gap-4">
+                    <label className="shrink-0" htmlFor="goal">Pot Goal</label>
                     <input
                         type="number"
                         name="goal"
                         id="goal"
-                        className="border border-gray-700 rounded-md p-2"
+                        className="text-secondary p-2 border-white border-2 flex items-center gap-2 rounded-md bg-transparent focus:outline-none w-full"
                         value={formData.goal}
                         onChange={handleChange}
                     />
-                   {state?.errors?.goal && ( <p className="text-red-500">{state.errors.goal}</p> )}
                 </div>
+                   {state?.errors?.goal && ( <p className="text-red-500">{state.errors.goal}</p> )}
 
                {state?.errors?.general && ( <p className="text-red-500">{state.errors.general}</p> )}
             </div>
@@ -77,7 +74,7 @@ function PotForm({setOpenSlide} : {setOpenSlide: Function}) {
             <div className="mt-4">
                 <button
                     type="submit"
-                    className="w-full p-2 rounded-md border border-gray-700"
+                    className="w-full bg-secondary text-primary py-4 rounded-md mt-2"
                     disabled={pending}
                 >
                     {pending ? "Submitting..." : "Submit"}

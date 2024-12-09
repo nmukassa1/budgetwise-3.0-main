@@ -191,7 +191,7 @@ export async function createPotTransaction(formData: potTransaction) {
         console.log("No session found");
     }
 
-    console.log(formData);
+    // console.log(formData);
 
     const transaction_date = new Date();
     
@@ -236,5 +236,82 @@ export async function createPotTransaction(formData: potTransaction) {
                 general: "An unexpected error occurred",
             },
         };
+    }
+}
+
+export async function deletePot(id: number){
+    const session = await verifySession();
+    if(!session?.userId){
+        console.log('No session found');
+    }
+
+    // console.log(id);
+    
+
+    try{
+        //Delete category
+        const {data, error} = await supabase.from('pots').delete().match({
+            id: id,
+            user_id: session.userId
+        }).select('*');
+
+        if(error){
+            console.log(error);
+            return {
+                errors: {
+                    general: 'An error occurred while deleting the pot'
+                }
+            }
+        }
+
+        // Trigger revalidation of a specific path
+        revalidatePath("/dashboard"); // Update this to the relevant path
+        console.log('Pot deleted successfully');    
+        return data;
+    } catch(error){
+        console.log(error);
+    }
+}
+
+interface EditFormData{
+    name: string,
+    amount: number
+}
+
+export async function editPot(formData: EditFormData, id: number){
+    const session = await verifySession();
+    if(!session?.userId){
+        console.log('No session found');
+    }
+
+    console.log(formData);
+    const {name, amount} = formData;
+    
+
+    try{
+        //Edit pot
+        const {data, error} = await supabase.from('pots').update({
+            name,
+            target_amount: amount
+        }).match({
+            id: id,
+            user_id: session.userId
+        }).select('*');
+
+        if(error){
+            console.log(error);
+            return {
+                errors: {
+                    general: 'An error occurred while editing the pot'
+                }
+            }
+        }
+
+        // Trigger revalidation of a specific path
+        revalidatePath("/dashboard"); // Update this to the relevant path
+        console.log('Pot edited successfully');    
+        return data;
+    } catch(error){
+        console.log(error);
     }
 }

@@ -12,15 +12,13 @@ interface AddWithdrawMenuProps{
     addWithdrawMenuAction: {
         withdrawOrAdd: string
     },
-    transactions: Array<any>,
-    setTransactions: Function
+    setReFetchTransactions: Function
 }
 
 // NOTE: CREATE FUNCTION IN SUPABASE THAT PREVENTS USERS FROM ADDING MORE MONET THAN THEY HAVE IN THEIR ACCOUNT
 
-export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdrawMenu, addWithdrawMenuAction, transactions, setTransactions} : AddWithdrawMenuProps){
+export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdrawMenu, addWithdrawMenuAction, setReFetchTransactions} : AddWithdrawMenuProps){
 
-    console.log('NOTE: CREATE FUNCTION IN SUPABASE THAT PREVENTS USERS FROM ADDING MORE MONET THAN THEY HAVE IN THEIR ACCOUNT');
     
 
     const potItem = usePot()
@@ -56,7 +54,7 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
         })
     },[withdrawOrAdd]) 
 
-    const formatTransation = (amount: string) => {
+    const formatTransaction = (amount: string) => {
         let amountReturned;
         if (withdrawOrAdd === 'withdraw') {
             amountReturned = -Math.abs(Number(amount))
@@ -72,9 +70,9 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
         setFormData({
             ...formData,
             // [name]: name === 'amount' ? currencyFormat(value) : value,
-            [name]: name === 'amount' ? formatTransation(currencyFormat(value)) : value,
+            [name]: name === 'amount' ? formatTransaction(currencyFormat(value)) : value,
         })
-        formatTransation(value)
+        formatTransaction(value)
     }
     
     const handleSubmit = async (e) => {
@@ -90,14 +88,8 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
             ...formData,
             amount: ''
         })
-        // console.log('Result:', result);
 
-        const {results} = result
-        
-        const newTransationsList = [...transactions, results?.data[0]].sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
-        // console.log(newTransationsList)
-        setTransactions(newTransationsList)
-
+        setReFetchTransactions(true)
         setOpenAddWithdrawMenu(false)
         
     }

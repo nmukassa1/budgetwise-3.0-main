@@ -9,8 +9,8 @@ async function MobileHero() {
     const income = await getTransactionsByType('income');
     const expenses = await getTransactionsByType('expense');
     
-    const totalIncome = income.reduce((acc, curr) => acc + curr.amount, 0);
-    const totalExpenses = expenses.reduce((acc, curr) => acc + curr.amount, 0);
+    const totalIncome = income?.reduce((acc, curr) => acc + curr.amount, 0);
+    const totalExpenses = expenses?.reduce((acc, curr) => acc + curr.amount, 0);
     const netIncome = (totalIncome - totalExpenses).toLocaleString();
 
     
@@ -26,7 +26,7 @@ async function MobileHero() {
 
                 <div className="pt-5 text-white">
                     <header className="flex justify-between items-center">
-                        <h1 className="">Hello {user.first_name}</h1>
+                        <h1 className="">Hello {user?.first_name}</h1>
                         <HamburgerMenu />
                     </header>
 
@@ -49,7 +49,7 @@ async function MobileHero() {
 
                 </div>
 
-                <Pnl totalIncome={totalIncome} totalExpense={totalExpenses} />
+                <Pnl />
 
                 {/* <ModalServerWrapper /> */}
             </div>

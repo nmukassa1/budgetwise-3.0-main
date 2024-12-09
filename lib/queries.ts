@@ -66,3 +66,10 @@ export const getPots = async () => {
     const { data: pots } = await supabase.from('pots').select('*').eq('user_id', session.userId);
     return pots;
 };
+
+export const getBudgets = async () => {
+    const session = await verifyAndGetSession();
+
+    const { data: budgets } = await supabase.from('budget').select('*').eq('user_id', session.userId);
+    return budgets;
+}

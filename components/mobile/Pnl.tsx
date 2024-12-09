@@ -1,9 +1,16 @@
+import { getBudgets } from "@/lib/queries";
 
-function Pnl({totalIncome, totalExpense}) {
+async function Pnl() {
+    const budgets = await getBudgets();
+
+
+    const budgetExpenseTotal = budgets?.reduce((acc, curr) => acc + curr.budget_amount, 0);
+    
+    
     return ( 
         <div className="grid gap-4 py-4">
             <Item icon="£" title="Income" budgetAmount={2000} actualAmount={2100} />
-            <Item icon="-" title="Expenses" budgetAmount={500} actualAmount={700} />
+            <Item icon="-" title="Expenses" budgetAmount={budgetExpenseTotal} actualAmount={700} />
         </div>
      );
 }

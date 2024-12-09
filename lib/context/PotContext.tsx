@@ -2,12 +2,13 @@ import { createContext, useContext, ReactNode } from "react";
 
 
 type PotContextType = {
-    created_at: string;
-    current_amount: number;
     id: number;
+    completed: boolean;
     name: string;
     target_amount: number;
-    user_id: string;
+    current_amount: number;
+    created_at: string;
+    user_id: number;
 }
 
 const PotContext = createContext<PotContextType | undefined>(undefined);

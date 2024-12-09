@@ -2,12 +2,7 @@ import { Suspense} from "react";
 import CategoryList from "./CategoryList";
 import { useCategories } from "@/components/crud-modal/context/CategoriesContext";
 
-interface Category {
-    id: string;
-    name: string;
-    color: string;
-    icon: JSX.Element;
-}
+
   function ModifyCategory() {
 
     const categories = useCategories();

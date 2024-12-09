@@ -3,6 +3,13 @@ import {SignJWT, jwtVerify} from 'jose';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
+interface JWTPayload {
+    userId: string;
+    email: string;
+    // Add other relevant fields here
+    [key: string]: unknown;
+}
+
 const key = new TextEncoder().encode(process.env.SESSION_SECRET);
 
 
@@ -14,7 +21,7 @@ const cookie = {
 
 
 // Encrypts a JWT with the given payload (user / data you want to include) using HS256 algorithm
-export async function encryptJWT(payload: any) {
+export async function encryptJWT(payload: JWTPayload) {
     try{
         return new SignJWT(payload)
             .setProtectedHeader({ alg: 'HS256' })

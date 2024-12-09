@@ -1,4 +1,4 @@
-import Link from 'next/link';
+
 import Card from './Card';
 import { ReactNode, FC } from 'react';
 import CategoryHeader from './CategoryHeader';

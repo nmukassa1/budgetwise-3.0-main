@@ -32,7 +32,7 @@ const TransactionForm: React.FC = () => {
                         type="submit"
                         className="w-full p-2 rounded-md  border border-gray-700"
                     >
-                        Submit
+                        {pending ? 'Adding...' : 'Add Transaction'}
                     </button>
                 </div>
             </form>

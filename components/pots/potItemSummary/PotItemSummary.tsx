@@ -1,15 +1,10 @@
 "use client"
 
-import { Drawer, LinearProgress, Modal } from "@mui/material"
-import Card from "../../Card"
-import CategoryHeader from "../../CategoryHeader"
+import { Drawer} from "@mui/material"
 import { useEffect, useState } from "react"
 import { usePot } from "@/lib/context/PotContext"
 import AddWithdrawMenu from "./AddWithdrawMenu"
 import { getTransactionsById } from "@/lib/queries"
-import { Add, Close, Delete, Edit } from "@mui/icons-material"
-import { deletePot, editPot } from "@/lib/mutations"
-import { currencyFormat } from "@/lib/utils"
 import Header from "./Header"
 import AddWithdrawButtons from "./AddWithdrawButtons"
 import Activities from "./Activities"
@@ -17,7 +12,7 @@ import Goals from "./Goals"
 
 interface PotItemSummaryProps{
     togglePotSummary: boolean,
-    setTogglePotSummary: Function
+    setTogglePotSummary: (value: boolean) => void
 }
 
 export default function PotItemSummary({ togglePotSummary, setTogglePotSummary} : PotItemSummaryProps){
@@ -29,14 +24,14 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary} 
     const [openAddWithdrawMenu, setOpenAddWithdrawMenu] = useState(false)
     const [addWithdrawMenuAction, setAddWithdrawMenuAction] = useState<{  withdrawOrAdd: string }>({ withdrawOrAdd: '' })
 
-    const [transactions, setTransactions] = useState<Array<any>>([])
+    // const [transactions, setTransactions] = useState<Array<any>>([])
     const [reFetchTransactions, setReFetchTransactions] = useState(false)
   
 
     useEffect(() => {
        async function fetchTransactions(){
-            const transactions = await getTransactionsById(potItem.id)
-            transactions && transactions.length > 0 ? setTransactions(transactions) : []
+            await getTransactionsById(potItem.id)
+            // transactions && transactions.length > 0 ? setTransactions(transactions) : []
         }
         fetchTransactions()
 

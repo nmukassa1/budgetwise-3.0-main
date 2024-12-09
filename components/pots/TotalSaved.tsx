@@ -4,7 +4,7 @@ interface Pot {
 
 interface TotalSavedProps {
     pots: Pot[];
-    setIsCompleted: Function;
+    setIsCompleted: (isCompleted: boolean) => void;
     isCompleted: boolean;
 }
 

@@ -5,11 +5,10 @@ interface NavLinksProps {
   icon: ReactNode;
   label: string;
   activeLabel: string;
-  setActiveLabel: (label: string) => void;
   href?: string;
 }
 
-const NavLinks = ({ icon, label, activeLabel, setActiveLabel, href = '#' }: NavLinksProps) => {
+const NavLinks = ({ icon, label, activeLabel, href = '#' }: NavLinksProps) => {
   const isActive = label.toLowerCase() === activeLabel.toLowerCase();
   return (
     <Link

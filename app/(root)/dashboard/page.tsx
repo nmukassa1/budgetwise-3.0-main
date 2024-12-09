@@ -1,22 +1,28 @@
-import { FC } from 'react';
-import MobileHero from '@/components/mobile/MobileHero';
-import Footer from '@/components/Footer';
-import Pots from '@/components/pots/Pots';
-import Budget from '@/components/Budget';
-import PotServerComponent from '@/components/pots/PotServerComponent';
+import Budget from "@/components/Budget";
+import Footer from "@/components/Footer";
+import MobileHero from "@/components/mobile/MobileHero";
+import PotServerComponent from "@/components/pots/PotServerComponent";
+import { getPots, getTransactionsByType, getUser } from "@/lib/queries";
 
-const Dashboard: FC = async () => {
-    return ( 
+const Dashboard: () => Promise<JSX.Element> = async () => {
+    const user = await getUser();
+    const income = await getTransactionsByType('income');
+    const expenses = await getTransactionsByType('expense');
+    const pots = (await getPots()) || []; // Fetch data here
+    const totalIncome = income?.reduce((acc, curr) => acc + curr.amount, 0);
+    const totalExpenses = expenses?.reduce((acc, curr) => acc + curr.amount, 0);
+    const netIncome = totalIncome - totalExpenses;
+
+    return (
         <div className="h-full md:hidden">
-            <MobileHero />
+            <MobileHero user={user} netIncome={netIncome} />
             <div className="mobile-container flex flex-col gap-4">
-                {/* <Pots /> */}
-                <PotServerComponent />
+                <PotServerComponent pots={pots} />
                 <Budget />
             </div>
             <Footer />
         </div>
-     );
-}
+    );
+};
 
 export default Dashboard;

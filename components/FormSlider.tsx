@@ -5,7 +5,7 @@ import { Drawer } from "@mui/material";
 interface FormSliderProps{
     children: React.ReactNode,
     openDrawer: boolean,
-    setOpenDrawer: Function
+    setOpenDrawer: (open: boolean) => void;
 }
 
 function FormSlider({children, openDrawer, setOpenDrawer} : FormSliderProps) {

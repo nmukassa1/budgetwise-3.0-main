@@ -13,7 +13,7 @@ const defaultformData: FormData = {
     goal: ''
 };
 
-function PotForm({setOpenDrawer} : {setOpenDrawer: Function}) {
+function PotForm({setOpenDrawer} : { setOpenDrawer: (open: boolean) => void }) {
     const [formData, setFormData] = useState<FormData>(defaultformData);
 
     const [ state, action, pending ] = useActionState(createNewPot, { errors: {} });
@@ -30,7 +30,7 @@ function PotForm({setOpenDrawer} : {setOpenDrawer: Function}) {
         if (state?.results?.message) {
             setOpenDrawer(false);
         }
-    }, [state]);
+    }, [state, setOpenDrawer]);
    
 
     return (

@@ -1,6 +1,5 @@
 "use client";
 
-import { Drawer } from "@mui/material";
 import { useState } from "react";
 import PotForm from "./PotForm";
 import FormSlider from "../FormSlider";
@@ -18,7 +17,6 @@ function NewPot() {
             </div>
             <FormSlider openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}>
                 <PotForm setOpenDrawer={setOpenDrawer} />
-                <div></div>
             </FormSlider>
         </>
     )

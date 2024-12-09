@@ -3,16 +3,15 @@ import { createPotTransaction } from "@/lib/mutations"
 import { currencyFormat } from "@/lib/utils"
 import { Close } from "@mui/icons-material"
 import { Drawer, FormControlLabel, Switch } from "@mui/material"
-import { useSelectedLayoutSegments } from "next/navigation"
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 
 interface AddWithdrawMenuProps{
     openAddWithdrawMenu: boolean,
-    setOpenAddWithdrawMenu: Function,
+    setOpenAddWithdrawMenu: (value: boolean) => void,
     addWithdrawMenuAction: {
         withdrawOrAdd: string
     },
-    setReFetchTransactions: Function
+    setReFetchTransactions: (value: boolean) => void
 }
 
 // NOTE: CREATE FUNCTION IN SUPABASE THAT PREVENTS USERS FROM ADDING MORE MONET THAN THEY HAVE IN THEIR ACCOUNT
@@ -33,7 +32,6 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
         withdrawOrAdd
     })
 
-    const [error, setError] = useState(null)
 
     const [disableButton, setDisableButton] = useState(false)
 
@@ -77,11 +75,7 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
     
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const result = await createPotTransaction(formData)
-        if(result.error){
-            setError(result.error)
-            // console.log(result.error);
-        }
+        await createPotTransaction(formData)
 
         //clear states
         setFormData({

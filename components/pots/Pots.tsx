@@ -2,22 +2,31 @@
 
 import Card from "@/components/Card";
 import CategoryHeader from "@/components/CategoryHeader";
-import { getPots, getTransactionsById } from "@/lib/queries";
 import PotSlider from "./PotSlider";
 import TotalSaved from "./TotalSaved";
 import { useState } from "react";
 
+interface Pot {
+    id: number;
+    name: string;
+    target_amount: number;
+    current_amount: number;
+    completed: boolean;
+}
 
-function Pots({ pots }) {
+interface PotsProps {
+    pots: Pot[];
+}
 
-    // const pots = await getPots()
+function Pots({ pots }: PotsProps) {
+
     const [isCompleted, setIsCompleted] = useState(false)
 
     return ( 
         <Card className="text-white">
             <CategoryHeader categoryName='Pots' />
             <TotalSaved pots={pots} isCompleted={isCompleted} setIsCompleted={setIsCompleted} />
-            <PotSlider pots={pots} isCompleted={isCompleted} setIsCompleted={setIsCompleted} />
+            <PotSlider pots={pots} isCompleted={isCompleted}  />
         </Card>
      );
 }

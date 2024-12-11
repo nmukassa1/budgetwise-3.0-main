@@ -5,17 +5,10 @@ import CategoryHeader from "@/components/CategoryHeader";
 import PotSlider from "./PotSlider";
 import TotalSaved from "./TotalSaved";
 import { useState } from "react";
-
-interface Pot {
-    id: number;
-    name: string;
-    target_amount: number;
-    current_amount: number;
-    completed: boolean;
-}
+import { PotType } from "@/lib/types";
 
 interface PotsProps {
-    pots: Pot[];
+    pots: PotType[]
 }
 
 function Pots({ pots }: PotsProps) {

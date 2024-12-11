@@ -35,7 +35,7 @@ export default function Login() {
           onChange={handleChange}
           className="form-input"
         />
-        {state?.errors?.email && <p className="text-red-500">{state.errors.email}</p>}
+        {"email" in state.errors && state.errors.email && <p className="text-red-500">{state.errors.email}</p>}
       </div>
       <div className="mb-4 w-full">
         <div className="relative">
@@ -51,8 +51,8 @@ export default function Login() {
             <VisibilityOff />
           </button>
         </div>
-        {state?.errors?.password && <p className="text-red-500">{state.errors.password}</p>}
-        {state?.errors?.passwordMatch && <p className="text-red-500">{state.errors.passwordMatch}</p>}
+        {"password" in state.errors && state.errors.password && <p className="text-red-500">{state.errors.password}</p>}
+        { "passwordMatch" in state?.errors && state.errors.passwordMatch && <p className="text-red-500">{state.errors.passwordMatch}</p>}
       </div>
       <button disabled={pending} type="submit" className="auth-submit-btn">{pending ? 'Loading...' : 'Log In'}</button>
     </form>

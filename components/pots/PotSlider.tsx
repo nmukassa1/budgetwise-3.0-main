@@ -4,18 +4,10 @@ import NewPot from "./NewPot";
 import PotItem from "./PotItem";
 import PotItemSummary from "./potItemSummary/PotItemSummary";
 import { PotProvider } from "@/lib/context/PotContext";
-interface Pot {
-    id: number;
-    completed: boolean;
-    name: string;
-    target_amount: number;
-    current_amount: number;
-    created_at: string;
-    user_id: number;
-}
+import { PotType } from "@/lib/types";
 
 interface PotSliderProps {
-    pots: Pot[];
+    pots: PotType[];
     isCompleted: boolean;
 }
 
@@ -23,7 +15,7 @@ export default function PotSlider({pots, isCompleted} : PotSliderProps) {
     const [selectedPot, setSelectedPot] = useState<number | undefined>(undefined)
     const [togglePotSummary, setTogglePotSummary] = useState(false)
 
-    const filteredPot = pots.filter((pot: { id: number }) => pot.id === selectedPot)[0]
+    const filteredPot = pots.filter((pot: PotType) => pot.id === selectedPot)[0]
     
     const isFirstRender = useRef(true);
 
@@ -47,7 +39,7 @@ export default function PotSlider({pots, isCompleted} : PotSliderProps) {
                 <div className="flex gap-2 h-[130px]">
                 <NewPot />
                     <div className="slider overflow-scroll flex items-center gap-2 py-2">
-                        {pots.filter((pot: Pot) => pot.completed === isCompleted).map((pot: Pot) => (
+                        {pots.filter((pot: PotType) => pot.completed === isCompleted).map((pot: PotType) => (
                             <PotItem key={pot.id} pot={pot} setSelectedPot={setSelectedPot} />
                         ))}
                     </div>

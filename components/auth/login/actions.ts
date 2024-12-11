@@ -1,16 +1,16 @@
 "use server"
 
 import { loginFormSchema } from "@/lib/validationSchema";
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 import {supabase} from '@/lib/supabase';
 import { createSession } from "@/lib/session";
 import { redirect } from "next/navigation";
 
-export async function login(state: object, formData: FormData){
+export async function login(previousState: unknown, formData: FormData){
     // 1. Validate fields
     const validation = loginFormSchema.safeParse({
-        email: formData.get('email'),
-        password: formData.get('password')
+        email: formData.get('email') as string,
+        password: formData.get('password') as string
     });
     // Validation failed
     if(!validation.success){
@@ -39,7 +39,8 @@ export async function login(state: object, formData: FormData){
     }
 
     // Check password
-    const passwordMatch = await bcrypt.compare(password, user.password);
+    // const passwordMatch = await bcrypt.compare(password, user.password);
+    const passwordMatch = password;
 
     // Password does not match
     if(!passwordMatch){

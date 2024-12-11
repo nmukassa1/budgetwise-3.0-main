@@ -63,7 +63,7 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
 
     }
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = e.target
         setFormData({
             ...formData,
@@ -73,7 +73,7 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
         formatTransaction(value)
     }
     
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         await createPotTransaction(formData)
 

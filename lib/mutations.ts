@@ -4,25 +4,35 @@ import { supabase } from "./supabase";
 import { potSchema, transactionSchema } from "./validationSchema";
 
 import { revalidatePath } from "next/cache";
+import {PotType} from './types';
 
-export async function createNewPot(state: object, formData: FormData) {
+interface Errors {
+    name?: string[];
+    goal?: string;
+    general?: string;
+  }
+
+export async function createNewPot(previousState: unknown, formData: FormData): Promise<
+| { errors: Errors; results?: undefined }
+| { results: { message: string; data: PotType[] }; errors?: undefined }
+> {
     const session = await verifySession();
     if (!session?.userId) {
         console.log("No session found");
     }
-    console.log(Number(formData.get("goal")));
+    // console.log(Number(formData.get("goal")));
 
     // Validate fields
     const validation = potSchema.safeParse({
-        name: formData.get("name"),
-        goal: Number(formData.get("goal")),
+        name: formData.get("name") as string,
+        goal: Number(formData.get("goal")) as number,
     });
 
     // Validation failed
     if (!validation.success) {
         console.log(validation.error.flatten().fieldErrors);
         return {
-            errors: validation.error.flatten().fieldErrors,
+            errors: validation.error.flatten().fieldErrors
         };
     }
 

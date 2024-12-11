@@ -13,12 +13,18 @@ const defaultformData: FormData = {
     goal: ''
 };
 
+interface Errors {
+    name?: string[];
+    goal?: string;
+    general?: string;
+  }
+
 function PotForm({setOpenDrawer} : { setOpenDrawer: (open: boolean) => void }) {
     const [formData, setFormData] = useState<FormData>(defaultformData);
 
-    const [ state, action, pending ] = useActionState(createNewPot, { errors: {} });
+    const [ state, action, pending ] = useActionState(createNewPot, { errors: {} as Errors });
 
-    const handleChange = (e) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -50,8 +56,8 @@ function PotForm({setOpenDrawer} : { setOpenDrawer: (open: boolean) => void }) {
                         value={formData.name}
                         onChange={handleChange}
                     />
-                </div>
-                    {state?.errors?.name && ( <p className="text-red-500">{state.errors.name}</p> )}
+                </div> 
+                    {state.errors?.name && ( <p className="text-red-500">{state.errors.name}</p> )}
 
                 {/* Budget Amount */}
                 <div className="flex items-center gap-4">

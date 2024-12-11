@@ -4,7 +4,7 @@ import MobileHero from "@/components/mobile/MobileHero";
 import PotServerComponent from "@/components/pots/PotServerComponent";
 import { getPots, getTransactionsByType, getUser } from "@/lib/queries";
 
-const Dashboard: () => Promise<JSX.Element> = async () => {
+const Dashboard  = async () => {
     const user = await getUser();
     const income = await getTransactionsByType('income');
     const expenses = await getTransactionsByType('expense');

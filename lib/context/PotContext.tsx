@@ -1,21 +1,37 @@
-import { createContext, useContext, ReactNode } from "react";
+import { createContext, useContext, ReactNode, useState } from "react";
+import { PotType } from "../types";
 
 
-type PotContextType = {
-    id: number;
-    completed: boolean;
-    name: string;
-    target_amount: number;
-    current_amount: number;
-    created_at: string;
-    user_id: number;
+export interface PotContextType {
+    pot: PotType;
+    setPot: (pot: PotType) => void;
 }
 
 const PotContext = createContext<PotContextType | undefined>(undefined);
 
 // Context provider
-export function PotProvider({ children, pot }: { children: ReactNode; pot: PotContextType }) {
-    return <PotContext.Provider value={pot}>{children}</PotContext.Provider>;
+export function PotProvider({ children, pot }: { children: ReactNode; pot: PotType }) {
+    const defaultPot: PotType = {
+        id: 0,
+        user_id: "",
+        name: "Default Pot",
+        target_amount: 0,
+        current_amount: 0,
+        created_at: new Date().toISOString(),
+        completed: false,
+    };
+    
+    const initialPot = pot || defaultPot; // Fallback to defaultPot if pot is undefined
+
+    console.log("Initial pot:", initialPot); // Debugging log
+
+    const [currentPot, setPot] = useState<PotType>(initialPot);
+
+    return (
+        <PotContext.Provider value={{ pot: currentPot, setPot }}>
+            {children}
+        </PotContext.Provider>
+    );
 }
 
 // Custom hook to use the context

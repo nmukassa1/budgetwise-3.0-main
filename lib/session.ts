@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation';
 
 interface JWTPayload {
     userId: string;
-    email: string;
+    // email: string;
     // Add other relevant fields here
     [key: string]: unknown;
 }
@@ -65,7 +65,11 @@ export async function createSession(userId: string) {
             throw new Error('Failed to create session');
         }
     } catch (error) {
-        console.error('Error in createSession:', error.stack);
+        if (error instanceof Error) {
+            console.error('Error in createSession:', error.stack);
+        } else {
+            console.error('Error in createSession:', error);
+        }
         // Optionally, you could redirect to an error page
     }
 }

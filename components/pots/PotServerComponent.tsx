@@ -1,15 +1,8 @@
 import Pots from "./Pots";
-
-interface Pot {
-    id: string;
-    name: string;
-    targetAmount: number;
-    currentAmount: number;
-    // Add other relevant fields here
-}
+import { PotType } from "@/lib/types";
 
 interface PotServerComponentProps {
-    pots: Pot[];
+    pots: PotType[];
 }
 
 const PotServerComponent: React.FC<PotServerComponentProps> = ({ pots }) => {

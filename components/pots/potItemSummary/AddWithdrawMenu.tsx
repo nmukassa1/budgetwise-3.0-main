@@ -20,7 +20,7 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
 
     
 
-    const potItem = usePot()
+    const {pot: potItem} = usePot()
 
     const {withdrawOrAdd} = addWithdrawMenuAction
 

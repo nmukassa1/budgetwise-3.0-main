@@ -56,7 +56,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
         <AddWithdrawButtons potItem={potItem} handleAddWithdrawMenuOpen={handleAddWithdrawMenuOpen} />
         <div className="w-full">
           <Activities reFetchTransactions={reFetchTransactions} setReFetchTransactions={setReFetchTransactions} />
-          <Goals />
+          {potItem.target_amount > 0 &&  <Goals />}
         </div>
         <button
           onClick={handleDrawClose}
@@ -76,5 +76,5 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
 }
 
 function CurrentBalance({ potItem }: { potItem: PotType }) {
-  return <div className="current_amount w-fit text-2xl mt-6">£{potItem?.current_amount?.toLocaleString()}</div>;
+  return <div className="current_amount w-fit text-2xl mt-6">£{potItem?.current_amount?.toLocaleString() || 0}</div>;
 }

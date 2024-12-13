@@ -17,10 +17,10 @@ function PotItem({ pot, setSelectedPot }: PotItemProps) {
         onClick={() => setSelectedPot(id)}
       >
         <div>{name}</div>
-        <div className="mt-auto">£{current_amount.toLocaleString()}</div>
+        <div className="mt-auto">£{current_amount ? current_amount?.toLocaleString() : 0}</div>
         {target_amount > 0 && (
           <div className="text-sm w-fit rounded-full mt-2 py-1 px-2 bg-secondary text-primary">
-            {Math.ceil((current_amount / target_amount) * 100)}%
+            {Math.ceil(((current_amount ?? 0) / target_amount) * 100)}%
           </div>
         )}
       </button>

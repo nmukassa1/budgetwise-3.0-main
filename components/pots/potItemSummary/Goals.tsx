@@ -9,14 +9,14 @@ function Goals() {
 
 
     const percentage = 
-        potItem.current_amount > potItem.target_amount
+        (potItem.current_amount ?? 0) > potItem.target_amount
         ? 100
-        : Math.ceil((potItem.current_amount / potItem.target_amount) * 100);
+        : (potItem.current_amount === null ? 0 : Math.ceil((potItem.current_amount / potItem.target_amount) * 100) );
 
     const remaining =
-        potItem.current_amount > potItem.target_amount
+        (potItem.current_amount ?? 0) > potItem.target_amount
             ? 0
-            : potItem.target_amount - potItem.current_amount;
+            : potItem.target_amount - (potItem.current_amount ?? 0);
 
    
 

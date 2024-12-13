@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode, useState } from "react";
+import { createContext, useContext, ReactNode, useState, useEffect } from "react";
 import { PotType } from "../types";
 
 
@@ -23,9 +23,15 @@ export function PotProvider({ children, pot }: { children: ReactNode; pot: PotTy
     
     const initialPot = pot || defaultPot; // Fallback to defaultPot if pot is undefined
 
-    console.log("Initial pot:", initialPot); // Debugging log
+    // console.log("Initial pot:", initialPot); // Debugging log
 
     const [currentPot, setPot] = useState<PotType>(initialPot);
+
+    useEffect(() => {
+        if (pot) {
+            setPot(pot);
+        }
+    }, [pot])
 
     return (
         <PotContext.Provider value={{ pot: currentPot, setPot }}>

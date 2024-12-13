@@ -3,18 +3,15 @@ import { usePot } from "@/lib/context/PotContext";
 import { getTransactionsById } from "@/lib/queries";
 import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
+import { TransactionType } from "@/lib/types";
 
-interface Transaction {
-    id: string;
-    amount: number;
-    // Add other relevant fields here
-}
+
 
 function Activities({ reFetchTransactions, setReFetchTransactions }: { reFetchTransactions: boolean, setReFetchTransactions: (value: boolean) => void }) {
-    const potItem = usePot();
+    const {pot: potItem} = usePot();
 
     const [transactionContainerHeight, setTransactionContainerHeight] = useState('max-h-[135.5px]');
-    const [transactions, setTransactions] = useState<Transaction[]>([]);
+    const [transactions, setTransactions] = useState<TransactionType[]>([]);
 
     useEffect(() => {
         async function fetchTransactions() {

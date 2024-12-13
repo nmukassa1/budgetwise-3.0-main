@@ -1,16 +1,10 @@
 import { createContext, useContext, ReactNode } from "react";
+import { TransactionType } from "../types";
 
 // Define the type for transactions
 type TransactionsContextType = {
-    transaction_id: number;
-    user_id: string;
-    name: string;
-    amount: number;
-    category_type: string;
-    is_recurring: boolean;
-    transaction_date: string;
-    created_at: string;
-}[]; // Array of transaction objects
+    transactions: TransactionType[];
+}
 
 const TransactionsContext = createContext<TransactionsContextType | undefined>(undefined);
 

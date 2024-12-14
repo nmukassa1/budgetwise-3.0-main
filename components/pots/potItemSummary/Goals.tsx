@@ -1,7 +1,8 @@
 import CategoryHeader from "@/components/CategoryHeader";
 import { usePot } from "@/lib/context/PotContext";
 import { PotType } from "@/lib/types";
-import { Card, LinearProgress } from "@mui/material";
+import { LinearProgress } from "@mui/material";
+import Card from "@/components/Card";
 
 function Goals() {
 

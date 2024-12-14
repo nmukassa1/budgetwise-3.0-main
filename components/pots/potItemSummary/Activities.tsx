@@ -1,7 +1,7 @@
 import CategoryHeader from "@/components/CategoryHeader";
 import { usePot } from "@/lib/context/PotContext";
 import { getTransactionsById } from "@/lib/queries";
-import { Card } from "@mui/material";
+import Card  from "@/components//Card";
 import { useEffect, useState } from "react";
 import { TransactionType } from "@/lib/types";
 

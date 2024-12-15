@@ -140,7 +140,7 @@ export async function createTransaction(state: object, formData: FormData) {
     // // Validation passed
     const { name, category_type, amount, repeat } = validation.data;
     console.log(validation.data);
-    
+     
 
     const transaction_date = new Date();
     

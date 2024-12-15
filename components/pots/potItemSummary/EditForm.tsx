@@ -25,7 +25,7 @@ function EditForm({ onClose }: EditFormProps) {
       name: potItem?.name || "",
       amount: potItem?.target_amount ?? null,
     });
-  }, [potItem.id]);
+  }, [potItem]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

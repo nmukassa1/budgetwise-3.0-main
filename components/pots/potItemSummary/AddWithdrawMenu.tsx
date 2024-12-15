@@ -43,13 +43,13 @@ export default function AddWithdrawMenu({openAddWithdrawMenu, setOpenAddWithdraw
         } else{
             setDisableButton(false)
         }
-    }, [formData])
+    }, [formData, potItem, withdrawOrAdd])
 
     useEffect(() => {
-        setFormData({
-            ...formData,
+        setFormData((prevFormData) => ({
+            ...prevFormData,
             amount: ''
-        })
+        }));
     },[withdrawOrAdd]) 
 
     const formatTransaction = (amount: string) => {

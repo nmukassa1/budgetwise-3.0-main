@@ -1,49 +1,39 @@
 import { useState, useCallback } from 'react';
 
-// interface ActionState = {
-//   state: T;
-//   action: (e: React.FormEvent<HTMLFormElement>) => void;
-//   pending: boolean;
-// };
+interface AsyncAction<T, R extends { errors?: unknown; results?: unknown }> {
+  (previousState: R, formData: T): Promise<R>;
+}
 
-// function useActionState<T>(actionFunction: (data: T) => Promise<any>, initialState: T): ActionState<T> {
-//   const [state, setState] = useState<T>(initialState);
-//   const [pending, setPending] = useState<boolean>(false);
+interface UseActionStateReturn<T, R> {
+  state: R;
+  action: (formData: T) => Promise<void>;
+  pending: boolean;
+}
 
-//   const action = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
-//     e.preventDefault();
-//     setPending(true);
-//     try {
-//       await actionFunction(state);
-//     } catch (error) {
-//       console.error(error);
-//     } finally {
-//       setPending(false);
-//     }
-//   }, [state, actionFunction]);
-
-//   return { state, action, pending };
-// }
-
-function useActionState<T>(actionFunction: (data: T) => Promise<unknown>, initialState: T) {
-  const [state, setState] = useState(initialState);
+function useActionState<T, R extends { errors?: unknown; results?: unknown }>(
+  asyncAction: AsyncAction<T, R>,
+  initialState: R
+): UseActionStateReturn<T, R> {
+  const [state, setState] = useState<R>(initialState);
   const [pending, setPending] = useState<boolean>(false);
 
-  const action = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const action = useCallback(async (formData: T): Promise<void> => {
     setPending(true);
     try {
-      await actionFunction(state);
-      setState(initialState); // Reset state after action
-    } catch (error) {
-      console.error(error);
+      const result = await asyncAction(state, formData);
+      setState((prevState) => ({
+        ...prevState,
+        errors: result.errors || undefined,
+        results: result.results || undefined,
+      }));
+    } catch (error: unknown) {
+      setState((prevState) => ({ ...prevState, errors: error }));
     } finally {
       setPending(false);
     }
-  }, [state, actionFunction, initialState]);
+  }, [asyncAction, state]);
 
   return { state, action, pending };
-
 }
 
 export default useActionState;

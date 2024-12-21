@@ -1,27 +1,28 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createNewPot } from "@/lib/mutations";
+import { createNewBudget } from "@/lib/mutations";
 import useActionState from "@/lib/hooks/useActionState";
 
 interface FormData {
     name: string,
-    target_amount: string
+    budget_amount: string
   }
 
 const defaultformData: FormData = {
     name: "",
-    target_amount: ''
+    budget_amount: ''
 };
 
 interface Errors {
     name?: string[];
+    error?: string;
   }
 
-function PotForm({setOpenDrawer} : { setOpenDrawer: (open: boolean) => void }) {
+function NewBudgetForm({setOpenDrawer} : { setOpenDrawer: (open: boolean) => void }) {
     const [formData, setFormData] = useState<FormData>(defaultformData);
 
-    const { state, action, pending } = useActionState(createNewPot, { errors: {} as Errors });
+    const { state, action, pending } = useActionState(createNewBudget, { errors: {} as Errors });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -44,29 +45,29 @@ function PotForm({setOpenDrawer} : { setOpenDrawer: (open: boolean) => void }) {
             action={action}
         >
             <div className="flex flex-col gap-4">
-                <h2 className="text-center">New pot</h2>
+                <h2 className="text-center">New Budget</h2>
                 <div className="flex items-center gap-4">
                     <input
-                        placeholder="Pot name"
+                        placeholder="Budget Name"
                         type="text"
                         name="name"
                         id="name"
-                        className="text-secondary p-2 border-white border-2 flex items-center gap-2 rounded-md bg-transparent focus:outline-none w-full text-center" 
+                        className="text-secondary p-2 border-white border-2 flex items-center gap-2 rounded-md bg-transparent focus:outline-none w-full text-center"
                         value={formData.name}
                         onChange={handleChange}
                     />
                 </div> 
                     {state.errors?.name && ( <p className="text-red-500">{state.errors.name}</p> )}
 
-                {/* Budget Amount */}
+                {/* Budget budget_amount */}
                 <div className="flex items-center gap-4">
                     <input
-                        placeholder="Pot goal"
+                        placeholder="Budget Amount"
                         type="number"
-                        name="target_amount"
-                        id="target_amount"
+                        name="budget_amount"
+                        id="budget_amount"
                         className="text-secondary p-2 border-white border-2 flex items-center gap-2 rounded-md bg-transparent focus:outline-none w-full text-center"
-                        value={formData.target_amount}
+                        value={formData.budget_amount}
                         onChange={handleChange}
                     />
                 </div>
@@ -88,4 +89,4 @@ function PotForm({setOpenDrawer} : { setOpenDrawer: (open: boolean) => void }) {
     );
 }
 
-export default PotForm;
+export default NewBudgetForm;

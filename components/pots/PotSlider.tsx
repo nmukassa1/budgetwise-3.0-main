@@ -43,7 +43,7 @@ export default function PotSlider({pots, isCompleted} : PotSliderProps) {
                             <div className="w-full h-full grid place-content-center border-4 border-dashed border-[hsla(0,52%,100%,0.1)]">
                                 <p className="text-gray-500">No pots created</p>
                             </div>
-                            )}
+                        )}
 
                         {pots.length > 0 && pots.filter((pot: PotType) => pot.completed === isCompleted).map((pot: PotType) => (
                             <PotItem key={pot.id} pot={pot} setSelectedPot={setSelectedPot} />

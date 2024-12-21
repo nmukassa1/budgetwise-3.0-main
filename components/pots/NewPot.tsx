@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import PotForm from "./PotForm";
-import FormSlider from "../FormSlider";
+import DrawerContainer from "@/components/DrawerContainer";
 
 
 function NewPot() {
@@ -15,9 +15,9 @@ function NewPot() {
             <div className="py-2">
                 <button onClick={handleOpenSlide} className="bg-primary text-secondary px-4 py-2 h-full rounded-full">+</button>
             </div>
-            <FormSlider openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}>
+            <DrawerContainer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}>
                 <PotForm setOpenDrawer={setOpenDrawer} />
-            </FormSlider>
+            </DrawerContainer>
         </>
     )
 }

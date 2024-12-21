@@ -20,7 +20,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
   const { pot: potItem } = usePot();
 
   const [openAddWithdrawMenu, setOpenAddWithdrawMenu] = useState(false);
-  const [addWithdrawMenuAction, setAddWithdrawMenuAction] = useState<{ withdrawOrAdd: string }>({ withdrawOrAdd: "" });
+  const [addWithdrawMenuAction] = useState<{ withdrawOrAdd: string }>({ withdrawOrAdd: "" });
 
   const [reFetchTransactions, setReFetchTransactions] = useState<boolean>(false);
 
@@ -42,18 +42,12 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
     setTogglePotSummary(false);
   }
 
-  function handleAddWithdrawMenuOpen(e: React.MouseEvent<HTMLButtonElement>) {
-    const name = (e.target as HTMLButtonElement).id;
-    setAddWithdrawMenuAction({ withdrawOrAdd: name });
-    setOpenAddWithdrawMenu(true);
-  }
-
   return (
     <Drawer open={togglePotSummary} anchor="top" sx={{ "& .MuiDrawer-paper": { background: "#161618" } }}>
       <div className="h-screen mobile-container flex flex-col items-center text-white py-4">
         <Header />
         <CurrentBalance potItem={potItem} />
-        <AddWithdrawButtons potItem={potItem} handleAddWithdrawMenuOpen={handleAddWithdrawMenuOpen} />
+        <AddWithdrawButtons potItem={potItem}  />
         <div className="w-full">
           <Activities reFetchTransactions={reFetchTransactions} setReFetchTransactions={setReFetchTransactions} />
           {potItem.target_amount > 0 &&  <Goals />}
@@ -64,12 +58,6 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
         >
           Close
         </button>
-        <AddWithdrawMenu
-          openAddWithdrawMenu={openAddWithdrawMenu}
-          setOpenAddWithdrawMenu={setOpenAddWithdrawMenu}
-          addWithdrawMenuAction={addWithdrawMenuAction}
-          setReFetchTransactions={setReFetchTransactions}
-        />
       </div>
     </Drawer>
   );

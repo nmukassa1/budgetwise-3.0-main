@@ -17,9 +17,10 @@ export const loginFormSchema = z.object({
 
 export const potSchema = z.object({
     name: z.string().min(2, { message: 'Pot must have a name' }),
-    // goal: z.number().int().min(1, { message: 'Pot goal must be greater than 0'}),
-    // color: z.string(),
-    // icon: z.string(),
+});
+
+export const budgetSchema = z.object({
+    name: z.string().min(2, { message: 'Budget must have a name' }),
 });
 
 export const transactionSchema = z.object({
@@ -27,7 +28,7 @@ export const transactionSchema = z.object({
     name: z.string().min(2),
     category_type: z.string(),
     repeat: z.boolean(),
-    category: z.string({message: 'Please select a category'}),
+    pot_id: z.number(),
 });
 
 export const potTransactionSchema = z.object({

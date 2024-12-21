@@ -18,3 +18,13 @@ export interface PotType {
       transaction_date: string;
       created_at: string;
   }; // Array of transaction objects
+
+  export interface BudgetType {
+    id: number; 
+    user_id: string; 
+    name: string; 
+    budget_amount: number; 
+    currently_transacted?: number; 
+    createdAt?: Date; 
+  }
+  

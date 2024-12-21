@@ -1,9 +1,10 @@
 "use client"
 
-import { useState, ChangeEvent, useActionState } from "react";
+// import { useState, ChangeEvent, useActionState } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { VisibilityOff } from "@mui/icons-material";
 import {login} from "./actions";
-// import useActionState from "@/lib/hooks/useActionState";
+import useActionState from "@/lib/hooks/useActionState";
 
 interface FormData {
   email: string;
@@ -17,13 +18,18 @@ export default function Login() {
   });
 
   // const [state, action, pending] = useActionState(login, { errors: {} });
-  const [state, action, pending] = useActionState(login, { errors: {} });
+  const {state, action, pending} = useActionState(login, { errors: {} });
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    console.log(state);
+    
+  }, [state, action])
     
 
   return (

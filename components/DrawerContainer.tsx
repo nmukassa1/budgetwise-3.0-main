@@ -2,13 +2,13 @@ import { Close } from "@mui/icons-material";
 import { Drawer } from "@mui/material";
 
 
-interface FormSliderProps{
+interface DrawerContainerProps{
     children: React.ReactNode,
     openDrawer: boolean,
     setOpenDrawer: (open: boolean) => void;
 }
 
-function FormSlider({children, openDrawer, setOpenDrawer} : FormSliderProps) {
+function DrawerContainer({children, openDrawer, setOpenDrawer} : DrawerContainerProps) {
 
 
     return ( 
@@ -32,4 +32,4 @@ function FormSlider({children, openDrawer, setOpenDrawer} : FormSliderProps) {
      );
 }
 
-export default FormSlider;
+export default DrawerContainer;

@@ -1,26 +1,26 @@
 import { useState, useCallback } from 'react';
 
-interface AsyncAction<T, R extends { errors?: unknown; results?: unknown }> {
-  (previousState: R, formData: T): Promise<R>;
+interface AsyncAction<InputData, State> {
+  (currentState: State, inputData: InputData): Promise<State>;
 }
 
-interface UseActionStateReturn<T, R> {
-  state: R;
-  action: (formData: T) => Promise<void>;
+interface UseActionStateReturn<InputData, State> {
+  state: State;
+  action: (inputData: InputData) => Promise<void>;
   pending: boolean;
 }
 
-function useActionState<T, R extends { errors?: unknown; results?: unknown }>(
-  asyncAction: AsyncAction<T, R>,
-  initialState: R
-): UseActionStateReturn<T, R> {
-  const [state, setState] = useState<R>(initialState);
+function useActionState<InputData, State extends { errors?: unknown; results?: unknown }>(
+  asyncAction: AsyncAction<InputData, State>,
+  initialState: State
+): UseActionStateReturn<InputData, State> {
+  const [state, setState] = useState<State>(initialState);
   const [pending, setPending] = useState<boolean>(false);
 
-  const action = useCallback(async (formData: T): Promise<void> => {
+  const action = useCallback(async (inputData: InputData): Promise<void> => {
     setPending(true);
     try {
-      const result = await asyncAction(state, formData);
+      const result = await asyncAction(state, inputData);
       setState((prevState) => ({
         ...prevState,
         errors: result.errors || undefined,

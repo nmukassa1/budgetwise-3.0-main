@@ -6,14 +6,14 @@ interface UseAddWithdrawFormProps {
   potItem: PotType;
   selectedAction: string | null;
   setOpenDrawer: (open: boolean) => void;
-  state: { results?: { message?: string }; errors?: Record<string, string[]> };
 }
 
+
+//To handle form state 
 export function useAddWithdrawForm({
   potItem,
   selectedAction,
   setOpenDrawer,
-  state,
 }: UseAddWithdrawFormProps) {
   const [formData, setFormData] = useState({
     name: potItem?.name,
@@ -25,11 +25,12 @@ export function useAddWithdrawForm({
 
   const [transactionName, setTransactionName] = useState("");
 
-  const handleTransactionName = () => {
-    return selectedAction === "withdraw" ? "You withdrew" : "You've added";
-  };
-
+  
   useEffect(() => {
+    const handleTransactionName = () => {
+      return selectedAction === "withdraw" ? "You withdrew" : "You've added";
+    };
+
     setTransactionName(handleTransactionName());
 
     // Reset amount field when action changes
@@ -39,20 +40,20 @@ export function useAddWithdrawForm({
     }));
   }, [selectedAction]);
 
-  const formatTransaction = (amount: string) => {
-    if (selectedAction === "withdraw") {
-      return -Math.abs(Number(amount));
-    }
-    return amount;
-  };
+  // const formatTransaction = (amount: string) => {
+  //   if (selectedAction === "withdraw") {
+  //     return -Math.abs(Number(amount));
+  //   }
+  //   return amount;
+  // };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: name === "amount" ? formatTransaction(currencyFormat(value)) : value,
-    });
-  };
+  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setFormData({
+  //     ...formData,
+  //     [name]: name === "amount" ? formatTransaction(currencyFormat(value)) : value,
+  //   });
+  // };
 
   useEffect(() => {
     if (state?.results?.message) {
@@ -63,6 +64,5 @@ export function useAddWithdrawForm({
   return {
     formData,
     transactionName,
-    handleChange,
   };
 }

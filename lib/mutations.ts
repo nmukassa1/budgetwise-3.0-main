@@ -4,28 +4,30 @@ import { supabase } from "./supabase";
 import { transactionSchema } from "./validationSchema";
 
 import { revalidatePath } from "next/cache";
-// import {BudgetType, PotType} from './types';
 import createEntity from "./createEntity";
 import { z } from "zod";
 import updateEntity from "./updateEntity";
 import createTransactionEntity from "./createTransactionEntity";
-
-
-  export async function createNewPot(previousState: unknown, formData: FormData) {
+import {State} from '@/components/Form';
+  
+  export async function createNewPot(currentState: State, formData: FormData) {
+    console.log('Create new pot formData: ', formData);
+    
     return createEntity(
-        "pots", // Table name
-        z.object({
-            name: z.string().min(2,{ message: 'Name must be longer than 2 characters' }),
-            target_amount: z.number().optional(),
-        }), // Validation schema
-        formData,
-        (formData) => ({
-            name: formData.get("name") as string,
-            target_amount: Number(formData.get("target_amount")),
-        }), // Map FormData to fields
-        "Pot created successfully" // Success message
+      "pots", // Table name
+      z.object({
+        name: z.string().min(2, { message: "Name must be longer than 2 characters" }),
+        target_amount: z.number().optional(),
+      }), // Validation schema
+      formData,
+      (formData) => ({
+        name: formData.get("name") as string,
+        target_amount: Number(formData.get("target_amount")),
+      }), // Map FormData to fields
+      "Pot created successfully" // Success message
     );
-}
+  }
+  
 
 
 export async function deleteCategory(categoryId: string){
@@ -79,66 +81,6 @@ export async function createTransaction(state: object, formData: FormData) {
     );
 }
 
-interface potTransaction {
-    name: string,
-    amount: string,
-    repeat: boolean,
-    potId: number,
-}
-
-export async function createPotTransaction(formData: potTransaction) {
-    const session = await verifySession();
-    if (!session?.userId) {
-        console.log("No session found");
-    }
-
-    // console.log(formData);
-
-    const transaction_date = new Date();
-    
-    const { name, amount, repeat, potId } = formData;
-
-
-    try {
-        // Create new category
-        const { data, error } = await supabase
-            .from("transactions")
-            .insert({
-                name,
-                amount: Number(amount),
-                is_recurring: repeat,
-                transaction_date,
-                category_type: 'pot',
-                user_id: session.userId,
-                pot_id: potId
-            })
-            .select("*");
-
-        if (error) {
-            console.log(error);
-            return {
-                message: "An error occurred while creating the transaction",
-                error: error
-            };
-        }
-
-        // Trigger revalidation of a specific path
-        revalidatePath("/dashboard"); // Update this to the relevant path
-
-        console.log('Transaction created successfully');
-            return{
-                results: {message: 'Transaction created successfully', data}
-            }
-
-    } catch (error) {
-        console.log(error);
-        return {
-            errors: {
-                general: "An unexpected error occurred",
-            },
-        };
-    }
-}
 
 export async function deletePot(id: number){
     const session = await verifySession();

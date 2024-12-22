@@ -31,6 +31,9 @@ export default async function createEntity<T extends Record<string, unknown>>(
     }
 
     const mappedFields = fieldMappings(formData);
+
+    console.log('Creaate entity formData: ', formData);
+    
     
 
     // Validate fields using the provided schema
@@ -42,6 +45,8 @@ export default async function createEntity<T extends Record<string, unknown>>(
         };
     }
 
+    console.log(validation.data);
+    
     
 
     try {

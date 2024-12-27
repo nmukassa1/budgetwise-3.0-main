@@ -2,16 +2,16 @@ import { deletePot } from "@/lib/mutations";
 import { usePot } from "@/lib/context/PotContext";
 
 interface DeleteConfirmationProps {
-  onClose: () => void;
+  setOpenDrawer: (open: boolean) => void;
 }
 
-function DeleteConfirmation({ onClose }: DeleteConfirmationProps) {
+function DeleteConfirmation({ setOpenDrawer }: DeleteConfirmationProps) {
   const { pot: potItem } = usePot();
 
   async function handleDelete() {
     if (potItem?.id) {
       await deletePot(potItem.id);
-      onClose();
+      setOpenDrawer(false);
     }
   }
 

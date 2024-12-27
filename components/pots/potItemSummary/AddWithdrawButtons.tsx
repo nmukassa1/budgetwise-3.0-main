@@ -26,7 +26,7 @@ function AddWithdrawButtons({potItem}: { potItem: PotType }) {
                 )}
             </div> 
 
-            <DrawerContainer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}>
+            <DrawerContainer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} position="bottom">
                 <AddWithdrawForm setOpenDrawer={setOpenDrawer} selectedAction={selectedAction} />
             </DrawerContainer>
         </>

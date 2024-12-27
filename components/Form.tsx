@@ -15,7 +15,7 @@ export interface State {
 
 interface FormProps {
   setOpenDrawer: (open: boolean) => void;
-  action: (currentState: State, data: FormData) => Promise<State>;
+  action: (currentState: State, data: object) => Promise<State>;
   title: string;
   amountPlaceholder: string;
   amountName: string;
@@ -40,7 +40,7 @@ function Form({
   const [formData, setFormData] = useState(defaultFormData);
 
   // Use the custom hook to handle async actions and manage state
-  const { state, action: formAction, pending } = useActionState<FormData, State>(
+  const { state, action: formAction, pending } = useActionState<object, State>(
     action,
     { errors: {}, results: { message: "" } } // Initial state
   );
@@ -60,27 +60,15 @@ function Form({
     }
   }, [state, setOpenDrawer]);
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Prevent default form submission
 
-    // Create a FormData instance and populate it
-    const data = new FormData();
-    data.append("name", formData.name);
-    data.append(amountName, formData[amountName]);
-
-    // Append additional fields to the FormData instance
-    React.Children.forEach(children, (child) => {
-      if (React.isValidElement<{ name?: string; value?: string }>(child) && child.props?.name && child.props?.value) {
-        data.append(child.props.name, child.props.value);
-      }
-    });
-
-    for (const pair of data.entries()) {
-      console.log(pair[0] + ": " + pair[1]);
-    }
-    
-    // Call the form action with the FormData instance
-    await formAction(data);
+    const additionalData = Array.from(new FormData(e.target as HTMLFormElement)).reduce(
+      (acc, [key, value]) => ({ ...acc, [key]: value }),
+      {}
+    );
+    await formAction({ ...formData, ...additionalData });
   };
 
   return (
@@ -110,7 +98,7 @@ function Form({
             name={amountName}
             id={amountName}
             className="text-secondary p-2 border-white border-2 flex items-center gap-2 rounded-md bg-transparent focus:outline-none w-full text-center"
-            value={formData.amount}
+            value={formData.amountName}
             onChange={handleChange}
           />
         </div>

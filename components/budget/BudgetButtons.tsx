@@ -26,7 +26,7 @@ function BudgetButtons() {
                     handleOpenDrawer();
                     }} className="h-[50px] w-full rounded-md bg-primary">New Transaction</button>
             </div>
-            <DrawerContainer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer}>
+            <DrawerContainer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} position="bottom">
                 {selectedAction === 'newBudget' && <NewBudgetForm setOpenDrawer={setOpenDrawer} />}
                 {selectedAction === 'newTransaction' && <p>New Transaction</p>}
             </DrawerContainer>

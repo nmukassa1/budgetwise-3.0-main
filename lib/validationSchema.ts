@@ -16,19 +16,22 @@ export const loginFormSchema = z.object({
 
 
 export const potSchema = z.object({
-    name: z.string().min(2, { message: 'Pot must have a name' }),
+    name: z.string().min(2, { message: "Name must be longer than 2 characters" }),
+    target_amount: z.number().optional(),
 });
 
-export const budgetSchema = z.object({
-    name: z.string().min(2, { message: 'Budget must have a name' }),
-});
+export const budgetSchema =  z.object({
+    name: z.string().min(2,{ message: 'Name must be longer than 2 characters' }),
+    budget_amount: z.number().optional(),
+})
 
 export const transactionSchema = z.object({
     amount: z.number().min(1),
     name: z.string().min(2),
     category_type: z.string(),
-    repeat: z.boolean(),
+    repeat: z.string(),
     pot_id: z.number(),
+    transaction_date: z.string(),
 });
 
 export const potTransactionSchema = z.object({

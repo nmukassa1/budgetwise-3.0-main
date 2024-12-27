@@ -14,10 +14,9 @@ interface Errors {
 export default async function createTransactionEntity<T extends Record<string, unknown>>(
     tableName: string,
     validationSchema: z.ZodSchema<T>,
-    formData: FormData,
-    fieldMappings: (formData: FormData) => Partial<T>,
+    formData: object,
+    fieldMappings: (formData: object) => Partial<T>,
     successMessage: string,
-    category?: string
 ): Promise<
     | { errors: Errors; results?: undefined }
     | { results: { message: string; data: T[] }; errors?: undefined }
@@ -32,7 +31,26 @@ export default async function createTransactionEntity<T extends Record<string, u
         };
     }
 
-    const mappedFields = fieldMappings(formData);
+    let amount;
+    if('action' in formData && 'amount' in formData){
+        if(formData['action'] === 'withdraw'){
+            amount = -Math.abs(Number(formData['amount']));
+        }
+        else{
+            amount = Math.abs(Number(formData['amount']));
+        }
+    }
+
+    const amendedFormData = {
+        ...formData,
+        amount,
+    };
+
+    console.log('Amended form data: ', amount, amendedFormData);
+    
+    
+
+    const mappedFields = fieldMappings(amendedFormData);
     
 
     // Validate fields using the provided schema

@@ -6,13 +6,15 @@ interface DrawerContainerProps{
     children: React.ReactNode,
     openDrawer: boolean,
     setOpenDrawer: (open: boolean) => void;
+    position?: 'top' | 'bottom' ;
 }
 
-function DrawerContainer({children, openDrawer, setOpenDrawer} : DrawerContainerProps) {
+function DrawerContainer({children, openDrawer, setOpenDrawer, position} : DrawerContainerProps) {
 
+    const borderRadius = position === 'top' ? '0 0 21px 21px' : '21px 21px 0 0';
 
     return ( 
-        <Drawer open={openDrawer} anchor="bottom" sx={{'& .MuiDrawer-paper': {background: '#161618', borderRadius: '21px 21px 0 0'}}}>
+        <Drawer open={openDrawer} anchor={position} sx={{'& .MuiDrawer-paper': {background: '#161618', borderRadius: borderRadius}}}>
                 <div className="bg-primary h-[50vh] text-secondary rounded-tl-md">
                     <div className="mobile-container relative">
                         <div className="text-right mt-4">

@@ -3,7 +3,6 @@
 import { Drawer } from "@mui/material";
 import { useEffect, useState } from "react";
 import { usePot } from "@/lib/context/PotContext";
-import AddWithdrawMenu from "./AddWithdrawMenu";
 import { getTransactionsById } from "@/lib/queries";
 import Header from "./Header";
 import AddWithdrawButtons from "./AddWithdrawButtons";
@@ -19,17 +18,13 @@ interface PotItemSummaryProps {
 export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }: PotItemSummaryProps) {
   const { pot: potItem } = usePot();
 
-  const [openAddWithdrawMenu, setOpenAddWithdrawMenu] = useState(false);
-  const [addWithdrawMenuAction] = useState<{ withdrawOrAdd: string }>({ withdrawOrAdd: "" });
 
   const [reFetchTransactions, setReFetchTransactions] = useState<boolean>(false);
 
   useEffect(() => {
     async function fetchTransactions() {
       try {
-        const transactions = await getTransactionsById(potItem.id);
-        // Process transactions if needed
-        console.log("Fetched transactions:", transactions);
+        await getTransactionsById(potItem.id);
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }

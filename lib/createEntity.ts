@@ -1,59 +1,50 @@
+/*
+    This file contains the createEntity function, which is responsible for creating a new entity in the database. The function takes in various parameters, such as the table name, validation schema, form data, field mappings, and success message. It then validates the form data using the provided schema, inserts the data into the database, and triggers revalidation of a specific path.
+*/
+
 import { z } from "zod";
 import { verifySession } from "./session";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
-
-interface Errors {
-    name?: string[];
-    goal?: string;
-    error?: string;
-    in?: string;
-  }
+import { SuccessFetch, ErrorFetch } from "./types";
 
 export default async function createEntity<T extends Record<string, unknown>>(
     tableName: string,
     validationSchema: z.ZodSchema<T>,
-    formData: FormData,
-    fieldMappings: (formData: FormData) => Partial<T>,
+    formData: object,
+    fieldMappings: (formData: object) => Partial<T>,
     successMessage: string
-): Promise<
-    | { errors: Errors; results?: undefined }
-    | { results: { message: string; data: T[] }; errors?: undefined }
-> {
+): Promise<SuccessFetch | ErrorFetch> {
     const session = await verifySession();
     if (!session?.userId) {
         console.log("No session found");
         return {
-            errors: {
-                error: "User is not authenticated",
-            },
+            status: "error",
+            message: "User is not authenticated",
+            data: {},
         };
     }
 
     const mappedFields = fieldMappings(formData);
-
-    console.log('Creaate entity formData: ', formData);
     
-    
-
     // Validate fields using the provided schema
     const validation = validationSchema.safeParse(mappedFields);
     if (!validation.success) {
-        console.log(validation.error.flatten().fieldErrors);
+        console.log('Create entity validation error: ', validation.error.flatten().fieldErrors);
         return {
-            errors: validation.error.flatten().fieldErrors,
+            status: "error",
+            message: "Validation failed",
+            data: validation.error.flatten().fieldErrors,
         };
     }
 
-    console.log(validation.data);
-    
-    
+    console.log('Create entity zod validation: ', validation.data);
 
     try {
         // Insert into the database
         const { data, error } = await supabase
             .from(tableName)
-            .insert({...validation.data, user_id: session.userId})
+            .insert({ ...validation.data, user_id: session.userId })
             .select("*");
 
         if (error) {
@@ -68,9 +59,9 @@ export default async function createEntity<T extends Record<string, unknown>>(
             }
         
             return {
-                errors: {
-                    error: uniqueError,
-                },
+                status: "error",
+                message: uniqueError,
+                data: {},
             };
         }
 
@@ -78,14 +69,16 @@ export default async function createEntity<T extends Record<string, unknown>>(
         revalidatePath("/dashboard");
 
         return {
-            results: { message: successMessage, data },
+            status: "success",
+            message: successMessage,
+            data: data,
         };
     } catch (error) {
         console.log('Caught error: ', error);
         return {
-            errors: {
-                error: "An unexpected error occurred",
-            },
+            status: "error",
+            message: "An unexpected error occurred",
+            data: {},
         };
     }
 }

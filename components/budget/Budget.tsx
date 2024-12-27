@@ -5,7 +5,7 @@ import BudgetButtons from "./BudgetButtons";
 import { BudgetType } from "@/lib/types";
 
 interface BudgetProps {
-    budgets: BudgetType[]
+    budgets: BudgetType[],
 }
 
 
@@ -16,7 +16,7 @@ export default function Budget({budgets} : BudgetProps) {
             <CategoryHeader categoryName='Budget' />
 
             <div className="">
-                <BudgetButtons />
+                <BudgetButtons budgets={budgets} />
 
                 {budgets.length === 0 && (
                     <div className="w-full h-[100px] mt-4 grid place-content-center border-4 border-dashed border-[hsla(0,52%,100%,0.1)]">

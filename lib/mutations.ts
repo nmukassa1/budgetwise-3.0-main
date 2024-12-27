@@ -1,11 +1,10 @@
 "use server"
 import { verifySession } from "./session";
 import { supabase } from "./supabase";
-import { budgetSchema, potSchema, transactionSchema } from "./validationSchema";
+import { budgetSchema, editPotSchema, potSchema, transactionSchema } from "./validationSchema";
 
 import { revalidatePath } from "next/cache";
 import createEntity from "./createEntity";
-import { z } from "zod";
 import updateEntity from "./updateEntity";
 import createTransactionEntity from "./createTransactionEntity";
 import {NewBudgetFormType, PotFormType, TransactionFormType} from '@/lib/types';
@@ -49,6 +48,7 @@ export async function createTransaction(formData: object) {
             // repeat: (formData as TransactionFormType).repeat as string,
             category_type: (formData as TransactionFormType).category_type as string,
             pot_id: Number((formData as TransactionFormType).pot_id) as number,
+            budget_id: Number((formData as TransactionFormType).budget_id) as number,
             transaction_date: (formData as TransactionFormType).transaction_date as string,
         }),
         "Transaction created successfully"
@@ -58,10 +58,7 @@ export async function createTransaction(formData: object) {
 export async function editPot(formData: object){
     return updateEntity(
         "pots", // Table name
-        z.object({
-            name: z.string().min(2,{ message: 'Name must be longer than 2 characters' }),
-            target_amount: z.number().optional(),
-        }), // Validation schema
+        editPotSchema, // Validation schema
         formData,
         (formData) => ({
             name: (formData as PotFormType).name as string,

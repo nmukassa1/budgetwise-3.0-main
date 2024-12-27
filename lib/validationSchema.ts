@@ -30,7 +30,12 @@ export const transactionSchema = z.object({
     name: z.string().min(2),
     category_type: z.string(),
     // repeat: z.string(),
-    pot_id: z.number(),
+    pot_id: z.number().optional(),
+    // budget_id: z.number().optional(),
     transaction_date: z.string(),
 });
 
+export const editPotSchema = z.object({
+    name: z.string().min(2,{ message: 'Name must be longer than 2 characters' }),
+    target_amount: z.number().optional(),
+})

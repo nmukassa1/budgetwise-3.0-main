@@ -3,8 +3,10 @@
 import { useState } from "react";
 import DrawerContainer from "../DrawerContainer";
 import NewBudgetForm from "./NewBudgetForm";
+import BudgetTransactionForm from "./BudgetTransactionForm";
+import { BudgetType } from "@/lib/types";
 
-function BudgetButtons() {
+function BudgetButtons({budgets}: {budgets: BudgetType[]}) {
     const [openDrawer, setOpenDrawer] = useState(false);
     const [selectedAction, setSelectedAction] = useState<null | 'newBudget' | 'newTransaction'>(null);
 
@@ -28,7 +30,7 @@ function BudgetButtons() {
             </div>
             <DrawerContainer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} position="bottom">
                 {selectedAction === 'newBudget' && <NewBudgetForm setOpenDrawer={setOpenDrawer} />}
-                {selectedAction === 'newTransaction' && <p>New Transaction</p>}
+                {selectedAction === 'newTransaction' && <BudgetTransactionForm budgets={budgets} setOpenDrawer={setOpenDrawer} />}
             </DrawerContainer>
        </>
      );

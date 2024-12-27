@@ -22,7 +22,8 @@ export interface TransactionFormType {
   amount: string | number;
   repeat?: string;
   category_type: string;
-  pot_id: number;
+  pot_id?: number;
+  budget_id?: number;
   transaction_date: string;
 }
 
@@ -52,6 +53,10 @@ export interface potTransaction {
   amount: string,
   repeat: boolean,
   potId: number,
+}
+
+export interface CategoriesType{
+  
 }
 
 

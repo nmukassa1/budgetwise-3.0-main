@@ -23,12 +23,6 @@ export const getUser = cache(async () => {
     return user;
 });
 
-export const getCategories = async () => {
-    const session = await verifyAndGetSession();
-
-    const { data: categories } = await supabase.from('categories').select('*').eq('user_id', session.userId);
-    return categories;
-};
 
 export const getTransactionsByType = async (type: string) => {
     const session = await verifyAndGetSession();

@@ -16,9 +16,11 @@ function DeleteConfirmation({ setOpenDrawer }: DeleteConfirmationProps) {
   }
 
   return (
-    <button onClick={handleDelete} className="bg-red-500 p-4 rounded-md">
-      Delete Pot
-    </button>
+    <div className="grid place-content-center h-[240px]">
+      <button onClick={handleDelete} className="bg-red-500 p-4 rounded-md">
+        Delete Pot
+      </button>
+    </div>
   );
 }
 

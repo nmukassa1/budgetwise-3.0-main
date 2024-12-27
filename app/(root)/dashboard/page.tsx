@@ -10,7 +10,7 @@ const Dashboard  = async () => {
         getTransactionsByType('income'),
         getTransactionsByType('expense'),
         getPots(),
-        getBudgets()
+        getBudgets(),
       ]);
     const potsList = pots || [];
     const budgetsList = budgets || [];
@@ -24,7 +24,7 @@ const Dashboard  = async () => {
             <MobileHero user={user} netIncome={netIncome} />
             <div className="mobile-container flex flex-col gap-4">
                 <PotServerComponent pots={potsList} />
-                <Budget budgets={budgetsList} />
+                <Budget budgets={budgetsList}  />
             </div>
             <Footer />
         </div>

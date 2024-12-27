@@ -2,14 +2,7 @@ import { z } from "zod";
 import { verifySession } from "./session";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
-
-interface Errors {
-    name?: string[];
-    goal?: string;
-    error?: string;
-    in?: string;
-  }
-
+import { ErrorFetch, SuccessFetch } from "./types";
 
 export default async function createTransactionEntity<T extends Record<string, unknown>>(
     tableName: string,
@@ -17,17 +10,14 @@ export default async function createTransactionEntity<T extends Record<string, u
     formData: object,
     fieldMappings: (formData: object) => Partial<T>,
     successMessage: string,
-): Promise<
-    | { errors: Errors; results?: undefined }
-    | { results: { message: string; data: T[] }; errors?: undefined }
-> {
+): Promise<SuccessFetch | ErrorFetch> {
     const session = await verifySession();
     if (!session?.userId) {
         console.log("No session found");
         return {
-            errors: {
-                error: "User is not authenticated",
-            },
+            status: "error",
+            message: "User is not authenticated",
+            data: {},
         };
     }
 
@@ -46,7 +36,6 @@ export default async function createTransactionEntity<T extends Record<string, u
         amount,
     };
 
-    console.log('Amended form data: ', amount, amendedFormData);
     
     
 
@@ -58,7 +47,9 @@ export default async function createTransactionEntity<T extends Record<string, u
     if (!validation.success) {
         console.log(validation.error.flatten().fieldErrors);
         return {
-            errors: validation.error.flatten().fieldErrors,
+            status: "error",
+            message: "Validation failed",
+            data: validation.error.flatten().fieldErrors,
         };
     }
 
@@ -83,9 +74,9 @@ export default async function createTransactionEntity<T extends Record<string, u
             }
         
             return {
-                errors: {
-                    error: uniqueError,
-                },
+                status: "error",
+                message: uniqueError,
+                data: {},
             };
         }
 
@@ -93,14 +84,16 @@ export default async function createTransactionEntity<T extends Record<string, u
         revalidatePath("/dashboard");
 
         return {
-            results: { message: successMessage, data },
+            status: "success",
+            message: successMessage,
+            data: data,
         };
     } catch (error) {
         console.log('Caught error: ', error);
         return {
-            errors: {
-                error: "An unexpected error occurred",
-            },
+            status: "error",
+            message: "An unexpected error occurred",
+            data: {},
         };
     }
 }

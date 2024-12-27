@@ -10,7 +10,7 @@ export interface PotType {
 
 export interface PotFormType {
   name: string;
-  target_amount?: string | number;
+  target_amount?: string ;
 }
 export interface NewBudgetFormType {
   name: string;
@@ -20,7 +20,7 @@ export interface NewBudgetFormType {
 export interface TransactionFormType {
   name: string;
   amount: string | number;
-  repeat: string;
+  repeat?: string;
   category_type: string;
   pot_id: number;
   transaction_date: string;

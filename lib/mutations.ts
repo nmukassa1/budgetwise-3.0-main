@@ -17,7 +17,7 @@ import {NewBudgetFormType, PotFormType, TransactionFormType} from '@/lib/types';
       formData,
       (formData) => ({
         name: (formData as PotFormType).name,
-        target_amount: (formData as PotFormType) ? Number((formData as PotFormType).target_amount) : undefined,
+        target_amount: (formData as PotFormType).target_amount,
       }), // Map FormData to fields
       "Pot created successfully" // Success message
     );
@@ -46,7 +46,7 @@ export async function createTransaction(formData: object) {
         (formData) => ({
             name: (formData as TransactionFormType).name as string,
             amount: Number((formData as TransactionFormType).amount),
-            repeat: (formData as TransactionFormType).repeat as string,
+            // repeat: (formData as TransactionFormType).repeat as string,
             category_type: (formData as TransactionFormType).category_type as string,
             pot_id: Number((formData as TransactionFormType).pot_id) as number,
             transaction_date: (formData as TransactionFormType).transaction_date as string,

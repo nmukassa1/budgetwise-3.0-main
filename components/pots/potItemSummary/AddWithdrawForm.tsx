@@ -56,7 +56,7 @@ function AddWithdrawForm({
       if(result.status === 'success'){
         setOpenDrawer(false);
       }
-    }
+    } 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result]);
 
@@ -65,6 +65,7 @@ function AddWithdrawForm({
       <div className="grid  gap-2 mt-4">
         <Title title={selectedAction === "withdraw" ? "Withdraw" : "Add"} />
         <Input name="amount" placeholder="0.00" type="number" id="amount" handleChange={handleChange} value={formData.amount || ''} />
+        
 {/* 
         <FormControlLabel
           control={

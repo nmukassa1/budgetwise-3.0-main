@@ -23,7 +23,6 @@ import useCustomForm from "@/lib/hooks/useCustomForm";
 import Input from "../form/Input";
 import Title from "../form/Title";
 import SubmitButton from "../form/SubmitButton";
-import { ErrorFetch, SuccessFetch } from "@/lib/types";
 
 function PotForm({ setOpenDrawer }: { setOpenDrawer: (open: boolean) => void }) {
   const { formData, handleChange, handleSubmit, pending, result } = useCustomForm({

@@ -1,14 +1,14 @@
-function SubmitButton({pending}: {pending: boolean}) {
+function SubmitButton({pending, className}: {pending: boolean, className?: string}) {
     return ( 
-      <div className="mt-4">
+      <>
       <button
         type="submit"
-        className="w-full bg-secondary text-primary py-4 rounded-md mt-2"
+        className={`${className} w-full bg-secondary text-primary py-4 rounded-md mt-2`}
         disabled={pending}
       >
         {pending ? "Submitting..." : "Submit"}
       </button>
-    </div>
+    </>
      );
 }
 

@@ -1,13 +1,23 @@
 import Input from '@/components/form/Input';
 import Title from '@/components/form/Title';
 import SubmitButton from '../form/SubmitButton';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useCustomForm from '@/lib/hooks/useCustomForm';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../ui/carousel';
 import { BudgetType } from '@/lib/types';
+import RadioButton from './RadioButton';
+import { createBudgetTransaction } from '@/lib/mutations';
 function BudgetTransactionForm({ setOpenDrawer, budgets }: { setOpenDrawer: (open: boolean) => void, budgets: BudgetType[] }) {
+
+
+    const customFormData = {
+        budget_id: budgets[0].id,
+        category_type: "expense",
+        transaction_date: new Date().toISOString(),
+      };
+
     const {handleChange, formData, result, pending, handleSubmit} = useCustomForm({
-        initialFormData: {}
+        initialFormData: customFormData,
+        action: createBudgetTransaction,
     });
 
     useEffect(() => {
@@ -19,32 +29,35 @@ function BudgetTransactionForm({ setOpenDrawer, budgets }: { setOpenDrawer: (ope
           }
         }
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [result]);
+    }, [result]);
+
+    const [budgetSelected, setBudgetSelected] = useState<string | null>(budgets[0].id.toString());
+
+    useEffect(() => {
+       if(formData.budget_id){
+           setBudgetSelected(formData.budget_id.toString());
+        }
+
+    }, [formData])
+
+   
 
     return ( 
         <form onSubmit={handleSubmit}>
             <Title title="New Transaction" />
-            <Carousel>
-                <CarouselContent>
-                    <CarouselItem>
-                        <Input handleChange={handleChange} value={formData.name} name="name" placeholder="Name" type="text" id="name" />
-                        <Input handleChange={handleChange} value={formData.amount} name="amount" placeholder="Amount" type="number" id="amount" />
-                    </CarouselItem>
-                    <CarouselItem>
-                        <div className='max-h-[130px] overflow-scroll'>
-                            {budgets.map(budget => (
-                            <div key={budget.id}>
-                                <label htmlFor={budget.id.toLocaleString()}>{budget.name}</label>
-                                <Input handleChange={handleChange} value={budget.name} name="budget_id" placeholder={budget.name} type="radio" id={budget.id.toString()} className='hidden' />
-                            </div>
-                            ))}
-                        </div>
-                        <SubmitButton pending={pending} /> 
-                    </CarouselItem>
-                </CarouselContent>
-                <CarouselPrevious>Back</CarouselPrevious>
-                <CarouselNext>Next</CarouselNext>
-            </Carousel>
+            <div className='flex flex-col gap-6'>
+                <div>
+                    <Input handleChange={handleChange} value={formData.name} name="name" placeholder="Name" type="text" id="name" />
+                    <Input handleChange={handleChange} value={formData.amount} name="amount" placeholder="Amount" type="number" id="amount" />
+                </div>
+                <div className='overflow-scroll max-h-[300px] border-2 rounded-md grid grid-cols-2'>
+                    {budgets.map(budget => (
+                        <RadioButton key={budget.id} budget={budget} handleChange={handleChange} budgetSelected={budgetSelected} />
+                    ))}
+                </div>
+                <SubmitButton className='absolute bottom-[3vh]' pending={pending} /> 
+            </div>
+           
         </form>
      );
 }

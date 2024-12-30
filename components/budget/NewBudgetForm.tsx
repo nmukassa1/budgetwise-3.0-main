@@ -30,7 +30,7 @@ function NewBudgetForm({ setOpenDrawer }: { setOpenDrawer: (open: boolean) => vo
     <form onSubmit={handleSubmit}>
       <Title title="New Budget" />
       <Input name="name" placeholder="Budget Name" type="text" id="name" handleChange={handleChange} value={formData.name || ''} />
-      <Input name="target_amount" placeholder="Budget" type="number" id="target_amount" handleChange={handleChange} value={formData.target_amount || ''} />
+      <Input name="budget_amount" placeholder="Budget" type="number" id="budget_amount" handleChange={handleChange} value={formData.budget_amount || ''} />
      <SubmitButton pending={pending} />
     </form>
   );

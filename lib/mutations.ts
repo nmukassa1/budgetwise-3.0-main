@@ -1,13 +1,14 @@
 "use server"
 import { verifySession } from "./session";
 import { supabase } from "./supabase";
-import { budgetSchema, editPotSchema, potSchema, transactionSchema } from "./validationSchema";
+import { budgetSchema, editPotSchema, potSchema, transactionBudgetSchema, transactionSchema } from "./validationSchema";
 
 import { revalidatePath } from "next/cache";
 import createEntity from "./createEntity";
 import updateEntity from "./updateEntity";
 import createTransactionEntity from "./createTransactionEntity";
-import {NewBudgetFormType, PotFormType, TransactionFormType} from '@/lib/types';
+import {NewBudgetFormType, PotFormType, PotTransactionFormType, BudgetTransactionType, EditBudgetType} from '@/lib/types';
+import createBudgetTransactionEntity from "./createBudgetTransactionEntity";
   
   export async function createNewPot(formData: object) {
     return createEntity(
@@ -43,13 +44,30 @@ export async function createTransaction(formData: object) {
         transactionSchema,
         formData,
         (formData) => ({
-            name: (formData as TransactionFormType).name as string,
-            amount: Number((formData as TransactionFormType).amount),
-            // repeat: (formData as TransactionFormType).repeat as string,
-            category_type: (formData as TransactionFormType).category_type as string,
-            pot_id: Number((formData as TransactionFormType).pot_id) as number,
-            budget_id: Number((formData as TransactionFormType).budget_id) as number,
-            transaction_date: (formData as TransactionFormType).transaction_date as string,
+            name: (formData as PotTransactionFormType).name as string,
+            amount: Number((formData as PotTransactionFormType).amount),
+            // repeat: (formData as PotTransactionFormType).repeat as string,
+            category_type: (formData as PotTransactionFormType).category_type as string,
+            pot_id: Number((formData as PotTransactionFormType).pot_id) as number,
+            transaction_date: (formData as PotTransactionFormType).transaction_date as string,
+        }),
+        "Transaction created successfully"
+    );
+}  
+export async function createBudgetTransaction(formData: object) {
+    console.log(formData);
+    
+   return createBudgetTransactionEntity(
+        "transactions", // Table name
+        transactionBudgetSchema,
+        formData,
+        (formData) => ({
+            name: (formData as BudgetTransactionType).name as string,
+            amount: Number((formData as BudgetTransactionType).amount),
+            // repeat: (formData as BudgetTransactionType).repeat as string,
+            category_type: 'expense',
+            budget_id: Number((formData as BudgetTransactionType).budget_id) as number,
+            transaction_date: (formData as BudgetTransactionType).transaction_date as string,
         }),
         "Transaction created successfully"
     );
@@ -68,9 +86,22 @@ export async function editPot(formData: object){
         "Pot edited successfully" // Success message
     );
 }
+export async function editBudget(formData: object){
+    return updateEntity(
+        "budget", // Table name
+        budgetSchema, // Validation schema
+        formData,
+        (formData) => ({
+            name: (formData as EditBudgetType).name as string,
+            budget_amount: Number((formData as EditBudgetType).budget_amount),
+        }), // Map FormData to fields
+
+        "Budget edited successfully" // Success message
+    );
+}
 
 
-export async function deleteCategory(categoryId: string){
+export async function deleteItem(id: number, tableName: string){
     // console.log(categoryId);
     
     const session = await verifySession();
@@ -80,24 +111,28 @@ export async function deleteCategory(categoryId: string){
     
         try{
             //Delete category
-            const {data, error} = await supabase.from('categories').delete().match({
-                id: categoryId,
+            const {data, error} = await supabase.from(tableName).delete().match({
+                id: id,
                 user_id: session.userId
             }).select('*');
     
             if(error){
                 console.log(error);
                 return {
-                    errors: {
-                        general: 'An error occurred while deleting the category'
-                    }
+                    status: "error",
+                    message: "Error occurred while deleting the item",
+                    data: {},
                 }
             }
     
             // Trigger revalidation of a specific path
             revalidatePath("/dashboard"); // Update this to the relevant path
             
-            return data;
+            return {
+                status: "success",
+                message: 'Item deleted successfully',
+                data: data,
+            };
         } catch(error){
             console.log(error);
         }

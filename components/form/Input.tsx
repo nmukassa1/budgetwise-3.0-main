@@ -8,10 +8,10 @@ interface InputProps {
     className?: string;
 }
 
-function Input({value, placeholder, type='text', name, id, handleChange, className} : InputProps) {
+function Input({value = "", placeholder, type='text', name, id, handleChange, className} : InputProps) {
     
     return ( 
-        <div className="flex items-center gap-4 mt-4">
+        <div className="flex items-center mt-4">
           <input
             placeholder={placeholder}
             type={type}

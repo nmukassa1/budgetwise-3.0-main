@@ -12,18 +12,32 @@ export interface PotFormType {
   name: string;
   target_amount?: string ;
 }
-export interface NewBudgetFormType {
+
+export interface EditBudgetType {
   name: string;
-  budget_amount?: string | number;
+  budget_amount?: number ;
 }
 
-export interface TransactionFormType {
+export interface NewBudgetFormType {
+  name: string;
+  budget_amount?: number;
+}
+
+export interface PotTransactionFormType {
   name: string;
   amount: string | number;
   repeat?: string;
   category_type: string;
-  pot_id?: number;
-  budget_id?: number;
+  pot_id: number;
+  transaction_date: string;
+}
+
+export interface BudgetTransactionType {
+  name: string;
+  amount: string | number;
+  repeat?: string;
+  category_type: string;
+  budget_id: number;
   transaction_date: string;
 }
 
@@ -33,7 +47,9 @@ export interface TransactionType{
     name: string;
     amount: number;
     category_type: string;
-    is_recurring: boolean;
+    pot_id?: number;
+    budget_id?: number;
+    repeat: boolean;
     transaction_date: string;
     created_at: string;
 }; // Array of transaction objects
@@ -43,7 +59,7 @@ export interface BudgetType {
   user_id: string; 
   name: string; 
   budget_amount: number; 
-  currently_transacted?: number; 
+  currently_transacted: number; 
   createdAt?: Date; 
 }
 
@@ -53,10 +69,6 @@ export interface potTransaction {
   amount: string,
   repeat: boolean,
   potId: number,
-}
-
-export interface CategoriesType{
-  
 }
 
 

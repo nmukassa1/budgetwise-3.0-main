@@ -15,7 +15,7 @@ function Activities({ reFetchTransactions, setReFetchTransactions }: { reFetchTr
 
     useEffect(() => {
         async function fetchTransactions() {
-            const transactions = await getTransactionsById(potItem.id);
+            const transactions = await getTransactionsById(potItem.id, "pot_id");
             if (transactions && transactions.length > 0) {
                 setTransactions(transactions);
             }
@@ -25,7 +25,7 @@ function Activities({ reFetchTransactions, setReFetchTransactions }: { reFetchTr
     }, [potItem.id, reFetchTransactions, setReFetchTransactions]);
 
     return (
-        <Card className="w-full bg-primary p-4 rounded-md mt-8 text-white">
+        <Card className="w-full border-2 p-4 rounded-md mt-8 text-white">
             <CategoryHeader categoryName="Activity" />
 
             <div className="mt-4">

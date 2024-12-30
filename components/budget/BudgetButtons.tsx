@@ -5,33 +5,41 @@ import DrawerContainer from "../DrawerContainer";
 import NewBudgetForm from "./NewBudgetForm";
 import BudgetTransactionForm from "./BudgetTransactionForm";
 import { BudgetType } from "@/lib/types";
+import DrawerContainerScreen from "../DrawContainerScreen";
 
 function BudgetButtons({budgets}: {budgets: BudgetType[]}) {
     const [openDrawer, setOpenDrawer] = useState(false);
-    const [selectedAction, setSelectedAction] = useState<null | 'newBudget' | 'newTransaction'>(null);
+    const [openDrawerScreen, setOpenDrawerScreen] = useState(false);
+    // const [selectedAction, setSelectedAction] = useState<null | 'newBudget' | 'newTransaction'>(null);
 
     const handleOpenDrawer = () => {
         setOpenDrawer(true);
     }
+    const handleOpenDrawerScreen = () => {
+        setOpenDrawerScreen(true);
+    }
+
     
     return ( 
        <>
             <div className="mt-2 flex items-center gap-4">
                 <button 
                     onClick={() => {
-                    setSelectedAction('newBudget');
+                    // setSelectedAction('newBudget');
                     handleOpenDrawer();
                  }} className="h-[50px] w-full rounded-md bg-primary">New Budget</button>
 
                 <button onClick={() => {
-                    setSelectedAction('newTransaction');
-                    handleOpenDrawer();
+                    // setSelectedAction('newTransaction');
+                    handleOpenDrawerScreen();
                     }} className="h-[50px] w-full rounded-md bg-primary">New Transaction</button>
             </div>
             <DrawerContainer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} position="bottom">
-                {selectedAction === 'newBudget' && <NewBudgetForm setOpenDrawer={setOpenDrawer} />}
-                {selectedAction === 'newTransaction' && <BudgetTransactionForm budgets={budgets} setOpenDrawer={setOpenDrawer} />}
+                <NewBudgetForm setOpenDrawer={setOpenDrawer} />
             </DrawerContainer>
+            <DrawerContainerScreen openDrawer={openDrawerScreen} setOpenDrawer={setOpenDrawerScreen} position="bottom">
+                <BudgetTransactionForm budgets={budgets} setOpenDrawer={setOpenDrawerScreen} />
+            </DrawerContainerScreen>
        </>
      );
 }

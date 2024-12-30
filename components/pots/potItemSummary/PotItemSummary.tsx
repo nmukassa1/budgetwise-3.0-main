@@ -1,6 +1,5 @@
 "use client";
 
-import { Drawer } from "@mui/material";
 import { useEffect, useState } from "react";
 import { usePot } from "@/lib/context/PotContext";
 import { getTransactionsById } from "@/lib/queries";
@@ -9,6 +8,7 @@ import AddWithdrawButtons from "./AddWithdrawButtons";
 import Activities from "./Activities";
 import Goals from "./Goals";
 import { PotType } from "@/lib/types";
+import DrawerContainerScreen from "@/components/DrawContainerScreen";
 
 interface PotItemSummaryProps {
   togglePotSummary: boolean;
@@ -24,7 +24,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
   useEffect(() => {
     async function fetchTransactions() {
       try {
-        await getTransactionsById(potItem.id);
+        await getTransactionsById(potItem.id, "pot_id");
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
@@ -38,7 +38,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
   }
 
   return (
-    <Drawer open={togglePotSummary} anchor="top" sx={{ "& .MuiDrawer-paper": { background: "#161618" } }}>
+    <DrawerContainerScreen openDrawer={togglePotSummary} setOpenDrawer={setTogglePotSummary} position="top">
       <div className="h-screen mobile-container flex flex-col items-center text-white py-4">
         <Header />
         <CurrentBalance potItem={potItem} />
@@ -54,7 +54,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
           Close
         </button>
       </div>
-    </Drawer>
+    </DrawerContainerScreen>
   );
 }
 

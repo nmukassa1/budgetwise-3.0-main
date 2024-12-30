@@ -18,14 +18,23 @@ export default function useCustomForm({ initialFormData = {}, action }: UseFormP
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
+        // console.log(name, value);
+        
         setFormData({
             ...formData,
             [name]: value
         });
     };
 
+    // useEffect(() => {
+    //     console.log(formData);
+        
+    // }, [formData])
+
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+        console.log(formData);
+        
         setPending(true);
         try {
             if (action) {

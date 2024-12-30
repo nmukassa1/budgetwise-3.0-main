@@ -35,13 +35,13 @@ export const getTransactionsByType = async (type: string) => {
     return transactions;
 }
 
-export const getTransactionsById = async (id: number) => {
+export const getTransactionsById = async (id: number, match: string) => {
     const session = await verifyAndGetSession();
 
     const { data: transactions } = await supabase
         .from('transactions')
         .select('*').eq('user_id', session.userId)
-        .eq('pot_id', id)
+        .eq(match, id)
         .order('created_at', { ascending: false });
 
         revalidatePath("/dashboard");

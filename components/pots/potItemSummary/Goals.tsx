@@ -21,7 +21,7 @@ function Goals() {
 
    
 
-    return ( <Card className="w-full bg-primary p-4 rounded-md mt-8 text-white">
+    return ( <Card className="w-full border-2 p-4 rounded-md mt-8 text-white">
         <CategoryHeader categoryName={`Goal: £${(potItem.target_amount).toLocaleString()}`}  />
 
            

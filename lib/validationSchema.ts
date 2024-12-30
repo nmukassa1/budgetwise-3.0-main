@@ -31,7 +31,14 @@ export const transactionSchema = z.object({
     category_type: z.string(),
     // repeat: z.string(),
     pot_id: z.number().optional(),
-    // budget_id: z.number().optional(),
+    transaction_date: z.string(),
+});
+export const transactionBudgetSchema = z.object({
+    amount: z.number().refine(value => value !== 0),
+    name: z.string().min(2),
+    category_type: z.string(),
+    // repeat: z.string(),
+    budget_id: z.number().optional(),
     transaction_date: z.string(),
 });
 

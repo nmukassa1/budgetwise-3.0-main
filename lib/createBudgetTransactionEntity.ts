@@ -2,9 +2,9 @@ import { z } from "zod";
 import { verifySession } from "./session";
 import { supabase } from "./supabase";
 import { revalidatePath } from "next/cache";
-import { ErrorFetch, PotType, SuccessFetch } from "./types";
+import { ErrorFetch, SuccessFetch } from "./types";
 
-export default async function updateEntity<T extends Record<string, unknown>>(
+export default async function createBudgetTransactionEntity<T extends Record<string, unknown>>(
     tableName: string,
     validationSchema: z.ZodSchema<T>,
     formData: object,
@@ -20,12 +20,11 @@ export default async function updateEntity<T extends Record<string, unknown>>(
             data: {},
         };
     }
+    
 
     const mappedFields = fieldMappings(formData);
-    console.log(formData);
     
-    console.log(mappedFields);
-    
+
     // Validate fields using the provided schema
     const validation = validationSchema.safeParse(mappedFields);
     if (!validation.success) {
@@ -37,17 +36,14 @@ export default async function updateEntity<T extends Record<string, unknown>>(
         };
     }
 
-    const potId = (formData as { id: PotType }).id;
     
+
     try {
-        const {data, error} = await supabase
+        // Insert into the database
+        const { data, error } = await supabase
             .from(tableName)
-            .update({
-                ...validation.data
-            }).match({
-                id: potId,
-                user_id: session.userId
-            }).select('*');
+            .insert({...validation.data, user_id: session.userId})
+            .select("*");
 
         if (error) {
             console.log('Supabase error: ', error);
@@ -57,9 +53,9 @@ export default async function updateEntity<T extends Record<string, unknown>>(
                     uniqueError = "This name already exists";
                     break;
                 default:
-                    uniqueError = "An error occurred while updating the entity";
+                    uniqueError = "An error occurred while creating the entity";
             }
-
+        
             return {
                 status: "error",
                 message: uniqueError,

@@ -31,7 +31,7 @@ function BudgetTransactionForm({ setOpenDrawer, budgets }: { setOpenDrawer: (ope
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [result]);
 
-    const [budgetSelected, setBudgetSelected] = useState<string | null>(budgets[0].id.toString());
+    const [budgetSelected, setBudgetSelected] = useState<string | null>(null);
 
     useEffect(() => {
        if(formData.budget_id){

@@ -5,10 +5,10 @@ import { usePot } from "@/lib/context/PotContext";
 import { getTransactionsById } from "@/lib/queries";
 import Header from "./Header";
 import AddWithdrawButtons from "./AddWithdrawButtons";
-import Activities from "./Activities";
 import Goals from "./Goals";
 import { PotType } from "@/lib/types";
 import DrawerContainerScreen from "@/components/DrawContainerScreen";
+import Transactions from "@/components/Transactions";
 
 interface PotItemSummaryProps {
   togglePotSummary: boolean;
@@ -33,9 +33,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
     fetchTransactions();
   }, [potItem.id]);
 
-  function handleDrawClose() {
-    setTogglePotSummary(false);
-  }
+ 
 
   return (
     <DrawerContainerScreen openDrawer={togglePotSummary} setOpenDrawer={setTogglePotSummary} position="top">
@@ -43,16 +41,8 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
         <Header />
         <CurrentBalance potItem={potItem} />
         <AddWithdrawButtons potItem={potItem}  />
-        <div className="w-full">
-          <Activities reFetchTransactions={reFetchTransactions} setReFetchTransactions={setReFetchTransactions} />
-          {potItem.target_amount > 0 &&  <Goals />}
-        </div>
-        <button
-          onClick={handleDrawClose}
-          className="mt-4 bg-primary text-secondary py-4 px-6 rounded-md w-full"
-        >
-          Close
-        </button>
+        <Transactions id={potItem.id} match="pot_id" />
+        <Goals />
       </div>
     </DrawerContainerScreen>
   );

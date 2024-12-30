@@ -1,10 +1,9 @@
 "use client"
 import { BudgetType } from "@/lib/types";
 import BudgetItem from "./BudgetItem";
-import DrawerContainerScreen from "../DrawContainerScreen";
 import { useEffect, useState } from "react";
 import { getTransactionsById } from "@/lib/queries";
-import EditDeleteItem from "../EditDeleteItem";
+import BudgetItemSummary from "./BudgetItemSummary";
 
 export default function RenderBudgetItems({budgets} : {budgets: BudgetType[]}) {
     const [openDrawer, setOpenDrawer] = useState(false);
@@ -39,16 +38,7 @@ export default function RenderBudgetItems({budgets} : {budgets: BudgetType[]}) {
                 <BudgetItem key={budget.id}  budget={budget} setOpenDrawer={setOpenDrawer} setSelectedBudget={setSelectedBudget}/>
             ))}
 
-            <DrawerContainerScreen openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} position="top">
-                {filteredBudget && (
-                    <div className="relative w-full text-center">
-                        <h1>{filteredBudget.name}</h1>
-                        <EditDeleteItem item={filteredBudget} tableName="budget" closeParentDrawer={setOpenDrawer}/>
-
-                    </div>
-
-                )}
-            </DrawerContainerScreen>
+            <BudgetItemSummary filteredBudget={filteredBudget} openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
         </div>
     )
 }

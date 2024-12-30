@@ -21,18 +21,24 @@ function Goals() {
 
    
 
-    return ( <Card className="w-full border-2 p-4 rounded-md mt-8 text-white">
-        <CategoryHeader categoryName={`Goal: £${(potItem.target_amount).toLocaleString()}`}  />
-
-           
-        <div className="progress mt-5">
-            <div className="flex justify-between items-center text-[.8rem] mb-1">
-                <span>{percentage}%</span>
-                <span>Remaining: £{remaining}</span>
-            </div>
-            <LinearProgress variant="determinate" value={percentage} />
-        </div>
-    </Card> );
+    return ( 
+       <>
+         {potItem.target_amount > 0 && (
+            <Card className="w-full border-2 p-4 rounded-md mt-8 text-white">
+                <CategoryHeader categoryName={`Goal: £${(potItem.target_amount).toLocaleString()}`}  />
+    
+                
+                <div className="progress mt-5">
+                    <div className="flex justify-between items-center text-[.8rem] mb-1">
+                        <span>{percentage}%</span>
+                        <span>Remaining: £{remaining}</span>
+                    </div>
+                    <LinearProgress variant="determinate" value={percentage} />
+                </div>
+            </Card> 
+        )}
+       </>
+    );
 }
 
 export default Goals;

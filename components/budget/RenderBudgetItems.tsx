@@ -2,10 +2,14 @@
 import { BudgetType } from "@/lib/types";
 import BudgetItem from "./BudgetItem";
 import { useEffect, useState } from "react";
-import { getTransactionsById } from "@/lib/queries";
+import { getCurrentMonthTransactionsById } from "@/lib/queries";
 import BudgetItemSummary from "./BudgetItemSummary";
+import { useBudget } from "./BudgetProvider";
 
-export default function RenderBudgetItems({budgets} : {budgets: BudgetType[]}) {
+export default function RenderBudgetItems() {
+
+    const budgets = useBudget();
+
     const [openDrawer, setOpenDrawer] = useState(false);
     const [selectedBudget, setSelectedBudget] = useState<number | null>(null);
     // const [transactions, setTransactions] = useState([]);
@@ -15,7 +19,7 @@ export default function RenderBudgetItems({budgets} : {budgets: BudgetType[]}) {
     useEffect(() => {
         async function fetchTransactions() {
             try {
-                const results = await getTransactionsById(filteredBudget.id, "budget_id");
+                const results = await getCurrentMonthTransactionsById(filteredBudget.id, "budget_id");
                 console.log(filteredBudget);
                 console.log(results);
                 

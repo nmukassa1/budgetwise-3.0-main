@@ -27,10 +27,20 @@ export const getUser = cache(async () => {
 export const getTransactionsByType = async (type: string) => {
     const session = await verifyAndGetSession();
 
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+
     const { data: transactions } = await supabase
         .from('transactions').select('*')
         .eq('user_id', session.userId)
         .eq('category_type', type)
+        .gte('created_at', `${currentYear}-${currentMonth}-01`)
+        .lte('created_at', `${currentYear}-${currentMonth}-31 23:59:59.999999`)
+        .order('created_at', { ascending: false });
+
+        console.log(transactions);
+        
         
     return transactions;
 }
@@ -47,6 +57,27 @@ export const getTransactionsById = async (id: number, match: string) => {
         revalidatePath("/dashboard");
     return transactions;
 }
+
+export const getCurrentMonthTransactionsById = async (id: number, match: string) => {
+    const session = await verifyAndGetSession();
+
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+
+    const { data: transactions } = await supabase
+        .from('transactions')
+        .select('*')
+        .eq('user_id', session.userId)
+        .eq(match, id)
+        .gte('created_at', `${currentYear}-${currentMonth}-01`)
+        .lte('created_at', `${currentYear}-${currentMonth}-31 23:59:59.999999`)
+        .order('created_at', { ascending: false });
+
+    revalidatePath("/dashboard");
+    return transactions;
+}
+
 export const getTransactions = async () => {
     const session = await verifyAndGetSession();
 

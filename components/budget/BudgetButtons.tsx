@@ -4,10 +4,9 @@ import { useState } from "react";
 import DrawerContainer from "../DrawerContainer";
 import NewBudgetForm from "./NewBudgetForm";
 import BudgetTransactionForm from "./BudgetTransactionForm";
-import { BudgetType } from "@/lib/types";
 import DrawerContainerScreen from "../DrawContainerScreen";
 
-function BudgetButtons({budgets}: {budgets: BudgetType[]}) {
+function BudgetButtons() {
     const [openDrawer, setOpenDrawer] = useState(false);
     const [openDrawerScreen, setOpenDrawerScreen] = useState(false);
     // const [selectedAction, setSelectedAction] = useState<null | 'newBudget' | 'newTransaction'>(null);
@@ -38,7 +37,7 @@ function BudgetButtons({budgets}: {budgets: BudgetType[]}) {
                 <NewBudgetForm setOpenDrawer={setOpenDrawer} />
             </DrawerContainer>
             <DrawerContainerScreen openDrawer={openDrawerScreen} setOpenDrawer={setOpenDrawerScreen} position="bottom">
-                <BudgetTransactionForm budgets={budgets} setOpenDrawer={setOpenDrawerScreen} />
+                <BudgetTransactionForm setOpenDrawer={setOpenDrawerScreen} />
             </DrawerContainerScreen>
        </>
      );

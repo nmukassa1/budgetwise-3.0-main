@@ -19,19 +19,18 @@ function EditForm({ setOpenDrawer, potItem }: { setOpenDrawer: (open: boolean) =
 
   useEffect(() => {
     console.log(result);
-    
-    if('status' in result){
-      if(result.status === 'success'){
+      if(result?.status === 'success'){
         setOpenDrawer(false);
       }
-    }
   }, [result]);
 
   return (
     <form onSubmit={handleSubmit}>
       <Title title="Edit Pot" />
       <Input name="name" placeholder="Pot Name" type="text" id="name" handleChange={handleChange} value={formData.name || ''} />
+      {result && result.status === 'error' && <p className="text-red-500 text-sm">{result.data.name}</p>}
       <Input name="target_amount" placeholder="Goal" type="number" id="target_amount" handleChange={handleChange} value={formData.target_amount || ''} />
+      {result && result.status === 'error' && <p className="text-red-500 text-sm">{result.data.target_amount}</p>}
       <SubmitButton pending={pending} />
     </form>
   );

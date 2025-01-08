@@ -75,11 +75,11 @@ export interface potTransaction {
 export interface SuccessFetch{
   status: "success",
   message: string,
-  data: object,
+  data: any,
 }
 
 export interface ErrorFetch{
   status: "error",
   message: string,
-  data: object,
+  data: any,
 }

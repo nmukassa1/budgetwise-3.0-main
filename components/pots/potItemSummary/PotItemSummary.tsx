@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { usePot } from "@/lib/context/PotContext";
 import { getTransactionsById } from "@/lib/queries";
 import Header from "./Header";
@@ -18,9 +18,6 @@ interface PotItemSummaryProps {
 export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }: PotItemSummaryProps) {
   const { pot: potItem } = usePot();
 
-
-  const [reFetchTransactions, setReFetchTransactions] = useState<boolean>(false);
-
   useEffect(() => {
     async function fetchTransactions() {
       try {
@@ -37,7 +34,7 @@ export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }
 
   return (
     <DrawerContainerScreen openDrawer={togglePotSummary} setOpenDrawer={setTogglePotSummary} position="top">
-      <div className="h-screen mobile-container flex flex-col items-center text-white py-4">
+      <div className="mobile-container flex flex-col items-center text-white py-4">
         <Header />
         <CurrentBalance potItem={potItem} />
         <AddWithdrawButtons potItem={potItem}  />

@@ -14,7 +14,7 @@ interface UseFormProps {
 export default function useCustomForm({ initialFormData = {}, action }: UseFormProps) {
     const [formData, setFormData] = useState<FormData>(initialFormData);
     const [pending, setPending] = useState(false);
-    const [result, setResult] = useState<object | SuccessFetch | ErrorFetch>({});
+    const [result, setResult] = useState<SuccessFetch | ErrorFetch  | null>(null);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -39,7 +39,7 @@ export default function useCustomForm({ initialFormData = {}, action }: UseFormP
         try {
             if (action) {
                 const result = await action(formData);
-                setResult(result);
+                setResult(result as SuccessFetch | ErrorFetch); 
             }
         } catch (error) {
             console.error(error);

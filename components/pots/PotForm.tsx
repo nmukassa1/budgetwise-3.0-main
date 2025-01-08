@@ -32,11 +32,8 @@ function PotForm({ setOpenDrawer }: { setOpenDrawer: (open: boolean) => void }) 
 
   useEffect(() => {
     console.log(result);
-    
-    if('status' in result){
-      if(result.status === 'success'){
-        setOpenDrawer(false);
-      }
+    if(result && result.status === 'success'){
+      setOpenDrawer(false);
     }
   }, [result]);
 
@@ -44,6 +41,7 @@ function PotForm({ setOpenDrawer }: { setOpenDrawer: (open: boolean) => void }) 
     <form onSubmit={handleSubmit}>
       <Title title="New Pot" />
       <Input name="name" placeholder="Pot Name" type="text" id="name" handleChange={handleChange} value={formData.name || ''} />
+      {result && result.status === 'error' && <p className="text-red-500 text-sm">{result.data.name}</p>}
       <Input name="target_amount" placeholder="Goal" type="number" id="target_amount" handleChange={handleChange} value={formData.target_amount || ''} />
       <SubmitButton pending={pending} />
     </form>

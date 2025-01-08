@@ -51,12 +51,9 @@ function AddWithdrawForm({
 
   useEffect(() => {
     console.log(result);
-    
-    if('status' in result){
-      if(result.status === 'success'){
-        setOpenDrawer(false);
-      }
-    } 
+    if(result && result.status === 'success'){
+      setOpenDrawer(false);
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result]);
 
@@ -65,6 +62,7 @@ function AddWithdrawForm({
       <div className="grid  gap-2 mt-4">
         <Title title={selectedAction === "withdraw" ? "Withdraw" : "Add"} />
         <Input name="amount" placeholder="0.00" type="number" id="amount" handleChange={handleChange} value={formData.amount || ''} />
+        {result && result.status === 'error' && <p className="text-red-500 text-sm">{result.data.amount}</p>}
         
 {/* 
         <FormControlLabel

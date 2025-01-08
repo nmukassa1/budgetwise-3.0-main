@@ -1,11 +1,10 @@
+import { getPots } from "@/lib/queries";
 import Pots from "./Pots";
-import { PotType } from "@/lib/types";
 
-interface PotServerComponentProps {
-    pots: PotType[];
-}
 
-const PotServerComponent: React.FC<PotServerComponentProps> = ({ pots }) => {
+
+const PotServerComponent = async () => {
+    const pots = await getPots() || [];
     return <Pots pots={pots} />;
 };
 

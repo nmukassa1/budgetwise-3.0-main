@@ -2,34 +2,36 @@
 import CategoryHeader from "../CategoryHeader";
 import Card from "../Card";
 import BudgetButtons from "./BudgetButtons";
-import { BudgetType } from "@/lib/types";
 import RenderBudgetItems from "./RenderBudgetItems";
-
-interface BudgetProps {
-budgets: BudgetType[],
-}
+import { getBudgets } from "@/lib/queries";
+import { BudgetProvider } from "./BudgetProvider";
 
 
-export default function Budget({budgets} : BudgetProps) {   
 
+
+export default async function Budget() {   
+
+    const budgets = await getBudgets() || [];
 
     return(
-        <Card className="text-white">
-            <CategoryHeader categoryName='Budget' />
+        <BudgetProvider budgets={budgets}>
+            <Card className="text-white">
+                <CategoryHeader categoryName='Budget' />
 
-            <div className="">
-                <BudgetButtons budgets={budgets} />
+                <div className="">
+                    <BudgetButtons />
 
-                {budgets.length === 0 && (
-                    <div className="w-full h-[100px] mt-4 grid place-content-center border-4 border-dashed border-[hsla(0,52%,100%,0.1)]">
-                        <p className="text-gray-500">No budgets created</p>
-                    </div>
-                )}
+                    {budgets.length === 0 && (
+                        <div className="w-full h-[100px] mt-4 grid place-content-center border-4 border-dashed border-[hsla(0,52%,100%,0.1)]">
+                            <p className="text-gray-500">No budgets created</p>
+                        </div>
+                    )}
 
-                <RenderBudgetItems budgets={budgets} />
-                
-            </div>
+                    <RenderBudgetItems />
+                    
+                </div>
 
-        </Card>
+            </Card>
+        </BudgetProvider>
     )
 }

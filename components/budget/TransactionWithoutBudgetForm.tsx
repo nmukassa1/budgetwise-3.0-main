@@ -27,7 +27,7 @@ function TransactionWithoutBudgetForm({id}: {id: number}) {
     }
 
     useEffect(() => {
-        if(result){
+        if(result && result.status === 'success') {
             setOpenDrawerTransaction(false);
         }
     }, [result])
@@ -41,7 +41,9 @@ function TransactionWithoutBudgetForm({id}: {id: number}) {
                 <Title title="New Transaction" />
                 <form onSubmit={handleSubmit}>
                     <Input name="name" placeholder="Name" type="text" id="name" handleChange={handleChange} value={formData.name} />
+                    {result && result.status === 'error' && <p className="text-red-500 text-sm">{result.data.name}</p>}
                     <Input name="amount" placeholder="Amount" type="number" id="amount" handleChange={handleChange} value={formData.amount} />
+                    {result && result.status === 'error' && <p className="text-red-500 text-sm">{result.data.amount}</p>}
 
                     <SubmitButton pending={pending} />
                 </form>

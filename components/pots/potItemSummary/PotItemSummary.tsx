@@ -10,35 +10,37 @@ import { PotType } from "@/lib/types";
 import DrawerContainerScreen from "@/components/DrawContainerScreen";
 import Transactions from "@/components/Transactions";
 
-interface PotItemSummaryProps {
-  togglePotSummary: boolean;
-  setTogglePotSummary: (value: boolean) => void;
-}
 
-export default function PotItemSummary({ togglePotSummary, setTogglePotSummary }: PotItemSummaryProps) {
-  const { pot: potItem } = usePot();
+export default function PotItemSummary() {
+  const { filteredPot: potItem, openDrawer, setOpenDrawer } = usePot();
 
   useEffect(() => {
     async function fetchTransactions() {
       try {
-        await getTransactionsById(potItem.id, "pot_id");
+        if (potItem?.id) {
+          await getTransactionsById(potItem.id, "pot_id");
+        }
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
     }
 
     fetchTransactions();
-  }, [potItem.id]);
+  }, [potItem?.id]);
 
  
 
   return (
-    <DrawerContainerScreen openDrawer={togglePotSummary} setOpenDrawer={setTogglePotSummary} position="top">
+    <DrawerContainerScreen openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} position="top">
       <div className="mobile-container flex flex-col items-center text-white py-4">
         <Header />
-        <CurrentBalance potItem={potItem} />
-        <AddWithdrawButtons potItem={potItem}  />
-        <Transactions id={potItem.id} match="pot_id" />
+        {potItem && (
+          <>
+            <CurrentBalance potItem={potItem} />
+            <AddWithdrawButtons potItem={potItem}  />
+            <Transactions id={potItem.id} match="pot_id" />
+          </>
+        )}
         <Goals />
       </div>
     </DrawerContainerScreen>

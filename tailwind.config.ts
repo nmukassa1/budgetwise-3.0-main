@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: ["class"],
@@ -9,17 +10,15 @@ module.exports = {
   theme: {
   	extend: {
   		colors: {
-			background: "#161618", 
-			primary: '#1F1F1F', // Dark grayish tone for sidebar background
-			secondary: '#FAF9F6', // Light beige or off-white for main background
-			info: '#4fc3f7', // Light blue for informational elements (budget indicator)
-			warning: '#ffcc80', // Light peach for caution (warning states)
-			success: '#66bb6a', // Green for successful states (positive transactions)
-			error: '#f44336', // Red for errors or negative actions
+			background: "#D7D4C1", 
+			primary: '#1F1F1F', 
+			secondary: '#FAF9F6',
+			success: '#46A60E', 
+			error: '#DE1514', 
 			brand: "#FF00FF",
 			placeholder: '#D9D9D9'
   	}
   },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [import("tailwindcss-animate")],
 };

@@ -10,8 +10,15 @@ import SubmitButton from "../form/SubmitButton";
 
 
 function NewBudgetForm({ setOpenDrawer }: { setOpenDrawer: (open: boolean) => void }) {
+
+  const defaultFormData = {
+    name: '',
+    budget_amount: 0,
+    type: 'expense'
+  };
+
   const { formData, handleChange, handleSubmit, pending, result } = useCustomForm({
-    initialFormData: {},
+    initialFormData: defaultFormData,
     action: createNewBudget
   });
 

@@ -1,10 +1,11 @@
 import { getPots } from "@/lib/queries";
 import Pots from "./Pots";
+import { PotType } from "@/lib/types";
 
 
 
 const PotServerComponent = async () => {
-    const pots = await getPots() || [];
+    const pots: PotType[] = await getPots() || [];
     return <Pots pots={pots} />;
 };
 

@@ -2,39 +2,26 @@ import { createContext, useContext, ReactNode, useState, useEffect } from "react
 import { PotType } from "../types";
 
 
-export interface PotContextType {
-    pot: PotType;
-    setPot: (pot: PotType) => void;
+export interface PotContextProps {
+    pots: PotType[];
+    children?: ReactNode;
+    setSelectedPotId?: (id: number | undefined) => void;
+    filteredPot?: PotType;
+    openDrawer?: boolean;
+    setOpenDrawer?: (open: boolean) => void;
 }
 
-const PotContext = createContext<PotContextType | undefined>(undefined);
+const PotContext = createContext<PotContextProps | undefined>(undefined);
 
 // Context provider
-export function PotProvider({ children, pot }: { children: ReactNode; pot: PotType }) {
-    const defaultPot: PotType = {
-        id: 0,
-        user_id: "",
-        name: "Default Pot",
-        target_amount: 0,
-        current_amount: 0,
-        created_at: new Date().toISOString(),
-        completed: false,
-    };
-    
-    const initialPot = pot || defaultPot; // Fallback to defaultPot if pot is undefined
+export function PotProvider({ children, pots }: PotContextProps) {
+    const [openDrawer, setOpenDrawer] = useState(false);
+    const [selectedPotId, setSelectedPotId] = useState<number | undefined>(undefined);
 
-    // console.log("Initial pot:", initialPot); // Debugging log
-
-    const [currentPot, setPot] = useState<PotType>(initialPot);
-
-    useEffect(() => {
-        if (pot) {
-            setPot(pot);
-        }
-    }, [pot])
+    const filteredPot = pots.filter((pot: PotType) => pot.id === selectedPotId)[0];
 
     return (
-        <PotContext.Provider value={{ pot: currentPot, setPot }}>
+        <PotContext.Provider value={{ pots, children, setSelectedPotId, filteredPot, openDrawer, setOpenDrawer }}>
             {children}
         </PotContext.Provider>
     );

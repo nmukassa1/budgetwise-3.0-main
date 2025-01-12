@@ -8,7 +8,7 @@ import { createBudgetTransaction } from '@/lib/mutations';
 import { useBudget } from './BudgetProvider';
 function BudgetTransactionForm({ setOpenDrawer }: { setOpenDrawer: (open: boolean) => void}) {
 
-    const budgets = useBudget();
+    const {budgets} = useBudget();
 
 
     const customFormData = {
@@ -52,7 +52,7 @@ function BudgetTransactionForm({ setOpenDrawer }: { setOpenDrawer: (open: boolea
                     <Input handleChange={handleChange} value={formData.amount} name="amount" placeholder="Amount" type="number" id="amount" />
                     {result && result.status === 'error' && <p className="text-red-500 text-sm">{result.data.amount}</p>}
                 </div>
-                <div className='overflow-scroll max-h-[300px] border-2 rounded-md grid grid-cols-2'>
+                <div className='overflow-scroll max-h-[300px] text-3xl'>
                     {budgets.map(budget => (
                         <RadioButton key={budget.id} budget={budget} handleChange={handleChange} budgetSelected={budgetSelected} />
                     ))}

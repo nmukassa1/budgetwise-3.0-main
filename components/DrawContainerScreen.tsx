@@ -13,8 +13,8 @@ function DrawerContainerScreen({children, openDrawer, setOpenDrawer, position} :
 
 
     return ( 
-        <Drawer open={openDrawer} anchor={position} sx={{'& .MuiDrawer-paper': {background: '#1F1F1F', height: '100vh'}}}>
-                <div className="text-secondary rounded-tl-md">
+        <Drawer open={openDrawer} anchor={position} sx={{'& .MuiDrawer-paper': {background: '#D7D4C1', height: '100vh'}}}>
+                <div className="rounded-tl-md">
                     <div className="mobile-container relative">
                         <div className="text-right mt-4">
                             <button onClick={() => setOpenDrawer(false)}>

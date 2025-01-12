@@ -1,5 +1,6 @@
-import Navbar from "@/components/common/Navbar";
-import "./globals.css";
+
+import "./styles.css";
+// import "./globals.css";
 
 interface Metadata {
   title: string;
@@ -20,7 +21,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="en">
       <body className="md:overflow-hidden min-h-screen bg-background py-8 relative">
         {children}
-        <Navbar />
       </body>
     </html>
   );

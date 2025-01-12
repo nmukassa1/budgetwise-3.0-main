@@ -1,4 +1,6 @@
+"use client"
 import Difference from "./Difference";
+import { useInsight } from "@/lib/context/InsightContext";
 
 interface PnlProps {
     actualIncome: number,
@@ -7,21 +9,22 @@ interface PnlProps {
     budgetedExpense: number,
 }
 
-function Pnl({actualIncome, budgetedIncome, actualExpense, budgetedExpense} : PnlProps) {
-    
+function Pnl() {
+    const {totalActualExpense, totalActualIncome, totalBudgetedExpense, totalBudgetedIncome} = useInsight();
+
     return ( 
         <ul className="mt-8">
             <li className="text-xl">
                 Income: 
-                <ActualAmount num={actualIncome} /> / 
-                <BudgetedAmount num={budgetedIncome} />
-                <Difference num={actualIncome - budgetedIncome} />
+                <ActualAmount num={totalActualIncome} /> / 
+                <BudgetedAmount num={totalBudgetedIncome} />
+                <Difference num={totalActualIncome - totalBudgetedIncome} />
             </li>  
             <li className="text-xl">
                 Expense: 
-                <ActualAmount num={actualExpense} /> /
-                <BudgetedAmount num={budgetedExpense} />
-                <Difference num={actualExpense - budgetedExpense} />
+                <ActualAmount num={totalActualExpense} /> /
+                <BudgetedAmount num={totalBudgetedExpense} />
+                <Difference num={totalActualExpense - totalBudgetedExpense} />
             </li>  
         </ul>
      );

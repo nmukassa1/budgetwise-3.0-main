@@ -1,15 +1,17 @@
 
 import ScrollIndicator from '@/components/common/ScrollIndicator';
 import PotServerComponent from '@/components/pots/PotServerComponent';
-import Summary from '@/components/summary/Summary';
+import InsightServerComponent from '@/components/insight/InsightServerComponent';
+import BudgetsServerComponent from '@/components/budget/BudgetServerComponent';
 
 const Dashboard  = async () => {
    
 
     return (
         <div className="h-[85vh] snap-y snap-mandatory overflow-scroll md:hidden relative">
-           <Summary />
+           <InsightServerComponent />
            <PotServerComponent />
+           <BudgetsServerComponent />
            <ScrollIndicator />
         </div>
     );

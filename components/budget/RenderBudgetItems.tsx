@@ -8,7 +8,7 @@ import { useBudget } from "./BudgetProvider";
 
 export default function RenderBudgetItems() {
 
-    const budgets = useBudget();
+    const {budgets} = useBudget();
 
     const [openDrawer, setOpenDrawer] = useState(false);
     const [selectedBudget, setSelectedBudget] = useState<number | null>(null);
@@ -37,7 +37,7 @@ export default function RenderBudgetItems() {
 
 
     return(
-        <div className="grid grid-cols-2 gap-4 mt-4 overflow-scroll max-h-[400px]">
+        <div className="mt-4 overflow-scroll h-[81%]">
             {budgets.length > 0 && budgets.map((budget: BudgetType) => (
                 <BudgetItem key={budget.id}  budget={budget} setOpenDrawer={setOpenDrawer} setSelectedBudget={setSelectedBudget}/>
             ))}

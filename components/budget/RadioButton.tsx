@@ -14,8 +14,16 @@ function RadioButton({budget, handleChange, budgetSelected} : RadioButtonProps) 
         <div>
             <label 
                 htmlFor={budget.id.toLocaleString()}
-                className={`text-secondary p-2 flex items-center justify-between focus:outline-none w-full h-full ${budgetSelected === budget.id.toLocaleString() ? 'bg-[#474747]' : ''}`}>
-                <h1 className="text-center w-full">
+                className={`p-2 flex items-center gap-4 focus:outline-none w-full h-full border-b-2 border-b-black`}>
+                <div  
+                    className={`h-[20px] w-[20px] rounded-full border-2`} 
+                    style={
+                        {
+                            borderColor: budget.bg_color,
+                            backgroundColor: budgetSelected === budget.id.toLocaleString() ? budget.bg_color : 'transparent',
+                        }
+                    }></div>
+                <h1 className="w-full">
                     {budget.name}
                 </h1>
 

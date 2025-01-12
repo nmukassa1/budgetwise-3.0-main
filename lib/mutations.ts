@@ -9,6 +9,15 @@ import updateEntity from "./updateEntity";
 import createTransactionEntity from "./createTransactionEntity";
 import {NewBudgetFormType, PotFormType, PotTransactionFormType, BudgetTransactionType, EditBudgetType} from '@/lib/types';
 import createBudgetTransactionEntity from "./createBudgetTransactionEntity";
+
+function newColor(){
+    // Generate a random color in hsl format
+    const hue = Math.floor(Math.random() * 360);
+    const saturation = 75;
+    const lightness = 71.76;
+    return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+}
+
   
   export async function createNewPot(formData: object) {
     return createEntity(
@@ -18,6 +27,7 @@ import createBudgetTransactionEntity from "./createBudgetTransactionEntity";
       (formData) => ({
         name: (formData as PotFormType).name,
         target_amount: (formData as PotFormType).target_amount,
+        bg_color: newColor(),
       }), // Map FormData to fields
       "Pot created successfully" // Success message
     );
@@ -31,6 +41,7 @@ import createBudgetTransactionEntity from "./createBudgetTransactionEntity";
         (formData) => ({
             name: (formData as NewBudgetFormType).name as string,
             budget_amount: Number((formData as NewBudgetFormType).budget_amount),
+            bg_color: newColor(),
         }), // Map FormData to fields
         "Budget created successfully" // Success message
     );

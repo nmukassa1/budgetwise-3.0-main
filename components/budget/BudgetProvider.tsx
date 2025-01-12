@@ -1,19 +1,40 @@
 "use client"
-import { BudgetType } from "@/lib/types";
-import { createContext, useContext } from "react";
+import { BudgetType, TransactionType } from "@/lib/types";
+import { createContext, useContext, useState } from "react";
 import { ReactNode } from "react";
 
-const budgetContext = createContext([] as BudgetType[]);
-
-
 interface BudgetProviderProps {
-    children: ReactNode;
+    children?: ReactNode;
     budgets: BudgetType[];
+    openNewBudgetForm: boolean;
+    setOpenNewBudgetForm: (open: boolean) => void;
+    openNewTransactionForm: boolean;
+    setOpenNewTransactionForm: (open: boolean) => void;
+    openToolTip: boolean;
+    setOpenToolTip: (open: boolean) => void;
+    transactions: TransactionType[]; 
 }
+const budgetContext = createContext<BudgetProviderProps | undefined>(undefined);
 
-const BudgetProvider = ({ children, budgets = [] }: BudgetProviderProps) => {
+
+
+const BudgetProvider = ({ children, budgets = [], transactions = [] }: {children: ReactNode, budgets: BudgetType[], transactions: TransactionType[]}) => {
+
+    const [openToolTip, setOpenToolTip] = useState(false);
+    const [openNewBudgetForm, setOpenNewBudgetForm] = useState(false);
+    const [openNewTransactionForm, setOpenNewTransactionForm] = useState(false);
+
     return (
-        <budgetContext.Provider value={budgets}>{children}</budgetContext.Provider>
+        <budgetContext.Provider 
+            value={{ 
+                budgets,
+                openNewBudgetForm, setOpenNewBudgetForm,
+                openNewTransactionForm, setOpenNewTransactionForm,
+                openToolTip, setOpenToolTip,
+                transactions
+            }}>
+            {children}
+        </budgetContext.Provider>
     );
 }
 

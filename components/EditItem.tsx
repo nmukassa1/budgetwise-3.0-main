@@ -31,11 +31,9 @@ function EditItem({ setOpenDrawer, item, tableName, formAction }: EditItemProps)
   useEffect(() => {
     console.log(result);
     
-    if('status' in result){
-      if(result.status === 'success'){
+    if(result?.status === 'success'){
         setOpenDrawer(false);
       }
-    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [result]);
 

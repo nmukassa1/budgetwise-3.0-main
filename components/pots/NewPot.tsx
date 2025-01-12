@@ -3,20 +3,15 @@
 import { useState } from "react";
 import PotForm from "./PotForm";
 import DrawerContainer from "@/components/DrawerContainer";
+import { usePot } from "@/lib/context/PotContext";
 
 
 function NewPot() {
-    const [openDrawer, setOpenDrawer] = useState(false);
-    function handleOpenSlide() {
-        setOpenDrawer(!openDrawer);
-    }
+    const {openNewPotFormDrawer, setOpenNewPotFormDrawer} = usePot();
     return (  
         <>
-            <div className="py-2">
-                <button onClick={handleOpenSlide} className="bg-primary text-secondary px-4 py-2 h-full rounded-full">+</button>
-            </div>
-            <DrawerContainer openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} position="bottom">
-                <PotForm setOpenDrawer={setOpenDrawer} />
+            <DrawerContainer openDrawer={openNewPotFormDrawer} setOpenDrawer={setOpenNewPotFormDrawer} position="bottom">
+                <PotForm setOpenDrawer={setOpenNewPotFormDrawer} />
             </DrawerContainer>
         </>
     )

@@ -6,6 +6,7 @@ export interface PotType {
   current_amount: null | number; // NUMERIC
   created_at: string; // TIMESTAMP (ISO 8601 string for datetime)
   completed: boolean; // BOOL
+  bg_color: string; // VARCHAR
 }
 
 export interface PotFormType {
@@ -61,6 +62,8 @@ export interface BudgetType {
   budget_amount: number; 
   currently_transacted: number; 
   createdAt?: Date; 
+  type: string;
+  bg_color: string;
 }
 
 

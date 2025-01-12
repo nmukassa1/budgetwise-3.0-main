@@ -6,8 +6,12 @@ import Card from "@/components/Card";
 
 function Goals() {
 
-    const { pot: potItem }: { pot: PotType } = usePot();
+    const { filteredPot: potItem } = usePot();
 
+
+    if (!potItem) {
+        return null;
+    }
 
     const percentage = 
         (potItem.current_amount ?? 0) > potItem.target_amount

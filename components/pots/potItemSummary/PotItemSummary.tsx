@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
 import { usePot } from "@/lib/context/PotContext";
-import { getTransactionsById } from "@/lib/queries";
-import Header from "./Header";
+import Header from "@/components/common/Header";
 import AddWithdrawButtons from "./AddWithdrawButtons";
 import Goals from "./Goals";
 import { PotType } from "@/lib/types";
@@ -14,26 +12,14 @@ import Transactions from "@/components/Transactions";
 export default function PotItemSummary() {
   const { filteredPot: potItem, openDrawer, setOpenDrawer } = usePot();
 
-  useEffect(() => {
-    async function fetchTransactions() {
-      try {
-        if (potItem?.id) {
-          await getTransactionsById(potItem.id, "pot_id");
-        }
-      } catch (error) {
-        console.error("Error fetching transactions:", error);
-      }
-    }
 
-    fetchTransactions();
-  }, [potItem?.id]);
 
  
 
   return (
     <DrawerContainerScreen openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} position="top">
       <div className="mobile-container flex flex-col items-center text-white py-4">
-        <Header />
+        <Header>{potItem?.name}</Header>
         {potItem && (
           <>
             <CurrentBalance potItem={potItem} />

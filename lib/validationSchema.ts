@@ -23,6 +23,7 @@ export const potSchema = z.object({
 export const budgetSchema =  z.object({
     name: z.string().min(2,{ message: 'Name must be longer than 2 characters' }),
     budget_amount: z.number().optional(),
+    bg_color: z.string().optional(),
 })
 
 export const transactionSchema = z.object({

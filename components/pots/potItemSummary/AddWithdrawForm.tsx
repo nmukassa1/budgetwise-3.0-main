@@ -18,8 +18,10 @@ function AddWithdrawForm({
   setOpenDrawer,
   selectedAction,
 }: AddWithdrawFormProps) {
-  const { pot: potItem } = usePot();
-  const {id: potId} = potItem;
+  const { filteredPot: potItem } = usePot();
+  
+  const potId = potItem?.id || "";
+
   // const [repeat, setRepeat] = useState(false);
   const [transactionName, setTransactionName] = useState("");
 

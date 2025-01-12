@@ -1,11 +1,12 @@
 import MutationButton from "./MutationButton";
 import SummaryHeader from "./SummaryHeader";
 
-function SectionSummary({title}: {title: string}) {
+function SectionSummary({title, openSpecificDraw}: {title: string, openSpecificDraw?: (open: boolean) => void}) {
+   
     return ( 
         <div className='flex justify-between mt-auto'>
             <SummaryHeader title={title} />
-            <MutationButton />
+            <MutationButton openSpecificDraw={openSpecificDraw} />
         </div>
      );
 }

@@ -19,7 +19,7 @@ export default function Transactions({id, match} : TransactionsProps) {
         async function fetchTransactions() {
             const results = await getTransactionsById(id, match);
 
-            console.log(results);
+            // console.log(results);
             
             
             if(results) {
@@ -41,7 +41,8 @@ export default function Transactions({id, match} : TransactionsProps) {
                     {transactions.map((transaction, index) => (
                         <li key={index} className="flex items-center justify-between py-4 border-b">
                             <div className="icon h-[30px] w-[30px] bg-background rounded-full"></div>
-                            <div>{transaction.amount < 0 ? `You've withdrew` : `You've added `}</div>
+                            {/* <div>{transaction.amount < 0 ? `You've withdrew` : `You've added `}</div> */}
+                            <div>{transaction.name}</div>
                             <div className="text">{transaction.amount}</div>
                         </li>
                     ))}

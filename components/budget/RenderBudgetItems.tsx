@@ -35,14 +35,28 @@ export default function RenderBudgetItems() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedBudget])
 
+    const [budgetOrentation, setBudgetOrentation] = useState('row');
+
+    function handleBudgetOrentation(){
+        if(budgetOrentation === 'row'){
+            setBudgetOrentation('column')
+        }else{
+            setBudgetOrentation('row')
+        }
+    }
 
     return(
-        <div className="mt-4 overflow-scroll h-[81%]">
-            {budgets.length > 0 && budgets.map((budget: BudgetType) => (
-                <BudgetItem key={budget.id}  budget={budget} setOpenDrawer={setOpenDrawer} setSelectedBudget={setSelectedBudget}/>
-            ))}
+        <div className="mt-4 ">
+            <div className="flex flex-end mb-2">
+                <button onClick={handleBudgetOrentation} className="ml-auto">View All</button>
+            </div>
+            <div className={`overflow-scroll ${budgetOrentation === 'row' ? 'flex' : 'grid grid-cols-2'}  gap-4`}>
+                {budgets.length > 0 && budgets.map((budget: BudgetType) => (
+                    <BudgetItem key={budget.id}  budget={budget} setOpenDrawer={setOpenDrawer} setSelectedBudget={setSelectedBudget}/>
+                ))}
 
-            <BudgetItemSummary filteredBudget={filteredBudget} openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+                <BudgetItemSummary filteredBudget={filteredBudget} openDrawer={openDrawer} setOpenDrawer={setOpenDrawer} />
+            </div>
         </div>
     )
 }

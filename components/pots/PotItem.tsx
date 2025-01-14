@@ -17,23 +17,23 @@ function PotItem({ pot }: PotItemProps) {
   
 
   return (
-    <Card className="w-full h-[150px] overflow-hidden rounded-md flex flex-col items-center justify-center" style={{ backgroundColor: bg_color || 'gray' }}>
       <button
-        className="flex flex-col w-[90%] h-[90%] text-left"
+        className="w-full text-left mx-auto"
         onClick={handleSelectPot}
       >
-        <div className="text-xl">{name}</div>
-        <div className="mt-auto flex justify-between items-center w-full">
-          <div className="text-4xl">£{current_amount ? current_amount?.toLocaleString() : 0}</div>
-          {target_amount > 0 && (
-            <div className="text-md w-fit rounded-full py-1 px-2 bg-secondary text-primary">
-              {Math.ceil(((current_amount ?? 0) / target_amount) * 100)}%
+        <Card className="w-[200px] h-[200px] overflow-hidden rounded-2xl pointer-events-none p-3 flex flex-col justify-between" style={{ backgroundColor:  '#e4e2d5' }}>
+            <div className="text-xl">{name}</div>
+            <div className="mt-auto flex justify-between items-center w-full">
+              <div className="text-4xl">£{current_amount ? current_amount?.toLocaleString() : 0}</div>
+              {target_amount > 0 && (
+                <div className="text-md w-fit rounded-full py-1 px-2 bg-secondary text-primary">
+                  {Math.ceil(((current_amount ?? 0) / target_amount) * 100)}%
+                </div>
+              )}
             </div>
-          )}
-        </div>
-        
+            
+        </Card>
       </button>
-    </Card>
   );
 }
 

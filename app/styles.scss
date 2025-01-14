@@ -13,7 +13,7 @@ body {
     position: relative;
     @for $i from 2 through 10000 { // Adjust the range as needed
       &:nth-child(#{$i}) {
-        margin-top: calc(-90px );
+        margin-top: calc(-220px );
       }
     }
   }

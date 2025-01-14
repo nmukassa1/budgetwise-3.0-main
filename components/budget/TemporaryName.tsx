@@ -2,12 +2,12 @@
 import RenderBudgetItems from "./RenderBudgetItems";
 import SectionLayout from "../common/SectionLayout";
 import Header from "../common/Header";
-import CircleDesign from "../common/CircleDesign";
 import SectionSummary from "../common/SectionSummary";
 import FormSelection from "./FormSelection";
 import { useBudget } from "./BudgetProvider";
-import { act, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getBudgets, getTransactionsByType } from "@/lib/queries";
+import AllExpenseTransactions from "../common/AllExpenseTransactions";
 
 function TempoaryName() {
     const {budgets, setOpenToolTip} = useBudget();
@@ -39,14 +39,14 @@ function TempoaryName() {
     return ( 
         <SectionLayout>
                 <Header>Expenses</Header>
-                {/* <CircleDesign bgColor="bg-purple-500" /> */}
-                    {/* <BudgetButtons /> */}
 
                 {budgets.length === 0 ?(
                     <div className="w-full h-[100px] mt-4 grid place-content-center border-4 border-dashed border-[hsla(0,52%,100%,0.1)]">
                         <p className="text-gray-500">No budgets created</p>
                     </div>
                 ) : <RenderBudgetItems />}
+
+                <AllExpenseTransactions />
 
                 <FormSelection />
                 <SectionSummary title={`Total expense: ${totalExpense} / ${totalBudgetExpense}`} openSpecificDraw={setOpenToolTip} />

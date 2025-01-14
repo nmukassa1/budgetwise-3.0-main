@@ -12,9 +12,9 @@ import createBudgetTransactionEntity from "./createBudgetTransactionEntity";
 
 function newColor(){
     // Generate a random color in hsl format
-    const hue = Math.floor(Math.random() * 360);
-    const saturation = 75;
-    const lightness = 71.76;
+    const hue = Math.floor(Math.random() * 154);
+    const saturation = Math.floor(Math.random() * 30)  + 17;
+    const lightness = Math.floor(Math.random() * 60) + 20;
     return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
 

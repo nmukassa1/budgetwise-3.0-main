@@ -28,36 +28,36 @@ export default function BudgetItem({ budget, setOpenDrawer, setSelectedBudget }:
 
     const itemRef = useRef<HTMLDivElement>(null);
 
-    const handleBudgetClick = () => {
+    const handleBudgetClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         setSelectedBudget(id);
         setOpenDrawer(true);
-        // console.log(itemRef);
-
     } 
     
     return(
-        <Card ref={itemRef} className={`w-full h-[150px] overflow-hidden rounded-t-2xl flex flex-col items-center justify-center overlap-cards`} style={{ backgroundColor: bg_color || 'gray' }}>
-            <button className="w-[90%] h-[90%] text-left" 
-                onClick={handleBudgetClick}
+        <button className="w-full text-left mx-auto" 
+            onClick={handleBudgetClick}
+        >
+            <Card ref={itemRef} 
+                className="w-[200px] h-[200px] overflow-hidden rounded-2xl pointer-events-none p-3 flex flex-col justify-between"
+                style={{ backgroundColor: '#e4e2d5' }}
             >
-                <div className="flex justify-between">
-                    <div className="text-xl">
-                        <div>{name.charAt(0).toUpperCase() + name.slice(1)}</div>
-                    </div>
-                    <div className="text-2xl">
-                        <p>
-                            {`£${total()}`}
-                            {budget_amount > 0 && (
-                                ' / ' + budget_amount
-                            )}
-                        </p>
-                    </div>
-                </div>
 
-                <div className="bg-red-500 h-[200px] mt-6">
+               <div className="logo h-[20px] w-[20px] bg-black rounded-full"></div>
 
-                </div>
+                    <div className="">
+                        <div className="text-xl">
+                            <div>{name.charAt(0).toUpperCase() + name.slice(1)}</div>
+                        </div>
+                        <div className="text-2xl">
+                            <p>
+                                {`£${total()}`}
+                                {budget_amount > 0 && (
+                                    ' / ' + budget_amount
+                                )}
+                            </p>
+                        </div>
+                    </div>
+            </Card>
             </button>
-        </Card>
     )
 }
